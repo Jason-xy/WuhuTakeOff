@@ -1,0 +1,65 @@
+;#<FEEDBACK># ARM Linker, 5060750: Last Updated: Tue Feb 26 18:39:03 2019
+;VERSION 0.2
+;FILE main.o
+__asm___6_main_c_BMP1____REV16 <= USED 0
+__asm___6_main_c_BMP1____REVSH <= USED 0
+;FILE oled.o
+OLED_ColorTurn <= USED 0
+OLED_DisPlay_Off <= USED 0
+OLED_DisPlay_On <= USED 0
+OLED_DisplayTurn <= USED 0
+OLED_DrawCircle <= USED 0
+OLED_DrawLine <= USED 0
+__asm___6_oled_c_b9e5b2ae____REV16 <= USED 0
+__asm___6_oled_c_b9e5b2ae____REVSH <= USED 0
+;FILE startup_stm32l053xx.o
+;FILE stm32l0xx_hal.o
+HAL_DBGMCU_DBG_DisableLowPowerConfig <= USED 0
+HAL_DBGMCU_DBG_EnableLowPowerConfig <= USED 0
+HAL_DBGMCU_DisableDBGSleepMode <= USED 0
+HAL_DBGMCU_DisableDBGStandbyMode <= USED 0
+HAL_DBGMCU_DisableDBGStopMode <= USED 0
+HAL_DBGMCU_EnableDBGSleepMode <= USED 0
+HAL_DBGMCU_EnableDBGStandbyMode <= USED 0
+HAL_DBGMCU_EnableDBGStopMode <= USED 0
+HAL_DeInit <= USED 0
+HAL_GetDEVID <= USED 0
+HAL_GetHalVersion <= USED 0
+HAL_GetREVID <= USED 0
+HAL_MspDeInit <= USED 0
+HAL_ResumeTick <= USED 0
+HAL_SYSCFG_Disable_Lock_VREFINT <= USED 0
+HAL_SYSCFG_Enable_Lock_VREFINT <= USED 0
+HAL_SYSCFG_GetBootMode <= USED 0
+HAL_SYSCFG_VREFINT_OutputSelect <= USED 0
+HAL_SuspendTick <= USED 0
+__asm___15_stm32l0xx_hal_c_HAL_Init____REV16 <= USED 0
+__asm___15_stm32l0xx_hal_c_HAL_Init____REVSH <= USED 0
+;FILE stm32l0xx_hal_cortex.o
+HAL_MPU_ConfigRegion <= USED 0
+HAL_NVIC_ClearPendingIRQ <= USED 0
+HAL_NVIC_DisableIRQ <= USED 0
+HAL_NVIC_EnableIRQ <= USED 0
+HAL_NVIC_GetPendingIRQ <= USED 0
+HAL_NVIC_GetPriority <= USED 0
+HAL_NVIC_SetPendingIRQ <= USED 0
+HAL_NVIC_SystemReset <= USED 0
+HAL_SYSTICK_CLKSourceConfig <= USED 0
+__asm___22_stm32l0xx_hal_cortex_c_910ac087____REV16 <= USED 0
+__asm___22_stm32l0xx_hal_cortex_c_910ac087____REVSH <= USED 0
+;FILE stm32l0xx_hal_gpio.o
+HAL_GPIO_DeInit <= USED 0
+HAL_GPIO_EXTI_Callback <= USED 0
+HAL_GPIO_EXTI_IRQHandler <= USED 0
+HAL_GPIO_LockPin <= USED 0
+HAL_GPIO_ReadPin <= USED 0
+HAL_GPIO_TogglePin <= USED 0
+__asm___20_stm32l0xx_hal_gpio_c_ea787061____REV16 <= USED 0
+__asm___20_stm32l0xx_hal_gpio_c_ea787061____REVSH <= USED 0
+;FILE stm32l0xx_it.o
+__asm___14_stm32l0xx_it_c_bb8ca80c____REV16 <= USED 0
+__asm___14_stm32l0xx_it_c_bb8ca80c____REVSH <= USED 0
+;FILE system_stm32l0xx.o
+SystemCoreClockUpdate <= USED 0
+__asm___18_system_stm32l0xx_c_5d646a67____REV16 <= USED 0
+__asm___18_system_stm32l0xx_c_5d646a67____REVSH <= USED 0

@@ -1,0 +1,70 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[DebugChecksum]
+Checksum=717751571
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[InterruptLog]
+LogEnabled=0
+SumEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+SumSortOrder=0
+[DataLog]
+LogEnabled=0
+SumEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+[Breakpoints2]
+Count=0
+[Interrupts]
+Enabled=1
+[MemoryMap]
+Enabled=0
+Base=0
+UseAuto=0
+TypeViolation=1
+UnspecRange=1
+ActionState=1
+[Trace1]
+Enabled=0
+ShowSource=1
+[DataSample]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s.h}.213.1" 0 0 0 0 "" 0 ""
+Count=1
+[Aliases]
+A0=_ "C:\Documents and Settings\Administrator\桌面\STM8S103F3库例程\IAR\GPIO\STM8S_StdPeriph_Driver\src\stm8s_gpio.c" ""
+A1=_ "C:\Users\EVK\Desktop\stm8051\参考程序\中景园电子0.96寸SPI接口STM8L051F3系统参考程序\main.c" ""
+A2=_ "C:\Users\evk\Desktop\中景园电子0.96OLED显示屏_STM8系列_SPI_例程\OLED_SRC\oled.c" ""
+A3=_ "C:\Users\evk\Desktop\中景园电子0.96OLED显示屏_STM8系列_SPI_例程\main.c" ""
+A4=_ "F:\OLED\OLED驱动程序\整理程序\中景园电子0-96寸OLED模块资料V2.0\中景园电子0.96OLED显示屏_STM8系列_SPI_例程\中景园电子0.96OLED显示屏_STM8系列_SPI_例程\main.c" ""
+A5=_ "F:\开发板技术资料\stm8s103k3t6\STM8S_StdPeriph_Driver\src\stm8s_gpio.c" ""
+A6=_ "F:\开发板技术资料\stm8s103k3t6\main.c" ""
+Count=7
+SuppressDialog=1
+[DebuggerSettings]
+DisableInterruptsWhenStepping=0

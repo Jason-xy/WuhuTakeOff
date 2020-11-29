@@ -1,0 +1,13 @@
+--cpu Cortex-M0+
+"..\obj\main.o"
+"..\obj\stm32l0xx_it.o"
+"..\obj\system_stm32l0xx.o"
+"..\obj\oled.o"
+"..\obj\stm32l0xx_hal.o"
+"..\obj\stm32l0xx_hal_cortex.o"
+"..\obj\stm32l0xx_hal_gpio.o"
+"..\obj\startup_stm32l053xx.o"
+--library_type=microlib --strict --scatter "..\OBJ\OLED.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\OLED.map" -o ..\OBJ\OLED.axf
