@@ -539,19 +539,9 @@
           <GroupName>H/W</GroupName>
           <Files>
             <File>
-              <FileName>hmc5883l.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\HW\src\hmc5883l.c</FilePath>
-            </File>
-            <File>
               <FileName>motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\HW\src\motor.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\HW\src\mpu6050.c</FilePath>
             </File>
             <File>
               <FileName>oled.c</FileName>
@@ -567,6 +557,11 @@
               <FileName>esp8266.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\HW\src\esp8266.c</FilePath>
+            </File>
+            <File>
+              <FileName>gy-86.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\HW\src\gy-86.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -78,10 +78,10 @@ void OLED_ShowCHinese(uint8_t x,uint8_t y,uint8_t no);
 void OLED_Draw_interface(void);
 
 //OLED数据显示 3组
-void OLED_Show_3num(uint16_t x, uint16_t y, uint16_t z, uint8_t row);
+void OLED_Show_3num(short x, short y, short z, unsigned introw);
 
 //OLED数据显示 2组
-void OLED_Show_2num(uint16_t x, uint16_t y, uint8_t row);
+void OLED_Show_2num(short x, short y, unsigned int row);
 
 
 #endif

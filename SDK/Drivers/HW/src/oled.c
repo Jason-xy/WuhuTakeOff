@@ -249,19 +249,15 @@ void OLED_Draw_interface(void)
 }
 
 //OLED数据显示 3组
-void OLED_Show_3num(uint16_t x, uint16_t y, uint16_t z, uint8_t row)
+void OLED_Show_3num(short x, short y, short z, unsigned int row)
 {
-	x=(int)x,y=(int)y,z=(int)z,row=(int)row;
-
 	OLED_ShowNum(22,row,x,3,12);
 	OLED_ShowNum(64,row,y,3,12);
 	OLED_ShowNum(106,row,z,3,12);
 }
 
-void OLED_Show_2num(uint16_t x, uint16_t y, uint8_t row)
-{
-	x=(int)x,y=(int)y,row=(int)row;
-	
+void OLED_Show_2num(short x, short y, unsigned int row)
+{	
 	OLED_ShowNum(24,row,x,3,12);
 	OLED_ShowNum(88,row,y,3,12);
 }

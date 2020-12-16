@@ -29,8 +29,9 @@
 
 //硬件模块驱动层
 #include "oled.h"
-#include "mpu6050.h"
-#include "hmc5883l.h"
+//#include "mpu6050.h"
+//#include "hmc5883l.h"
+#include "gy-86.h"
 #include "motor.h"
 #include "controller.h"
 #include "esp8266.h"
@@ -104,7 +105,7 @@ int main(void)
 	OLED_Clear();
 	OLED_Draw_interface();
   
-  uint16_t Gy[3], Ac[3], Me[3]; //GY-86传感器原始数据 Gy：陀螺仪 Ac：加速度计 Me:磁力计
+  short Gy[3], Ac[3], Me[3]; //GY-86传感器原始数据 Gy：陀螺仪 Ac：加速度计 Me:磁力计
 	unsigned int Cap[6];  //接收机各通道实时行程 0~100%
 	extern float Duty[6]; //接收机各通道PWM占空比
 	char data[100]; //调试数据缓存

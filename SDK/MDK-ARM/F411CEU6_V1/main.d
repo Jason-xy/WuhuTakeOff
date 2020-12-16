@@ -41,8 +41,7 @@ f411ceu6_v1\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 f411ceu6_v1\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 f411ceu6_v1\main.o: ../Core/Inc/gpio.h
 f411ceu6_v1\main.o: ..\Drivers\HW\inc\oled.h
-f411ceu6_v1\main.o: ..\Drivers\HW\inc\mpu6050.h
-f411ceu6_v1\main.o: ..\Drivers\HW\inc\hmc5883l.h
+f411ceu6_v1\main.o: ..\Drivers\HW\inc\gy-86.h
 f411ceu6_v1\main.o: ..\Drivers\HW\inc\motor.h
 f411ceu6_v1\main.o: ..\Drivers\HW\inc\controller.h
 f411ceu6_v1\main.o: ..\Drivers\HW\inc\esp8266.h
