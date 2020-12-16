@@ -3,7 +3,7 @@
   * 文件名程: oled.c 
   * 作    者: Jason_xy
   * 个人博客：https://jason-xy.cn
-  * 版    本: V1.0
+  * 版    本: V1.0.1
   * 编写日期: 2020-9-18
   * 功    能: OLED模块驱动
   ******************************************************************************
@@ -20,6 +20,10 @@
   * 7.bmp位图显示。
   * 8.飞控界面绘制。
   * 9.自定义数据格式显示。
+  * 
+  * 更新：
+  * 2020-12-16
+  * 1.修改ShowNum支持int类型带符号数字输出。
   ******************************************************************************
   */
 
@@ -170,11 +174,18 @@ void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t Char_Size)
 //size:字体大小
 //mode:模式	0,填充模式;1,叠加模式
 //num:数值(0~4294967295);	 		  
-void OLED_ShowNum(uint8_t x,uint8_t y,unsigned int num,uint8_t len,uint8_t size2)
+void OLED_ShowNum(uint8_t x,uint8_t y,int num,uint8_t len,uint8_t size2)
 {         	
 	uint8_t t,temp;
-	uint8_t enshow=0;						   
-	for(t=0;t<len;t++)
+	uint8_t enshow=0;
+	t=0;
+	if(num<0)
+	{
+		OLED_ShowChar(x+(size2/2)*t,y,'-',size2);
+		num=-num;
+		t++;
+	}						   
+	for(;t<len;t++)
 	{
 		temp=(num/oled_pow(10,len-t-1))%10;
 		if(enshow==0&&t<(len-1))
@@ -249,15 +260,15 @@ void OLED_Draw_interface(void)
 }
 
 //OLED数据显示 3组
-void OLED_Show_3num(short x, short y, short z, unsigned int row)
+void OLED_Show_3num(int x, int y, int z, unsigned int row)
 {
 	OLED_ShowNum(22,row,x,3,12);
 	OLED_ShowNum(64,row,y,3,12);
 	OLED_ShowNum(106,row,z,3,12);
 }
 
-void OLED_Show_2num(short x, short y, unsigned int row)
-{	
+void OLED_Show_2num(int x, int y, unsigned int row)
+{
 	OLED_ShowNum(24,row,x,3,12);
 	OLED_ShowNum(88,row,y,3,12);
 }

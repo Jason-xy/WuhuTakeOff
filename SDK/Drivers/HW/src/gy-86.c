@@ -32,7 +32,6 @@
   ******************************************************************************
   */
 #include "gy-86.h" 
-//#include "stdio.h"
 
 //校准参数
 short Gyro_xFix=0,Gyro_yFix=0,Gyro_zFix=0;
@@ -112,7 +111,7 @@ uint8_t MPU6050_Init(void)
   extern I2C_HandleTypeDef MPU_I2C;
   MPU_Write_Byte(MPU6050_RA_PWR_MGMT_1,0X80);	//复位MPU6050
   MPU_Write_Byte(MPU6050_RA_PWR_MGMT_1,0X00);	//唤醒MPU6050 
-  MPU_Set_Gyro_Fsr(3);					//陀螺仪传感器,±2000dps
+  MPU_Set_Gyro_Fsr(0);					//陀螺仪传感器,±250dps
   MPU_Set_Accel_Fsr(0);					//加速度传感器,±2g
   MPU_Write_Byte(MPU6050_RA_INT_ENABLE,0X00);	//关闭所有中断
   MPU_Write_Byte(MPU6050_RA_USER_CTRL,0X00);	//I2C主模式关闭
@@ -185,7 +184,7 @@ uint8_t MPU_Set_Rate(uint16_t rate)
 float MPU_Get_Temperature(void)
 {
   unsigned char  buf[2]; 
-  uint8_t raw;
+  uint16_t raw;
   float temp;
   
   MPU_Read_Len(MPU6050_RA_TEMP_OUT_H, 2, buf); 
