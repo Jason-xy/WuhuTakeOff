@@ -35,3 +35,4 @@ f411ceu6_v1\gy-86.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 f411ceu6_v1\gy-86.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 f411ceu6_v1\gy-86.o: ../Core/Inc/i2c.h
 f411ceu6_v1\gy-86.o: ../Core/Inc/main.h
+f411ceu6_v1\gy-86.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

@@ -112,9 +112,9 @@ int main(void)
 	
   while (1)
   {
-    MPU_Get_Gyroscope(Gy, Gy+1, Gy+2);
+    read_Gyroscope_DPS(Gy, Gy+1, Gy+2);
     MPU_Get_Accelerometer(Ac, Ac+1, Ac+2);
-    READ_HMCALL(Me, Me+1, Me+2);
+    read_hmc_degree(Me, Me+1, Me+2);
 		for(int i = 0; i < 6; i++)
 		{
 			Cap[i] =  (Duty[i] * 100 - 5) / 0.05;
