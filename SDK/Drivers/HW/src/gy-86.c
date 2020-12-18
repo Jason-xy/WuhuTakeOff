@@ -129,7 +129,7 @@ uint8_t MPU6050_Init(void)
   extern I2C_HandleTypeDef MPU_I2C;
   MPU_Write_Byte(MPU6050_RA_PWR_MGMT_1,0X80);	//复位MPU6050
   MPU_Write_Byte(MPU6050_RA_PWR_MGMT_1,0X00);	//唤醒MPU6050 
-  MPU_Set_Gyro_Fsr(3);					//陀螺仪传感器,±2000dps
+  MPU_Set_Gyro_Fsr(0);					//陀螺仪传感器,±250dps
   MPU_Set_Accel_Fsr(0);					//加速度传感器,±2g
   MPU_Write_Byte(MPU6050_RA_INT_ENABLE,0X00);	//关闭所有中断
   MPU_Write_Byte(MPU6050_RA_USER_CTRL,0X00);	//I2C主模式关闭
@@ -435,6 +435,7 @@ void read_hmc_degree(short *M_xy,short *M_yz,short* M_zx)
 void read_Gyroscope_DPS(short *x,short *y,short* z)
 {
 	MPU_Get_Gyroscope(&Gyro_x,&Gyro_y,&Gyro_z);
+  //在精度为+-250的时候，最小量程为131.2。
   *x=(Gyro_x-Gyro_xFix)/131.2f;
   *y=(Gyro_y-Gyro_yFix)/131.2f;
   *z=(Gyro_z-Gyro_zFix)/131.2f;
