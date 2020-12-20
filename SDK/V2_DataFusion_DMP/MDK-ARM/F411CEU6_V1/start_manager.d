@@ -1,0 +1,11 @@
+f411ceu6_v1\start_manager.o: ..\Middlewares\DMP\mllite\start_manager.c
+f411ceu6_v1\start_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+f411ceu6_v1\start_manager.o: ..\Middlewares\DMP\driver\include\log.h
+f411ceu6_v1\start_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+f411ceu6_v1\start_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+f411ceu6_v1\start_manager.o: ..\Middlewares\DMP\mllite\start_manager.h
+f411ceu6_v1\start_manager.o: ..\Middlewares\DMP\driver\include\mltypes.h
+f411ceu6_v1\start_manager.o: ..\Middlewares\DMP\driver\include\stdint_invensense.h
+f411ceu6_v1\start_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+f411ceu6_v1\start_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
+f411ceu6_v1\start_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
