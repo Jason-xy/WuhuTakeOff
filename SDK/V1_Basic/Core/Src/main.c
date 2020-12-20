@@ -29,8 +29,6 @@
 
 //Ó²¼þÄ£¿éÇý¶¯²ã
 #include "oled.h"
-//#include "mpu6050.h"
-//#include "hmc5883l.h"
 #include "gy-86.h"
 #include "motor.h"
 #include "controller.h"
