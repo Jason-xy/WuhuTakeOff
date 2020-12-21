@@ -58,9 +58,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-float pitch,roll,yaw;
+short SoftTick=0;	//软件定时器
+float pitch,roll,yaw;	//姿态解算结果
 unsigned int Cap[6];  //接收机各通道实时行程 0~100%
-extern float Duty[6]; //接收机各通道PWM占空比
+extern float Duty[6]; //接收机各通道PWM占空比	<controller.c>
 char data[100]; //调试数据缓存
 /* USER CODE END PV */
 
@@ -131,16 +132,6 @@ int main(void)
 	OLED_ShowString(12,3,(uint8_t*)"Motor_Init OK",16);
 	esp8266_cipsend("Motor_Init OK\r\n");
 	HAL_Delay(1000);
-
-  //GY-86初始化
-//	GY86_Init();
-	mpu_dmp_init();
-	HAL_TIM_Base_Start_IT(&htim1);
-  //输出调试信息
-	OLED_Clear();
-	OLED_ShowString(12,3,(uint8_t*)"GY86_Init OK",16);
-	esp8266_cipsend("GY86_Init OK\r\n");
-	HAL_Delay(1000);
 	
   //输出调试信息
 	OLED_Clear();
@@ -163,12 +154,20 @@ int main(void)
 	OLED_ShowString(0,3,(uint8_t*)"Input_Capture_Init",16);
 	esp8266_cipsend("Input_Capture_Init OK\r\n");
 	HAL_Delay(1000);
+	
+	//GY-86初始化
+	//	GY86_Init();
+	mpu_dmp_init();
+	HAL_TIM_Base_Start_IT(&htim1);
+  //输出调试信息
+	OLED_Clear();
+	OLED_ShowString(12,3,(uint8_t*)"GY86_Init OK",16);
+	esp8266_cipsend("GY86_Init OK\r\n");
+	HAL_Delay(1000);
 
   //OLED图形界面绘制
 	OLED_Clear();
 	OLED_Draw_interface();
- 
-	
 	
   /* USER CODE END 2 */
 
@@ -176,21 +175,30 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		for(int i = 0; i < 6; i++)
+		if(SoftTick%50==2)
 		{
-			Cap[i] =  (Duty[i] * 100 - 5) / 0.05;
+				OLED_Show_3num(Gx, Gy, Gz, 0);
+				OLED_Show_3num(Ax, Ay, Az, 1);
+				OLED_Show_3num(Mag_x, Mag_y, Mag_z, 2);
+				OLED_Show_3num(Cap[0], Cap[1], Cap[2], 3);
+				OLED_Show_3num(Cap[3], Cap[4], Cap[5], 4);
+				OLED_ShowNum(24, 7, MPU_Get_Temperature(),2,12);
 		}
-    OLED_Show_3num(Gx, Gy, Gz, 0);
-    OLED_Show_3num(Ax, Ay, Az, 1);
-    OLED_Show_3num(Mag_x, Mag_y, Mag_z, 2);
-		OLED_Show_3num(Cap[0], Cap[1], Cap[2], 3);
-    OLED_Show_3num(Cap[3], Cap[4], Cap[5], 4);
-    OLED_ShowNum(24, 7, MPU_Get_Temperature(),2,12);
-		ANO_DT_Send_Status(roll,pitch,yaw,2333,122,(Cap[5]>50));
-		ANO_DT_Send_Senser(Ax,Ay,Az,Gx,Gy,Gz,Mag_x,Mag_y,Mag_z);
-		ANO_DT_Send_RCData(0,0,0,0,Cap[0],Cap[1],Cap[2],Cap[3],Cap[4],Cap[5]);
+		if(SoftTick%2==1)
+		{
+				for(int i = 0; i < 6; i++)
+				{
+					Cap[i] =  (Duty[i] * 100 - 5) / 0.05;
+				}
+				ANO_DT_Send_Status(roll,pitch,yaw,2333,122,(Cap[5]>50));
+				ANO_DT_Send_Senser(Ax,Ay,Az,Gx,Gy,Gz,2333,2333,2333);
+				ANO_DT_Send_RCData(0,0,0,0,Cap[0],Cap[1],Cap[2],Cap[3],Cap[4],Cap[5]);
+		}
+			read_Gyroscope_DPS();
+			read_Accelerometer_MPS();
+			mpu_dmp_get_data(&pitch,&roll,&yaw);
+		
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -242,10 +250,8 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	read_Gyroscope_DPS();
-	read_Accelerometer_MPS();
-	READ_HMCALL(&Mag_x,&Mag_y,&Mag_z);
-	mpu_dmp_get_data(&pitch,&roll,&yaw);
+		if(SoftTick>1000)SoftTick=0;
+		SoftTick++;
 }
 /* USER CODE END 4 */
 

@@ -12,16 +12,23 @@
 dt_flag_t f;            //需要发送数据的标志
 u8 data_to_send[50];    //发送数据缓存 //// bug 没有上锁。。。
 
+//微妙粗略延时
+void delay_us(uint32_t us)
+{
+    uint32_t delay = (HAL_RCC_GetHCLKFreq() / 4000000 * us);
+    while (delay--)
+	{
+		;
+	}
+}
+
 //Send_Data函数是协议中所有发送数据功能使用到的发送函数
 //移植时，用户应根据自身应用的情况，根据使用的通信方式，实现此函数
 void ANO_DT_Send_Data(u8 *dataToSend , u8 length)
 {
-    char cmd[30];
-    sprintf(cmd, "AT+CIPSEND=0,%d\r\n",length);
-    esp8266_cmd(cmd);
-		HAL_Delay(1);
+		printf("AT+CIPSEND=0,%d\r\n",length);
+		delay_us(200);
     HAL_UART_Transmit(&huart1,dataToSend,length,0xfff);
-		HAL_Delay(1);
 }
 
 void ANO_DT_Send_Status(float angle_rol, float angle_pit, float angle_yaw, s32 alt, u8 fly_model, u8 armed)

@@ -51,10 +51,7 @@ void esp8266_ap_cipsend_init(void)
 //8266的TCP_Server透传模式数据发送
 void esp8266_cipsend(char* data)
 {
-    char cmd[30];
-    sprintf(cmd, "AT+CIPSEND=0,%d\r\n",strlen(data));
-    esp8266_cmd(cmd);
+    printf("AT+CIPSEND=0,%d\r\n",strlen(data));
     HAL_Delay(1);
     printf("%s\r\n",data);
-    HAL_Delay(1);
 }
