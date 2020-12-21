@@ -26,8 +26,8 @@ void delay_us(uint32_t us)
 //移植时，用户应根据自身应用的情况，根据使用的通信方式，实现此函数
 void ANO_DT_Send_Data(u8 *dataToSend , u8 length)
 {
-		printf("AT+CIPSEND=0,%d\r\n",length);
-		delay_us(200);
+		//printf("AT+CIPSEND=0,%d\r\n",length);
+		//delay_us(200);
     HAL_UART_Transmit(&huart1,dataToSend,length,0xfff);
 }
 
