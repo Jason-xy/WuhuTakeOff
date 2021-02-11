@@ -1,6 +1,6 @@
 # 四轴飞行器设计
 
-## 详情请查看Wiki
+## 详情请查看Wiki 或 Design report
 
 ## 项目进度
 
