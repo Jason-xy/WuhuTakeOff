@@ -1,0 +1,12 @@
+ucosii_f411\segger_sysview.o: ..\SystemView\SEGGER\SEGGER_SYSVIEW.c
+ucosii_f411\segger_sysview.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+ucosii_f411\segger_sysview.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+ucosii_f411\segger_sysview.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+ucosii_f411\segger_sysview.o: ..\SystemView\SEGGER\SEGGER_SYSVIEW_Int.h
+ucosii_f411\segger_sysview.o: ..\SystemView\SEGGER\SEGGER_SYSVIEW.h
+ucosii_f411\segger_sysview.o: ..\SystemView\SEGGER\SEGGER.h
+ucosii_f411\segger_sysview.o: ..\SystemView\Config\Global.h
+ucosii_f411\segger_sysview.o: ..\SystemView\SEGGER\SEGGER_SYSVIEW_ConfDefaults.h
+ucosii_f411\segger_sysview.o: ..\SystemView\Config\SEGGER_SYSVIEW_Conf.h
+ucosii_f411\segger_sysview.o: ..\SystemView\Config\SEGGER_RTT_Conf.h
+ucosii_f411\segger_sysview.o: ..\SystemView\SEGGER\SEGGER_RTT.h

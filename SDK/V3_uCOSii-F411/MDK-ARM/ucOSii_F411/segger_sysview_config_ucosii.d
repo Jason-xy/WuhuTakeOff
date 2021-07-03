@@ -1,0 +1,9 @@
+ucosii_f411\segger_sysview_config_ucosii.o: ..\SystemView\uCOS-II\Config\RX\SEGGER_SYSVIEW_Config_uCOSII.c
+ucosii_f411\segger_sysview_config_ucosii.o: ..\SystemView\SEGGER\SEGGER_SYSVIEW.h
+ucosii_f411\segger_sysview_config_ucosii.o: ..\SystemView\SEGGER\SEGGER.h
+ucosii_f411\segger_sysview_config_ucosii.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+ucosii_f411\segger_sysview_config_ucosii.o: ..\SystemView\Config\Global.h
+ucosii_f411\segger_sysview_config_ucosii.o: ..\SystemView\SEGGER\SEGGER_SYSVIEW_ConfDefaults.h
+ucosii_f411\segger_sysview_config_ucosii.o: ..\SystemView\Config\SEGGER_SYSVIEW_Conf.h
+ucosii_f411\segger_sysview_config_ucosii.o: ..\SystemView\Config\SEGGER_RTT_Conf.h
+ucosii_f411\segger_sysview_config_ucosii.o: ..\uCOS\config\os_cfg.h

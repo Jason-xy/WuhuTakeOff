@@ -1,0 +1,11 @@
+ucosii_f411\segger_rtt_syscalls_keil.o: ..\SystemView\SEGGER\Syscalls\SEGGER_RTT_Syscalls_KEIL.c
+ucosii_f411\segger_rtt_syscalls_keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+ucosii_f411\segger_rtt_syscalls_keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+ucosii_f411\segger_rtt_syscalls_keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+ucosii_f411\segger_rtt_syscalls_keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\rt_sys.h
+ucosii_f411\segger_rtt_syscalls_keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\rt_misc.h
+ucosii_f411\segger_rtt_syscalls_keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+ucosii_f411\segger_rtt_syscalls_keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+ucosii_f411\segger_rtt_syscalls_keil.o: ..\SystemView\SEGGER\SEGGER_RTT.h
+ucosii_f411\segger_rtt_syscalls_keil.o: ..\SystemView\Config\SEGGER_RTT_Conf.h
+ucosii_f411\segger_rtt_syscalls_keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
