@@ -216,16 +216,12 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
 #endif
 
 		SEGGER_SYSVIEW_TASKINFO Info;
-		SEGGER_SYSVIEW_OnTaskCreate((unsigned)OSTCBList);
 		memset(&Info, 0, sizeof(Info));
-		Info.TaskID = (unsigned long)OSTCBList;
-		//Info.sName = " ";
 		Info.Prio = prio;
 		Info.StackBase = (unsigned long)ptos;
-		SEGGER_SYSVIEW_SendTaskInfo(&Info);
-
-
-
+		Info.sName = (const char*)p_arg;
+		
+	
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
@@ -248,6 +244,11 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
         OS_EXIT_CRITICAL();
         psp = OSTaskStkInit(task, p_arg, ptos, 0u);             /* Initialize the task's stack         */
         err = OS_TCBInit(prio, psp, (OS_STK *)0, 0u, 0u, (void *)0, 0u);
+			
+				SEGGER_SYSVIEW_OnTaskCreate((unsigned)OSTCBPrioTbl[prio]);
+				Info.TaskID = (unsigned long)OSTCBPrioTbl[prio];
+				SEGGER_SYSVIEW_SendTaskInfo(&Info);
+			
         if (err == OS_ERR_NONE) {
             if (OSRunning == OS_TRUE) {      /* Find highest priority task if multitasking has started */
                 OS_Sched();

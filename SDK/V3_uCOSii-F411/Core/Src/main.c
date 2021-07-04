@@ -77,7 +77,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void system_init(void);
 void time_init(uint8_t SYSCLK);
-void NameInit(const char* pname);
+void NameInit(const char* pname, uint8_t prio);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -155,23 +155,23 @@ int main(void)
 	OSInit();
 	OS_TRACE_INIT();
 	OS_TRACE_START();
-	OSTaskCreate(data_transfer_task,(void *)0,(OS_STK *)&DATA_TRANSFER_TASK_STK[DATA_TRANSFER_STK_SIZE-1],DATA_TRANSFER_TASK_PRIO );
-	NameInit(data_transfer_name);
-	OSTaskCreate(on_board_debug_task,(void *)0,(OS_STK *)&ON_BORAD_DEBUG_TASK_STK[ON_BORAD_DEBUG_STK_SIZE-1],ON_BORAD_DEBUG_TASK_PRIO );
-	NameInit(on_board_debug_name);
-	OSTaskCreate(data_fusion_task,(void *)0,(OS_STK *)&DATA_FUSION_TASK_STK[DATA_FUSION_STK_SIZE-1],DATA_FUSION_TASK_PRIO );
-	NameInit(data_fusion_name);
+	OSTaskCreate(data_transfer_task,(void*)data_transfer_name,(OS_STK *)&DATA_TRANSFER_TASK_STK[DATA_TRANSFER_STK_SIZE-1],DATA_TRANSFER_TASK_PRIO );
+	//NameInit(data_transfer_name, DATA_TRANSFER_TASK_PRIO);
+	OSTaskCreate(on_board_debug_task,(void *)on_board_debug_name,(OS_STK *)&ON_BORAD_DEBUG_TASK_STK[ON_BORAD_DEBUG_STK_SIZE-1],ON_BORAD_DEBUG_TASK_PRIO );
+	//NameInit(on_board_debug_name, ON_BORAD_DEBUG_TASK_PRIO);
+	OSTaskCreate(data_fusion_task,(void *)data_fusion_name,(OS_STK *)&DATA_FUSION_TASK_STK[DATA_FUSION_STK_SIZE-1],DATA_FUSION_TASK_PRIO );
+	//NameInit(data_fusion_name, DATA_FUSION_TASK_PRIO);
 	OSStart();	
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+//  while (1)
+//  {
+//    /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-  }
+//    /* USER CODE BEGIN 3 */
+//  }
   /* USER CODE END 3 */
 }
 
@@ -259,7 +259,7 @@ void on_board_debug_task(void *pdata)
 		OLED_Show_3num(Cap[0], Cap[1], Cap[2], 3);
 		OLED_Show_3num(Cap[3], Cap[4], Cap[5], 4);
 		OLED_ShowNum(24, 7, MPU_Get_Temperature(),2,12);
-		OSTimeDly(1000);
+		OSTimeDly(100);
 	}
 }
 
@@ -275,9 +275,9 @@ void data_fusion_task(void *pdata)
 	}
 }
 
-void NameInit(const char* pname){
+void NameInit(const char* pname, uint8_t prio){
 	SEGGER_SYSVIEW_TASKINFO Info;
-	Info.TaskID = (unsigned long)OSTCBList;
+	Info.TaskID = (unsigned long)OSTCBPrioTbl[prio];
 	Info.sName = pname;
 	SEGGER_SYSVIEW_SendTaskInfo(&Info);
 }
