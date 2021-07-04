@@ -55,4 +55,13 @@ ucosii_f411\main.o: ../Core/Inc/i2c.h
 ucosii_f411\main.o: ../Core/Inc/tim.h
 ucosii_f411\main.o: ../Core/Inc/usart.h
 ucosii_f411\main.o: ../Core/Inc/gpio.h
+ucosii_f411\main.o: ..\Hardware\inc\oled.h
+ucosii_f411\main.o: ..\Hardware\inc\gy-86.h
+ucosii_f411\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+ucosii_f411\main.o: ..\Hardware\inc\motor.h
+ucosii_f411\main.o: ..\Hardware\inc\controller.h
+ucosii_f411\main.o: ..\Hardware\inc\esp8266.h
 ucosii_f411\main.o: ..\SystemView\uCOS-II\os_trace_events.h
+ucosii_f411\main.o: ..\DMP\inv_mpu.h
+ucosii_f411\main.o: ..\DMP\inv_mpu_dmp_motion_driver.h
+ucosii_f411\main.o: ..\APP\inc\data_transfer.h

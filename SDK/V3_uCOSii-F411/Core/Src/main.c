@@ -26,8 +26,22 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+//标准库
+#include "stdio.h"
+//硬件模块驱动层
+#include "oled.h"
+#include "gy-86.h"
+#include "motor.h"
+#include "controller.h"
+#include "esp8266.h"
+//system view
 #include "SEGGER_SYSVIEW.h"
 #include "os_trace_events.h"
+//DMP姿态解算
+#include "inv_mpu.h"
+#include "inv_mpu_dmp_motion_driver.h" 
+//APP
+#include "data_transfer.h"
 
 /* USER CODE END Includes */
 
@@ -48,64 +62,55 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+float pitch,roll,yaw;	//姿态解算结果
+unsigned int Cap[6];  //接收机各通道实时行程 0~100%
+extern float Duty[6]; //接收机各通道PWM占空比	<controller.c>
+char data[100]; //调试数据缓存
 
+const char *data_transfer_name = "Data Transfer";
+const char *data_fusion_name = "Data Fusion";
+const char *on_board_debug_name = "On Board Debug";
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void system_init(void);
+void time_init(uint8_t SYSCLK);
+void NameInit(const char* pname);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void time_init(uint8_t SYSCLK);
-//START 任务
+//DATA_TRANSFER 任务
 //设置任务优先级
-#define START_TASK_PRIO      			10 //开始任务的优先级设置为最低
+#define DATA_TRANSFER_TASK_PRIO      			7 
 //设置任务堆栈大小
-#define START_STK_SIZE  				64
+#define DATA_TRANSFER_STK_SIZE  				128
 //任务堆栈	
-OS_STK START_TASK_STK[START_STK_SIZE];
+OS_STK DATA_TRANSFER_TASK_STK[DATA_TRANSFER_STK_SIZE];
 //任务函数
-void start_task(void *pdata);	
+void data_transfer_task(void *pdata);	
 				 
-//LED0任务
+//ON BOARE DEBUG任务
 //设置任务优先级
-#define LED0_TASK_PRIO       			7 
+#define ON_BORAD_DEBUG_TASK_PRIO       			10
 //设置任务堆栈大小
-#define LED0_STK_SIZE  		    		64
+#define ON_BORAD_DEBUG_STK_SIZE  		    		128
 //任务堆栈	
-OS_STK LED0_TASK_STK[LED0_STK_SIZE];
+OS_STK ON_BORAD_DEBUG_TASK_STK[ON_BORAD_DEBUG_STK_SIZE];
 //任务函数
-void led0_task(void *pdata);
+void on_board_debug_task(void *pdata);
 
-//LED1任务
+//DATA FUSION任务
 //设置任务优先级
-#define LED1_TASK_PRIO       			6 
+#define DATA_FUSION_TASK_PRIO       			6 
 //设置任务堆栈大小
-#define LED1_STK_SIZE  					64
+#define DATA_FUSION_STK_SIZE  					128
 //任务堆栈
-OS_STK LED1_TASK_STK[LED1_STK_SIZE];
+OS_STK DATA_FUSION_TASK_STK[DATA_FUSION_STK_SIZE];
 //任务函数
-void led1_task(void *pdata);
-
-void LED_Init(void)
-{
-    GPIO_InitTypeDef GPIO_Initure;
-
-    __HAL_RCC_GPIOC_CLK_ENABLE();           	//开启GPIOC时钟
-	
-    GPIO_Initure.Pin=GPIO_PIN_13;
-    GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  	//推挽输出
-    GPIO_Initure.Pull=GPIO_PULLUP;          	//上拉
-    GPIO_Initure.Speed=GPIO_SPEED_HIGH;    	 	//高速
-	
-		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13, GPIO_PIN_SET);	//PC0~7置1，默认初始化后灯灭
-	
-    HAL_GPIO_Init(GPIOC,&GPIO_Initure);
-	
-}
+void data_fusion_task(void *pdata);
 
 /* USER CODE END 0 */
 
@@ -143,14 +148,19 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_USART1_UART_Init();
-  MX_TIM1_Init();
+  //MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 	time_init(100);
-	LED_Init();
+	system_init();
 	OSInit();
 	OS_TRACE_INIT();
 	OS_TRACE_START();
-	OSTaskCreate(start_task,(void *)0,(OS_STK *)&START_TASK_STK[START_STK_SIZE-1],START_TASK_PRIO );//创建起始任务
+	OSTaskCreate(data_transfer_task,(void *)0,(OS_STK *)&DATA_TRANSFER_TASK_STK[DATA_TRANSFER_STK_SIZE-1],DATA_TRANSFER_TASK_PRIO );
+	NameInit(data_transfer_name);
+	OSTaskCreate(on_board_debug_task,(void *)0,(OS_STK *)&ON_BORAD_DEBUG_TASK_STK[ON_BORAD_DEBUG_STK_SIZE-1],ON_BORAD_DEBUG_TASK_PRIO );
+	NameInit(on_board_debug_name);
+	OSTaskCreate(data_fusion_task,(void *)0,(OS_STK *)&DATA_FUSION_TASK_STK[DATA_FUSION_STK_SIZE-1],DATA_FUSION_TASK_PRIO );
+	NameInit(data_fusion_name);
 	OSStart();	
   /* USER CODE END 2 */
 
@@ -213,53 +223,124 @@ void SystemClock_Config(void)
 void time_init(uint8_t SYSCLK)
 {
 	uint32_t reload = 0;
-	//uint32_t fac_us = 0;
-	//uint32_t fac_ms = 0;
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);//SysTick频率为HCLK
-	//fac_us=SYSCLK;						//不论是否使用OS,fac_us都需要使用
 	reload=SYSCLK;					    //每秒钟的计数次数 单位为K	   
-	reload*=1000000/OS_TICKS_PER_SEC;	//根据delay_ostickspersec设定溢出时间
-											//reload为24位寄存器,最大值:16777216,在72M下,约合0.233s左右	
-	//fac_ms=1000/OS_TICKS_PER_SEC;		//代表OS可以延时的最少单位	   
+	reload*=1000000/OS_TICKS_PER_SEC;	//根据OS_TICKS_PER_SEC设定溢出时间
+											//reload为24位寄存器,最大值:16777216,在72M下,约合0.233s左右	   
 	SysTick->CTRL|=SysTick_CTRL_TICKINT_Msk;//开启SYSTICK中断
 	SysTick->LOAD=reload; 					//每1/OS_TICKS_PER_SEC秒中断一次	
 	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk; //开启SYSTICK
 }	
 
-//开始任务
-void start_task(void *pdata)
+//data_transfer
+void data_transfer_task(void *pdata)
 {
-    OS_CPU_SR cpu_sr=0;
-	pdata = pdata; 
-  	OS_ENTER_CRITICAL();			//进入临界区(无法被中断打断)    
- 	OSTaskCreate(led0_task,(void *)0,(OS_STK*)&LED0_TASK_STK[LED0_STK_SIZE-1],LED0_TASK_PRIO);						   
- 	OSTaskCreate(led1_task,(void *)0,(OS_STK*)&LED1_TASK_STK[LED1_STK_SIZE-1],LED1_TASK_PRIO);	 				   
-	OSTaskSuspend(START_TASK_PRIO);	//挂起起始任务.
-	OS_EXIT_CRITICAL();				//退出临界区(可以被中断打断)
-}
-
-//LED0任务
-void led0_task(void *pdata)
-{	 	
 	while(1)
 	{
-		
-		HAL_Delay(500);
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-		OSTimeDly(100);
+		for(int i = 0; i < 6; i++)
+		{
+			Cap[i] =  (Duty[i] * 100 - 5) / 0.05;
+		}
+		ANO_DT_Send_Status(roll,pitch,yaw,2333,122,(Cap[5]>50));
+		ANO_DT_Send_Senser(Ax,Ay,Az,Gx,Gy,Gz,2333,2333,2333);
+		ANO_DT_Send_RCData(0,0,0,0,Cap[0],Cap[1],Cap[2],Cap[3],Cap[4],Cap[5]);
+		OSTimeDly(30);
 	}
 }
 
-//LED1任务
-void led1_task(void *pdata)
+//on_board_debug
+void on_board_debug_task(void *pdata)
 {	 	
 	while(1)
 	{
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-		OSTimeDly(100);
+		OLED_Show_3num(Gx, Gy, Gz, 0);
+		OLED_Show_3num(Ax, Ay, Az, 1);
+		OLED_Show_3num(Mag_x, Mag_y, Mag_z, 2);
+		OLED_Show_3num(Cap[0], Cap[1], Cap[2], 3);
+		OLED_Show_3num(Cap[3], Cap[4], Cap[5], 4);
+		OLED_ShowNum(24, 7, MPU_Get_Temperature(),2,12);
+		OSTimeDly(1000);
 	}
 }
 
+//data_fusion
+void data_fusion_task(void *pdata)
+{	 	
+	while(1)
+	{
+		read_Gyroscope_DPS();
+		read_Accelerometer_MPS();
+		mpu_dmp_get_data(&pitch,&roll,&yaw);
+		OSTimeDly(10);
+	}
+}
+
+void NameInit(const char* pname){
+	SEGGER_SYSVIEW_TASKINFO Info;
+	Info.TaskID = (unsigned long)OSTCBList;
+	Info.sName = pname;
+	SEGGER_SYSVIEW_SendTaskInfo(&Info);
+}
+
+void system_init(void)
+{
+	//硬件模块初始化
+  //OLED初始化
+  OLED_Init();  
+	OLED_Clear();
+	
+  //ESP8266初始化
+	esp8266_init(); 
+  //输出调试信息
+  OLED_Clear();
+	OLED_ShowString(8,3,(uint8_t*)"ESP8266_Init OK",16);
+	esp8266_cipsend("ESP8266_Init OK\r\n");
+	HAL_Delay(1000);
+	
+  //电机初始化
+	Motor_Init(); 
+  //输出调试信息
+	OLED_Clear();
+	OLED_ShowString(12,3,(uint8_t*)"Motor_Init OK",16);
+	esp8266_cipsend("Motor_Init OK\r\n");
+	HAL_Delay(1000);
+	
+  //输出调试信息
+	OLED_Clear();
+	OLED_ShowString(12,3,(uint8_t*)"Motor_Unlock",16);
+	esp8266_cipsend("Motor_Unlock\r\n");
+	HAL_Delay(1000);
+	//电机自动解锁
+	Motor_Init();
+	Motor_Unlock();
+	//输出调试信息
+	OLED_Clear();
+	OLED_ShowString(6,3,(uint8_t*)"Motor_Unlock OK",16);
+	esp8266_cipsend("Motor_Unlock OK\r\n");
+	HAL_Delay(1000);
+
+  //接收机初始化
+	Input_Capture_Init();
+	//输出调试信息
+	OLED_Clear();
+	OLED_ShowString(0,3,(uint8_t*)"Input_Capture_Init",16);
+	esp8266_cipsend("Input_Capture_Init OK\r\n");
+	HAL_Delay(1000);
+	
+	//GY-86初始化
+	//	GY86_Init();
+	mpu_dmp_init();
+	//HAL_TIM_Base_Start_IT(&htim1);
+  //输出调试信息
+	OLED_Clear();
+	OLED_ShowString(12,3,(uint8_t*)"GY86_Init OK",16);
+	esp8266_cipsend("GY86_Init OK\r\n");
+	HAL_Delay(1000);
+
+  //OLED图形界面绘制
+	OLED_Clear();
+	OLED_Draw_interface();
+}
 /* USER CODE END 4 */
 
  /**

@@ -47,6 +47,14 @@
 "ucosii_f411\segger_sysview.o"
 "ucosii_f411\segger_sysview_ucosii.o"
 "ucosii_f411\segger_sysview_config_ucosii.o"
+"ucosii_f411\controller.o"
+"ucosii_f411\esp8266.o"
+"ucosii_f411\gy-86.o"
+"ucosii_f411\motor.o"
+"ucosii_f411\oled.o"
+"ucosii_f411\data_transfer.o"
+"ucosii_f411\inv_mpu.o"
+"ucosii_f411\inv_mpu_dmp_motion_driver.o"
 --library_type=microlib --strict --scatter "ucOSii_F411\ucOSii_F411.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
