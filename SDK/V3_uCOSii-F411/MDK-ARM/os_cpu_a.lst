@@ -336,11 +336,11 @@ ARM Macro Assembler    Page 6
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
 ork --depend=ucosii_f411\os_cpu_a.d -oucosii_f411\os_cpu_a.o -I.\RTE\_ucOSii_F4
-11 -IC:\Users\Jason\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include 
--IC:\Users\Jason\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSI
-S\Device\ST\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --predefine="__UV
-ISION_VERSION SETA 534" --predefine="_RTE_ SETA 1" --predefine="STM32F411xE SET
-A 1" --predefine="_RTE_ SETA 1" --list=os_cpu_a.lst ..\uCOS\port\os_cpu_a.asm
+11 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PA
+CK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predef
+ine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 532" --predefine="_
+RTE_ SETA 1" --predefine="STM32F411xE SETA 1" --predefine="_RTE_ SETA 1" --list
+=os_cpu_a.lst ..\uCOS\port\os_cpu_a.asm
 
 
 

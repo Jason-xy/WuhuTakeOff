@@ -3552,77 +3552,77 @@ Image Symbol Table
     i.dmp_set_tap_time                       0x08009048   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time)
     i.dmp_set_tap_time_multi                 0x0800906e   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time_multi)
     i.esp8266_ap_cipsend_init                0x08009094   Section        0  esp8266.o(i.esp8266_ap_cipsend_init)
-    i.esp8266_cipsend                        0x08009194   Section        0  esp8266.o(i.esp8266_cipsend)
-    i.esp8266_cmd                            0x080091ac   Section        0  esp8266.o(i.esp8266_cmd)
-    i.esp8266_init                           0x080091c0   Section        0  esp8266.o(i.esp8266_init)
-    i.fputc                                  0x080091c8   Section        0  usart.o(i.fputc)
-    i.get_accel_prod_shift                   0x080091e4   Section        0  inv_mpu.o(i.get_accel_prod_shift)
-    get_accel_prod_shift                     0x080091e5   Thumb Code   168  inv_mpu.o(i.get_accel_prod_shift)
-    i.get_st_biases                          0x08009298   Section        0  inv_mpu.o(i.get_st_biases)
-    get_st_biases                            0x08009299   Thumb Code  1128  inv_mpu.o(i.get_st_biases)
-    i.gyro_self_test                         0x08009704   Section        0  inv_mpu.o(i.gyro_self_test)
-    gyro_self_test                           0x08009705   Thumb Code   256  inv_mpu.o(i.gyro_self_test)
-    i.inv_orientation_matrix_to_scalar       0x08009814   Section        0  inv_mpu.o(i.inv_orientation_matrix_to_scalar)
-    i.inv_row_2_scale                        0x0800983c   Section        0  inv_mpu.o(i.inv_row_2_scale)
-    i.main                                   0x0800988c   Section        0  main.o(i.main)
-    i.mget_ms                                0x08009920   Section        0  inv_mpu.o(i.mget_ms)
-    i.mpu_configure_fifo                     0x08009924   Section        0  inv_mpu.o(i.mpu_configure_fifo)
-    i.mpu_dmp_get_data                       0x08009994   Section        0  inv_mpu.o(i.mpu_dmp_get_data)
-    i.mpu_dmp_init                           0x08009bb8   Section        0  inv_mpu.o(i.mpu_dmp_init)
-    i.mpu_get_accel_fsr                      0x08009c50   Section        0  inv_mpu.o(i.mpu_get_accel_fsr)
-    i.mpu_get_accel_sens                     0x08009c9c   Section        0  inv_mpu.o(i.mpu_get_accel_sens)
-    i.mpu_get_fifo_config                    0x08009cf0   Section        0  inv_mpu.o(i.mpu_get_fifo_config)
-    i.mpu_get_gyro_fsr                       0x08009d00   Section        0  inv_mpu.o(i.mpu_get_gyro_fsr)
-    i.mpu_get_gyro_sens                      0x08009d44   Section        0  inv_mpu.o(i.mpu_get_gyro_sens)
-    i.mpu_get_lpf                            0x08009d94   Section        0  inv_mpu.o(i.mpu_get_lpf)
-    i.mpu_get_sample_rate                    0x08009de4   Section        0  inv_mpu.o(i.mpu_get_sample_rate)
-    i.mpu_init                               0x08009e04   Section        0  inv_mpu.o(i.mpu_init)
-    i.mpu_load_firmware                      0x08009ff4   Section        0  inv_mpu.o(i.mpu_load_firmware)
-    i.mpu_lp_accel_mode                      0x0800a0ac   Section        0  inv_mpu.o(i.mpu_lp_accel_mode)
-    i.mpu_read_fifo_stream                   0x0800a18c   Section        0  inv_mpu.o(i.mpu_read_fifo_stream)
-    i.mpu_read_mem                           0x0800a24c   Section        0  inv_mpu.o(i.mpu_read_mem)
-    i.mpu_reset_fifo                         0x0800a2cc   Section        0  inv_mpu.o(i.mpu_reset_fifo)
-    i.mpu_run_self_test                      0x0800a494   Section        0  inv_mpu.o(i.mpu_run_self_test)
-    i.mpu_set_accel_fsr                      0x0800a5b0   Section        0  inv_mpu.o(i.mpu_set_accel_fsr)
-    i.mpu_set_bypass                         0x0800a634   Section        0  inv_mpu.o(i.mpu_set_bypass)
-    i.mpu_set_dmp_state                      0x0800a780   Section        0  inv_mpu.o(i.mpu_set_dmp_state)
-    i.mpu_set_gyro_fsr                       0x0800a810   Section        0  inv_mpu.o(i.mpu_set_gyro_fsr)
-    i.mpu_set_int_latched                    0x0800a898   Section        0  inv_mpu.o(i.mpu_set_int_latched)
-    i.mpu_set_lpf                            0x0800a904   Section        0  inv_mpu.o(i.mpu_set_lpf)
-    i.mpu_set_sample_rate                    0x0800a988   Section        0  inv_mpu.o(i.mpu_set_sample_rate)
-    i.mpu_set_sensors                        0x0800aa24   Section        0  inv_mpu.o(i.mpu_set_sensors)
-    i.mpu_write_mem                          0x0800aaf4   Section        0  inv_mpu.o(i.mpu_write_mem)
-    i.oled_pow                               0x0800ab74   Section        0  oled.o(i.oled_pow)
-    i.on_board_debug_task                    0x0800ab8c   Section        0  main.o(i.on_board_debug_task)
-    i.read_Accelerometer_MPS                 0x0800ac40   Section        0  gy-86.o(i.read_Accelerometer_MPS)
-    i.read_Gyroscope_DPS                     0x0800acc4   Section        0  gy-86.o(i.read_Gyroscope_DPS)
-    i.run_self_test                          0x0800ad6c   Section        0  inv_mpu.o(i.run_self_test)
-    i.set_int_enable                         0x0800ae00   Section        0  inv_mpu.o(i.set_int_enable)
-    set_int_enable                           0x0800ae01   Thumb Code   138  inv_mpu.o(i.set_int_enable)
-    i.sqrt                                   0x0800ae90   Section        0  sqrt.o(i.sqrt)
-    i.system_init                            0x0800aedc   Section        0  main.o(i.system_init)
-    i.time_init                              0x0800b090   Section        0  main.o(i.time_init)
-    .constdata                               0x0800b0c2   Section       24  system_stm32f4xx.o(.constdata)
-    .constdata                               0x0800b0da   Section      256  os_core.o(.constdata)
-    .constdata                               0x0800b1da   Section       26  segger_sysview.o(.constdata)
-    _abSync                                  0x0800b1da   Data          10  segger_sysview.o(.constdata)
-    _aV2C                                    0x0800b1e4   Data          16  segger_sysview.o(.constdata)
-    .constdata                               0x0800b1f4   Section        8  segger_sysview_ucosii.o(.constdata)
-    .constdata                               0x0800b1fc   Section     2072  oled.o(.constdata)
-    .constdata                               0x0800ba14   Section       80  inv_mpu.o(.constdata)
-    .constdata                               0x0800ba64   Section     3062  inv_mpu_dmp_motion_driver.o(.constdata)
-    dmp_memory                               0x0800ba64   Data        3062  inv_mpu_dmp_motion_driver.o(.constdata)
-    .constdata                               0x0800c660   Section       80  asin.o(.constdata)
-    pS                                       0x0800c660   Data          48  asin.o(.constdata)
-    qS                                       0x0800c690   Data          32  asin.o(.constdata)
-    .constdata                               0x0800c6b0   Section      152  atan.o(.constdata)
-    atanhi                                   0x0800c6b0   Data          32  atan.o(.constdata)
-    atanlo                                   0x0800c6d0   Data          32  atan.o(.constdata)
-    aTodd                                    0x0800c6f0   Data          40  atan.o(.constdata)
-    aTeven                                   0x0800c718   Data          48  atan.o(.constdata)
-    .constdata                               0x0800c748   Section        8  qnan.o(.constdata)
-    .conststring                             0x0800c750   Section       42  main.o(.conststring)
-    .conststring                             0x0800c77c   Section       77  inv_mpu.o(.conststring)
+    i.esp8266_cipsend                        0x08009164   Section        0  esp8266.o(i.esp8266_cipsend)
+    i.esp8266_cmd                            0x0800917c   Section        0  esp8266.o(i.esp8266_cmd)
+    i.esp8266_init                           0x08009190   Section        0  esp8266.o(i.esp8266_init)
+    i.fputc                                  0x08009198   Section        0  usart.o(i.fputc)
+    i.get_accel_prod_shift                   0x080091b4   Section        0  inv_mpu.o(i.get_accel_prod_shift)
+    get_accel_prod_shift                     0x080091b5   Thumb Code   168  inv_mpu.o(i.get_accel_prod_shift)
+    i.get_st_biases                          0x08009268   Section        0  inv_mpu.o(i.get_st_biases)
+    get_st_biases                            0x08009269   Thumb Code  1128  inv_mpu.o(i.get_st_biases)
+    i.gyro_self_test                         0x080096d4   Section        0  inv_mpu.o(i.gyro_self_test)
+    gyro_self_test                           0x080096d5   Thumb Code   256  inv_mpu.o(i.gyro_self_test)
+    i.inv_orientation_matrix_to_scalar       0x080097e4   Section        0  inv_mpu.o(i.inv_orientation_matrix_to_scalar)
+    i.inv_row_2_scale                        0x0800980c   Section        0  inv_mpu.o(i.inv_row_2_scale)
+    i.main                                   0x0800985c   Section        0  main.o(i.main)
+    i.mget_ms                                0x080098f0   Section        0  inv_mpu.o(i.mget_ms)
+    i.mpu_configure_fifo                     0x080098f4   Section        0  inv_mpu.o(i.mpu_configure_fifo)
+    i.mpu_dmp_get_data                       0x08009964   Section        0  inv_mpu.o(i.mpu_dmp_get_data)
+    i.mpu_dmp_init                           0x08009b88   Section        0  inv_mpu.o(i.mpu_dmp_init)
+    i.mpu_get_accel_fsr                      0x08009c20   Section        0  inv_mpu.o(i.mpu_get_accel_fsr)
+    i.mpu_get_accel_sens                     0x08009c6c   Section        0  inv_mpu.o(i.mpu_get_accel_sens)
+    i.mpu_get_fifo_config                    0x08009cc0   Section        0  inv_mpu.o(i.mpu_get_fifo_config)
+    i.mpu_get_gyro_fsr                       0x08009cd0   Section        0  inv_mpu.o(i.mpu_get_gyro_fsr)
+    i.mpu_get_gyro_sens                      0x08009d14   Section        0  inv_mpu.o(i.mpu_get_gyro_sens)
+    i.mpu_get_lpf                            0x08009d64   Section        0  inv_mpu.o(i.mpu_get_lpf)
+    i.mpu_get_sample_rate                    0x08009db4   Section        0  inv_mpu.o(i.mpu_get_sample_rate)
+    i.mpu_init                               0x08009dd4   Section        0  inv_mpu.o(i.mpu_init)
+    i.mpu_load_firmware                      0x08009fc4   Section        0  inv_mpu.o(i.mpu_load_firmware)
+    i.mpu_lp_accel_mode                      0x0800a07c   Section        0  inv_mpu.o(i.mpu_lp_accel_mode)
+    i.mpu_read_fifo_stream                   0x0800a15c   Section        0  inv_mpu.o(i.mpu_read_fifo_stream)
+    i.mpu_read_mem                           0x0800a21c   Section        0  inv_mpu.o(i.mpu_read_mem)
+    i.mpu_reset_fifo                         0x0800a29c   Section        0  inv_mpu.o(i.mpu_reset_fifo)
+    i.mpu_run_self_test                      0x0800a464   Section        0  inv_mpu.o(i.mpu_run_self_test)
+    i.mpu_set_accel_fsr                      0x0800a580   Section        0  inv_mpu.o(i.mpu_set_accel_fsr)
+    i.mpu_set_bypass                         0x0800a604   Section        0  inv_mpu.o(i.mpu_set_bypass)
+    i.mpu_set_dmp_state                      0x0800a750   Section        0  inv_mpu.o(i.mpu_set_dmp_state)
+    i.mpu_set_gyro_fsr                       0x0800a7e0   Section        0  inv_mpu.o(i.mpu_set_gyro_fsr)
+    i.mpu_set_int_latched                    0x0800a868   Section        0  inv_mpu.o(i.mpu_set_int_latched)
+    i.mpu_set_lpf                            0x0800a8d4   Section        0  inv_mpu.o(i.mpu_set_lpf)
+    i.mpu_set_sample_rate                    0x0800a958   Section        0  inv_mpu.o(i.mpu_set_sample_rate)
+    i.mpu_set_sensors                        0x0800a9f4   Section        0  inv_mpu.o(i.mpu_set_sensors)
+    i.mpu_write_mem                          0x0800aac4   Section        0  inv_mpu.o(i.mpu_write_mem)
+    i.oled_pow                               0x0800ab44   Section        0  oled.o(i.oled_pow)
+    i.on_board_debug_task                    0x0800ab5c   Section        0  main.o(i.on_board_debug_task)
+    i.read_Accelerometer_MPS                 0x0800ac10   Section        0  gy-86.o(i.read_Accelerometer_MPS)
+    i.read_Gyroscope_DPS                     0x0800ac94   Section        0  gy-86.o(i.read_Gyroscope_DPS)
+    i.run_self_test                          0x0800ad3c   Section        0  inv_mpu.o(i.run_self_test)
+    i.set_int_enable                         0x0800add0   Section        0  inv_mpu.o(i.set_int_enable)
+    set_int_enable                           0x0800add1   Thumb Code   138  inv_mpu.o(i.set_int_enable)
+    i.sqrt                                   0x0800ae60   Section        0  sqrt.o(i.sqrt)
+    i.system_init                            0x0800aeac   Section        0  main.o(i.system_init)
+    i.time_init                              0x0800b060   Section        0  main.o(i.time_init)
+    .constdata                               0x0800b092   Section       24  system_stm32f4xx.o(.constdata)
+    .constdata                               0x0800b0aa   Section      256  os_core.o(.constdata)
+    .constdata                               0x0800b1aa   Section       26  segger_sysview.o(.constdata)
+    _abSync                                  0x0800b1aa   Data          10  segger_sysview.o(.constdata)
+    _aV2C                                    0x0800b1b4   Data          16  segger_sysview.o(.constdata)
+    .constdata                               0x0800b1c4   Section        8  segger_sysview_ucosii.o(.constdata)
+    .constdata                               0x0800b1cc   Section     2072  oled.o(.constdata)
+    .constdata                               0x0800b9e4   Section       80  inv_mpu.o(.constdata)
+    .constdata                               0x0800ba34   Section     3062  inv_mpu_dmp_motion_driver.o(.constdata)
+    dmp_memory                               0x0800ba34   Data        3062  inv_mpu_dmp_motion_driver.o(.constdata)
+    .constdata                               0x0800c630   Section       80  asin.o(.constdata)
+    pS                                       0x0800c630   Data          48  asin.o(.constdata)
+    qS                                       0x0800c660   Data          32  asin.o(.constdata)
+    .constdata                               0x0800c680   Section      152  atan.o(.constdata)
+    atanhi                                   0x0800c680   Data          32  atan.o(.constdata)
+    atanlo                                   0x0800c6a0   Data          32  atan.o(.constdata)
+    aTodd                                    0x0800c6c0   Data          40  atan.o(.constdata)
+    aTeven                                   0x0800c6e8   Data          48  atan.o(.constdata)
+    .constdata                               0x0800c718   Section        8  qnan.o(.constdata)
+    .conststring                             0x0800c720   Section       42  main.o(.conststring)
+    .conststring                             0x0800c74c   Section       77  inv_mpu.o(.conststring)
     .data                                    0x20000000   Section       24  main.o(.data)
     .data                                    0x20000018   Section        9  stm32f4xx_hal.o(.data)
     .data                                    0x20000024   Section        4  system_stm32f4xx.o(.data)
@@ -4066,61 +4066,61 @@ Image Symbol Table
     dmp_set_tap_thresh                       0x08008ea9   Thumb Code   396  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_thresh)
     dmp_set_tap_time                         0x08009049   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time)
     dmp_set_tap_time_multi                   0x0800906f   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time_multi)
-    esp8266_ap_cipsend_init                  0x08009095   Thumb Code   102  esp8266.o(i.esp8266_ap_cipsend_init)
-    esp8266_cipsend                          0x08009195   Thumb Code    14  esp8266.o(i.esp8266_cipsend)
-    esp8266_cmd                              0x080091ad   Thumb Code    14  esp8266.o(i.esp8266_cmd)
-    esp8266_init                             0x080091c1   Thumb Code     8  esp8266.o(i.esp8266_init)
-    fputc                                    0x080091c9   Thumb Code    22  usart.o(i.fputc)
-    inv_orientation_matrix_to_scalar         0x08009815   Thumb Code    40  inv_mpu.o(i.inv_orientation_matrix_to_scalar)
-    inv_row_2_scale                          0x0800983d   Thumb Code    78  inv_mpu.o(i.inv_row_2_scale)
-    main                                     0x0800988d   Thumb Code   110  main.o(i.main)
-    mget_ms                                  0x08009921   Thumb Code     2  inv_mpu.o(i.mget_ms)
-    mpu_configure_fifo                       0x08009925   Thumb Code   106  inv_mpu.o(i.mpu_configure_fifo)
-    mpu_dmp_get_data                         0x08009995   Thumb Code   544  inv_mpu.o(i.mpu_dmp_get_data)
-    mpu_dmp_init                             0x08009bb9   Thumb Code   146  inv_mpu.o(i.mpu_dmp_init)
-    mpu_get_accel_fsr                        0x08009c51   Thumb Code    72  inv_mpu.o(i.mpu_get_accel_fsr)
-    mpu_get_accel_sens                       0x08009c9d   Thumb Code    78  inv_mpu.o(i.mpu_get_accel_sens)
-    mpu_get_fifo_config                      0x08009cf1   Thumb Code    12  inv_mpu.o(i.mpu_get_fifo_config)
-    mpu_get_gyro_fsr                         0x08009d01   Thumb Code    64  inv_mpu.o(i.mpu_get_gyro_fsr)
-    mpu_get_gyro_sens                        0x08009d45   Thumb Code    58  inv_mpu.o(i.mpu_get_gyro_sens)
-    mpu_get_lpf                              0x08009d95   Thumb Code    74  inv_mpu.o(i.mpu_get_lpf)
-    mpu_get_sample_rate                      0x08009de5   Thumb Code    26  inv_mpu.o(i.mpu_get_sample_rate)
-    mpu_init                                 0x08009e05   Thumb Code   416  inv_mpu.o(i.mpu_init)
-    mpu_load_firmware                        0x08009ff5   Thumb Code   180  inv_mpu.o(i.mpu_load_firmware)
-    mpu_lp_accel_mode                        0x0800a0ad   Thumb Code   218  inv_mpu.o(i.mpu_lp_accel_mode)
-    mpu_read_fifo_stream                     0x0800a18d   Thumb Code   186  inv_mpu.o(i.mpu_read_fifo_stream)
-    mpu_read_mem                             0x0800a24d   Thumb Code   122  inv_mpu.o(i.mpu_read_mem)
-    mpu_reset_fifo                           0x0800a2cd   Thumb Code   450  inv_mpu.o(i.mpu_reset_fifo)
-    mpu_run_self_test                        0x0800a495   Thumb Code   278  inv_mpu.o(i.mpu_run_self_test)
-    mpu_set_accel_fsr                        0x0800a5b1   Thumb Code   126  inv_mpu.o(i.mpu_set_accel_fsr)
-    mpu_set_bypass                           0x0800a635   Thumb Code   328  inv_mpu.o(i.mpu_set_bypass)
-    mpu_set_dmp_state                        0x0800a781   Thumb Code   138  inv_mpu.o(i.mpu_set_dmp_state)
-    mpu_set_gyro_fsr                         0x0800a811   Thumb Code   132  inv_mpu.o(i.mpu_set_gyro_fsr)
-    mpu_set_int_latched                      0x0800a899   Thumb Code   102  inv_mpu.o(i.mpu_set_int_latched)
-    mpu_set_lpf                              0x0800a905   Thumb Code   126  inv_mpu.o(i.mpu_set_lpf)
-    mpu_set_sample_rate                      0x0800a989   Thumb Code   152  inv_mpu.o(i.mpu_set_sample_rate)
-    mpu_set_sensors                          0x0800aa25   Thumb Code   202  inv_mpu.o(i.mpu_set_sensors)
-    mpu_write_mem                            0x0800aaf5   Thumb Code   122  inv_mpu.o(i.mpu_write_mem)
-    oled_pow                                 0x0800ab75   Thumb Code    22  oled.o(i.oled_pow)
-    on_board_debug_task                      0x0800ab8d   Thumb Code   140  main.o(i.on_board_debug_task)
-    read_Accelerometer_MPS                   0x0800ac41   Thumb Code   104  gy-86.o(i.read_Accelerometer_MPS)
-    read_Gyroscope_DPS                       0x0800acc5   Thumb Code   128  gy-86.o(i.read_Gyroscope_DPS)
-    run_self_test                            0x0800ad6d   Thumb Code   148  inv_mpu.o(i.run_self_test)
-    sqrt                                     0x0800ae91   Thumb Code    76  sqrt.o(i.sqrt)
-    system_init                              0x0800aedd   Thumb Code   224  main.o(i.system_init)
-    time_init                                0x0800b091   Thumb Code    50  main.o(i.time_init)
-    AHBPrescTable                            0x0800b0c2   Data          16  system_stm32f4xx.o(.constdata)
-    APBPrescTable                            0x0800b0d2   Data           8  system_stm32f4xx.o(.constdata)
-    OSUnMapTbl                               0x0800b0da   Data         256  os_core.o(.constdata)
-    SYSVIEW_X_OS_TraceAPI                    0x0800b1f4   Data           8  segger_sysview_ucosii.o(.constdata)
-    F6x8                                     0x0800b1fc   Data         552  oled.o(.constdata)
-    F8x16                                    0x0800b424   Data        1520  oled.o(.constdata)
-    reg                                      0x0800ba14   Data          27  inv_mpu.o(.constdata)
-    hw                                       0x0800ba30   Data          12  inv_mpu.o(.constdata)
-    test                                     0x0800ba3c   Data          40  inv_mpu.o(.constdata)
-    __mathlib_zero                           0x0800c748   Data           8  qnan.o(.constdata)
-    Region$$Table$$Base                      0x0800c7cc   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0800c7ec   Number         0  anon$$obj.o(Region$$Table)
+    esp8266_ap_cipsend_init                  0x08009095   Thumb Code    88  esp8266.o(i.esp8266_ap_cipsend_init)
+    esp8266_cipsend                          0x08009165   Thumb Code    14  esp8266.o(i.esp8266_cipsend)
+    esp8266_cmd                              0x0800917d   Thumb Code    14  esp8266.o(i.esp8266_cmd)
+    esp8266_init                             0x08009191   Thumb Code     8  esp8266.o(i.esp8266_init)
+    fputc                                    0x08009199   Thumb Code    22  usart.o(i.fputc)
+    inv_orientation_matrix_to_scalar         0x080097e5   Thumb Code    40  inv_mpu.o(i.inv_orientation_matrix_to_scalar)
+    inv_row_2_scale                          0x0800980d   Thumb Code    78  inv_mpu.o(i.inv_row_2_scale)
+    main                                     0x0800985d   Thumb Code   110  main.o(i.main)
+    mget_ms                                  0x080098f1   Thumb Code     2  inv_mpu.o(i.mget_ms)
+    mpu_configure_fifo                       0x080098f5   Thumb Code   106  inv_mpu.o(i.mpu_configure_fifo)
+    mpu_dmp_get_data                         0x08009965   Thumb Code   544  inv_mpu.o(i.mpu_dmp_get_data)
+    mpu_dmp_init                             0x08009b89   Thumb Code   146  inv_mpu.o(i.mpu_dmp_init)
+    mpu_get_accel_fsr                        0x08009c21   Thumb Code    72  inv_mpu.o(i.mpu_get_accel_fsr)
+    mpu_get_accel_sens                       0x08009c6d   Thumb Code    78  inv_mpu.o(i.mpu_get_accel_sens)
+    mpu_get_fifo_config                      0x08009cc1   Thumb Code    12  inv_mpu.o(i.mpu_get_fifo_config)
+    mpu_get_gyro_fsr                         0x08009cd1   Thumb Code    64  inv_mpu.o(i.mpu_get_gyro_fsr)
+    mpu_get_gyro_sens                        0x08009d15   Thumb Code    58  inv_mpu.o(i.mpu_get_gyro_sens)
+    mpu_get_lpf                              0x08009d65   Thumb Code    74  inv_mpu.o(i.mpu_get_lpf)
+    mpu_get_sample_rate                      0x08009db5   Thumb Code    26  inv_mpu.o(i.mpu_get_sample_rate)
+    mpu_init                                 0x08009dd5   Thumb Code   416  inv_mpu.o(i.mpu_init)
+    mpu_load_firmware                        0x08009fc5   Thumb Code   180  inv_mpu.o(i.mpu_load_firmware)
+    mpu_lp_accel_mode                        0x0800a07d   Thumb Code   218  inv_mpu.o(i.mpu_lp_accel_mode)
+    mpu_read_fifo_stream                     0x0800a15d   Thumb Code   186  inv_mpu.o(i.mpu_read_fifo_stream)
+    mpu_read_mem                             0x0800a21d   Thumb Code   122  inv_mpu.o(i.mpu_read_mem)
+    mpu_reset_fifo                           0x0800a29d   Thumb Code   450  inv_mpu.o(i.mpu_reset_fifo)
+    mpu_run_self_test                        0x0800a465   Thumb Code   278  inv_mpu.o(i.mpu_run_self_test)
+    mpu_set_accel_fsr                        0x0800a581   Thumb Code   126  inv_mpu.o(i.mpu_set_accel_fsr)
+    mpu_set_bypass                           0x0800a605   Thumb Code   328  inv_mpu.o(i.mpu_set_bypass)
+    mpu_set_dmp_state                        0x0800a751   Thumb Code   138  inv_mpu.o(i.mpu_set_dmp_state)
+    mpu_set_gyro_fsr                         0x0800a7e1   Thumb Code   132  inv_mpu.o(i.mpu_set_gyro_fsr)
+    mpu_set_int_latched                      0x0800a869   Thumb Code   102  inv_mpu.o(i.mpu_set_int_latched)
+    mpu_set_lpf                              0x0800a8d5   Thumb Code   126  inv_mpu.o(i.mpu_set_lpf)
+    mpu_set_sample_rate                      0x0800a959   Thumb Code   152  inv_mpu.o(i.mpu_set_sample_rate)
+    mpu_set_sensors                          0x0800a9f5   Thumb Code   202  inv_mpu.o(i.mpu_set_sensors)
+    mpu_write_mem                            0x0800aac5   Thumb Code   122  inv_mpu.o(i.mpu_write_mem)
+    oled_pow                                 0x0800ab45   Thumb Code    22  oled.o(i.oled_pow)
+    on_board_debug_task                      0x0800ab5d   Thumb Code   140  main.o(i.on_board_debug_task)
+    read_Accelerometer_MPS                   0x0800ac11   Thumb Code   104  gy-86.o(i.read_Accelerometer_MPS)
+    read_Gyroscope_DPS                       0x0800ac95   Thumb Code   128  gy-86.o(i.read_Gyroscope_DPS)
+    run_self_test                            0x0800ad3d   Thumb Code   148  inv_mpu.o(i.run_self_test)
+    sqrt                                     0x0800ae61   Thumb Code    76  sqrt.o(i.sqrt)
+    system_init                              0x0800aead   Thumb Code   224  main.o(i.system_init)
+    time_init                                0x0800b061   Thumb Code    50  main.o(i.time_init)
+    AHBPrescTable                            0x0800b092   Data          16  system_stm32f4xx.o(.constdata)
+    APBPrescTable                            0x0800b0a2   Data           8  system_stm32f4xx.o(.constdata)
+    OSUnMapTbl                               0x0800b0aa   Data         256  os_core.o(.constdata)
+    SYSVIEW_X_OS_TraceAPI                    0x0800b1c4   Data           8  segger_sysview_ucosii.o(.constdata)
+    F6x8                                     0x0800b1cc   Data         552  oled.o(.constdata)
+    F8x16                                    0x0800b3f4   Data        1520  oled.o(.constdata)
+    reg                                      0x0800b9e4   Data          27  inv_mpu.o(.constdata)
+    hw                                       0x0800ba00   Data          12  inv_mpu.o(.constdata)
+    test                                     0x0800ba0c   Data          40  inv_mpu.o(.constdata)
+    __mathlib_zero                           0x0800c718   Data           8  qnan.o(.constdata)
+    Region$$Table$$Base                      0x0800c79c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0800c7bc   Number         0  anon$$obj.o(Region$$Table)
     pitch                                    0x20000000   Data           4  main.o(.data)
     roll                                     0x20000004   Data           4  main.o(.data)
     yaw                                      0x20000008   Data           4  main.o(.data)
@@ -4236,9 +4236,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000199
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000c94c, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x0000c840])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000c91c, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x0000c814])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000c7ec, Max: 0x00080000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000c7bc, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4583,75 +4583,75 @@ Memory Map of the image
     0x08008ea8   0x08008ea8   0x000001a0   Code   RO         6513    i.dmp_set_tap_thresh  inv_mpu_dmp_motion_driver.o
     0x08009048   0x08009048   0x00000026   Code   RO         6514    i.dmp_set_tap_time  inv_mpu_dmp_motion_driver.o
     0x0800906e   0x0800906e   0x00000026   Code   RO         6515    i.dmp_set_tap_time_multi  inv_mpu_dmp_motion_driver.o
-    0x08009094   0x08009094   0x00000100   Code   RO         5688    i.esp8266_ap_cipsend_init  esp8266.o
-    0x08009194   0x08009194   0x00000018   Code   RO         5689    i.esp8266_cipsend   esp8266.o
-    0x080091ac   0x080091ac   0x00000014   Code   RO         5690    i.esp8266_cmd       esp8266.o
-    0x080091c0   0x080091c0   0x00000008   Code   RO         5691    i.esp8266_init      esp8266.o
-    0x080091c8   0x080091c8   0x0000001c   Code   RO          456    i.fputc             usart.o
-    0x080091e4   0x080091e4   0x000000b4   Code   RO         6152    i.get_accel_prod_shift  inv_mpu.o
-    0x08009298   0x08009298   0x0000046c   Code   RO         6153    i.get_st_biases     inv_mpu.o
-    0x08009704   0x08009704   0x00000110   Code   RO         6154    i.gyro_self_test    inv_mpu.o
-    0x08009814   0x08009814   0x00000028   Code   RO         6155    i.inv_orientation_matrix_to_scalar  inv_mpu.o
-    0x0800983c   0x0800983c   0x0000004e   Code   RO         6156    i.inv_row_2_scale   inv_mpu.o
-    0x0800988a   0x0800988a   0x00000002   PAD
-    0x0800988c   0x0800988c   0x00000094   Code   RO           19    i.main              main.o
-    0x08009920   0x08009920   0x00000002   Code   RO         6157    i.mget_ms           inv_mpu.o
-    0x08009922   0x08009922   0x00000002   PAD
-    0x08009924   0x08009924   0x00000070   Code   RO         6158    i.mpu_configure_fifo  inv_mpu.o
-    0x08009994   0x08009994   0x00000224   Code   RO         6159    i.mpu_dmp_get_data  inv_mpu.o
-    0x08009bb8   0x08009bb8   0x00000098   Code   RO         6160    i.mpu_dmp_init      inv_mpu.o
-    0x08009c50   0x08009c50   0x0000004c   Code   RO         6161    i.mpu_get_accel_fsr  inv_mpu.o
-    0x08009c9c   0x08009c9c   0x00000054   Code   RO         6163    i.mpu_get_accel_sens  inv_mpu.o
-    0x08009cf0   0x08009cf0   0x00000010   Code   RO         6168    i.mpu_get_fifo_config  inv_mpu.o
-    0x08009d00   0x08009d00   0x00000044   Code   RO         6169    i.mpu_get_gyro_fsr  inv_mpu.o
-    0x08009d44   0x08009d44   0x00000050   Code   RO         6171    i.mpu_get_gyro_sens  inv_mpu.o
-    0x08009d94   0x08009d94   0x00000050   Code   RO         6173    i.mpu_get_lpf       inv_mpu.o
-    0x08009de4   0x08009de4   0x00000020   Code   RO         6175    i.mpu_get_sample_rate  inv_mpu.o
-    0x08009e04   0x08009e04   0x000001f0   Code   RO         6177    i.mpu_init          inv_mpu.o
-    0x08009ff4   0x08009ff4   0x000000b8   Code   RO         6178    i.mpu_load_firmware  inv_mpu.o
-    0x0800a0ac   0x0800a0ac   0x000000e0   Code   RO         6179    i.mpu_lp_accel_mode  inv_mpu.o
-    0x0800a18c   0x0800a18c   0x000000c0   Code   RO         6182    i.mpu_read_fifo_stream  inv_mpu.o
-    0x0800a24c   0x0800a24c   0x00000080   Code   RO         6183    i.mpu_read_mem      inv_mpu.o
-    0x0800a2cc   0x0800a2cc   0x000001c8   Code   RO         6186    i.mpu_reset_fifo    inv_mpu.o
-    0x0800a494   0x0800a494   0x0000011c   Code   RO         6187    i.mpu_run_self_test  inv_mpu.o
-    0x0800a5b0   0x0800a5b0   0x00000084   Code   RO         6189    i.mpu_set_accel_fsr  inv_mpu.o
-    0x0800a634   0x0800a634   0x0000014c   Code   RO         6190    i.mpu_set_bypass    inv_mpu.o
-    0x0800a780   0x0800a780   0x00000090   Code   RO         6192    i.mpu_set_dmp_state  inv_mpu.o
-    0x0800a810   0x0800a810   0x00000088   Code   RO         6193    i.mpu_set_gyro_fsr  inv_mpu.o
-    0x0800a898   0x0800a898   0x0000006c   Code   RO         6194    i.mpu_set_int_latched  inv_mpu.o
-    0x0800a904   0x0800a904   0x00000084   Code   RO         6196    i.mpu_set_lpf       inv_mpu.o
-    0x0800a988   0x0800a988   0x0000009c   Code   RO         6197    i.mpu_set_sample_rate  inv_mpu.o
-    0x0800aa24   0x0800aa24   0x000000d0   Code   RO         6198    i.mpu_set_sensors   inv_mpu.o
-    0x0800aaf4   0x0800aaf4   0x00000080   Code   RO         6199    i.mpu_write_mem     inv_mpu.o
-    0x0800ab74   0x0800ab74   0x00000016   Code   RO         5969    i.oled_pow          oled.o
-    0x0800ab8a   0x0800ab8a   0x00000002   PAD
-    0x0800ab8c   0x0800ab8c   0x000000b4   Code   RO           20    i.on_board_debug_task  main.o
-    0x0800ac40   0x0800ac40   0x00000084   Code   RO         5752    i.read_Accelerometer_MPS  gy-86.o
-    0x0800acc4   0x0800acc4   0x000000a8   Code   RO         5753    i.read_Gyroscope_DPS  gy-86.o
-    0x0800ad6c   0x0800ad6c   0x00000094   Code   RO         6200    i.run_self_test     inv_mpu.o
-    0x0800ae00   0x0800ae00   0x00000090   Code   RO         6201    i.set_int_enable    inv_mpu.o
-    0x0800ae90   0x0800ae90   0x0000004c   Code   RO         7047    i.sqrt              m_ws.l(sqrt.o)
-    0x0800aedc   0x0800aedc   0x000001b4   Code   RO           21    i.system_init       main.o
-    0x0800b090   0x0800b090   0x00000032   Code   RO           22    i.time_init         main.o
-    0x0800b0c2   0x0800b0c2   0x00000018   Data   RO         3789    .constdata          system_stm32f4xx.o
-    0x0800b0da   0x0800b0da   0x00000100   Data   RO         3854    .constdata          os_core.o
-    0x0800b1da   0x0800b1da   0x0000001a   Data   RO         5130    .constdata          segger_sysview.o
-    0x0800b1f4   0x0800b1f4   0x00000008   Data   RO         5543    .constdata          segger_sysview_ucosii.o
-    0x0800b1fc   0x0800b1fc   0x00000818   Data   RO         5970    .constdata          oled.o
-    0x0800ba14   0x0800ba14   0x00000050   Data   RO         6203    .constdata          inv_mpu.o
-    0x0800ba64   0x0800ba64   0x00000bf6   Data   RO         6517    .constdata          inv_mpu_dmp_motion_driver.o
-    0x0800c65a   0x0800c65a   0x00000006   PAD
-    0x0800c660   0x0800c660   0x00000050   Data   RO         6681    .constdata          m_ws.l(asin.o)
-    0x0800c6b0   0x0800c6b0   0x00000098   Data   RO         7019    .constdata          m_ws.l(atan.o)
-    0x0800c748   0x0800c748   0x00000008   Data   RO         7045    .constdata          m_ws.l(qnan.o)
-    0x0800c750   0x0800c750   0x0000002a   Data   RO           24    .conststring        main.o
-    0x0800c77a   0x0800c77a   0x00000002   PAD
-    0x0800c77c   0x0800c77c   0x0000004d   Data   RO         6204    .conststring        inv_mpu.o
-    0x0800c7c9   0x0800c7c9   0x00000003   PAD
-    0x0800c7cc   0x0800c7cc   0x00000020   Data   RO         7099    Region$$Table       anon$$obj.o
+    0x08009094   0x08009094   0x000000d0   Code   RO         5688    i.esp8266_ap_cipsend_init  esp8266.o
+    0x08009164   0x08009164   0x00000018   Code   RO         5689    i.esp8266_cipsend   esp8266.o
+    0x0800917c   0x0800917c   0x00000014   Code   RO         5690    i.esp8266_cmd       esp8266.o
+    0x08009190   0x08009190   0x00000008   Code   RO         5691    i.esp8266_init      esp8266.o
+    0x08009198   0x08009198   0x0000001c   Code   RO          456    i.fputc             usart.o
+    0x080091b4   0x080091b4   0x000000b4   Code   RO         6152    i.get_accel_prod_shift  inv_mpu.o
+    0x08009268   0x08009268   0x0000046c   Code   RO         6153    i.get_st_biases     inv_mpu.o
+    0x080096d4   0x080096d4   0x00000110   Code   RO         6154    i.gyro_self_test    inv_mpu.o
+    0x080097e4   0x080097e4   0x00000028   Code   RO         6155    i.inv_orientation_matrix_to_scalar  inv_mpu.o
+    0x0800980c   0x0800980c   0x0000004e   Code   RO         6156    i.inv_row_2_scale   inv_mpu.o
+    0x0800985a   0x0800985a   0x00000002   PAD
+    0x0800985c   0x0800985c   0x00000094   Code   RO           19    i.main              main.o
+    0x080098f0   0x080098f0   0x00000002   Code   RO         6157    i.mget_ms           inv_mpu.o
+    0x080098f2   0x080098f2   0x00000002   PAD
+    0x080098f4   0x080098f4   0x00000070   Code   RO         6158    i.mpu_configure_fifo  inv_mpu.o
+    0x08009964   0x08009964   0x00000224   Code   RO         6159    i.mpu_dmp_get_data  inv_mpu.o
+    0x08009b88   0x08009b88   0x00000098   Code   RO         6160    i.mpu_dmp_init      inv_mpu.o
+    0x08009c20   0x08009c20   0x0000004c   Code   RO         6161    i.mpu_get_accel_fsr  inv_mpu.o
+    0x08009c6c   0x08009c6c   0x00000054   Code   RO         6163    i.mpu_get_accel_sens  inv_mpu.o
+    0x08009cc0   0x08009cc0   0x00000010   Code   RO         6168    i.mpu_get_fifo_config  inv_mpu.o
+    0x08009cd0   0x08009cd0   0x00000044   Code   RO         6169    i.mpu_get_gyro_fsr  inv_mpu.o
+    0x08009d14   0x08009d14   0x00000050   Code   RO         6171    i.mpu_get_gyro_sens  inv_mpu.o
+    0x08009d64   0x08009d64   0x00000050   Code   RO         6173    i.mpu_get_lpf       inv_mpu.o
+    0x08009db4   0x08009db4   0x00000020   Code   RO         6175    i.mpu_get_sample_rate  inv_mpu.o
+    0x08009dd4   0x08009dd4   0x000001f0   Code   RO         6177    i.mpu_init          inv_mpu.o
+    0x08009fc4   0x08009fc4   0x000000b8   Code   RO         6178    i.mpu_load_firmware  inv_mpu.o
+    0x0800a07c   0x0800a07c   0x000000e0   Code   RO         6179    i.mpu_lp_accel_mode  inv_mpu.o
+    0x0800a15c   0x0800a15c   0x000000c0   Code   RO         6182    i.mpu_read_fifo_stream  inv_mpu.o
+    0x0800a21c   0x0800a21c   0x00000080   Code   RO         6183    i.mpu_read_mem      inv_mpu.o
+    0x0800a29c   0x0800a29c   0x000001c8   Code   RO         6186    i.mpu_reset_fifo    inv_mpu.o
+    0x0800a464   0x0800a464   0x0000011c   Code   RO         6187    i.mpu_run_self_test  inv_mpu.o
+    0x0800a580   0x0800a580   0x00000084   Code   RO         6189    i.mpu_set_accel_fsr  inv_mpu.o
+    0x0800a604   0x0800a604   0x0000014c   Code   RO         6190    i.mpu_set_bypass    inv_mpu.o
+    0x0800a750   0x0800a750   0x00000090   Code   RO         6192    i.mpu_set_dmp_state  inv_mpu.o
+    0x0800a7e0   0x0800a7e0   0x00000088   Code   RO         6193    i.mpu_set_gyro_fsr  inv_mpu.o
+    0x0800a868   0x0800a868   0x0000006c   Code   RO         6194    i.mpu_set_int_latched  inv_mpu.o
+    0x0800a8d4   0x0800a8d4   0x00000084   Code   RO         6196    i.mpu_set_lpf       inv_mpu.o
+    0x0800a958   0x0800a958   0x0000009c   Code   RO         6197    i.mpu_set_sample_rate  inv_mpu.o
+    0x0800a9f4   0x0800a9f4   0x000000d0   Code   RO         6198    i.mpu_set_sensors   inv_mpu.o
+    0x0800aac4   0x0800aac4   0x00000080   Code   RO         6199    i.mpu_write_mem     inv_mpu.o
+    0x0800ab44   0x0800ab44   0x00000016   Code   RO         5969    i.oled_pow          oled.o
+    0x0800ab5a   0x0800ab5a   0x00000002   PAD
+    0x0800ab5c   0x0800ab5c   0x000000b4   Code   RO           20    i.on_board_debug_task  main.o
+    0x0800ac10   0x0800ac10   0x00000084   Code   RO         5752    i.read_Accelerometer_MPS  gy-86.o
+    0x0800ac94   0x0800ac94   0x000000a8   Code   RO         5753    i.read_Gyroscope_DPS  gy-86.o
+    0x0800ad3c   0x0800ad3c   0x00000094   Code   RO         6200    i.run_self_test     inv_mpu.o
+    0x0800add0   0x0800add0   0x00000090   Code   RO         6201    i.set_int_enable    inv_mpu.o
+    0x0800ae60   0x0800ae60   0x0000004c   Code   RO         7047    i.sqrt              m_ws.l(sqrt.o)
+    0x0800aeac   0x0800aeac   0x000001b4   Code   RO           21    i.system_init       main.o
+    0x0800b060   0x0800b060   0x00000032   Code   RO           22    i.time_init         main.o
+    0x0800b092   0x0800b092   0x00000018   Data   RO         3789    .constdata          system_stm32f4xx.o
+    0x0800b0aa   0x0800b0aa   0x00000100   Data   RO         3854    .constdata          os_core.o
+    0x0800b1aa   0x0800b1aa   0x0000001a   Data   RO         5130    .constdata          segger_sysview.o
+    0x0800b1c4   0x0800b1c4   0x00000008   Data   RO         5543    .constdata          segger_sysview_ucosii.o
+    0x0800b1cc   0x0800b1cc   0x00000818   Data   RO         5970    .constdata          oled.o
+    0x0800b9e4   0x0800b9e4   0x00000050   Data   RO         6203    .constdata          inv_mpu.o
+    0x0800ba34   0x0800ba34   0x00000bf6   Data   RO         6517    .constdata          inv_mpu_dmp_motion_driver.o
+    0x0800c62a   0x0800c62a   0x00000006   PAD
+    0x0800c630   0x0800c630   0x00000050   Data   RO         6681    .constdata          m_ws.l(asin.o)
+    0x0800c680   0x0800c680   0x00000098   Data   RO         7019    .constdata          m_ws.l(atan.o)
+    0x0800c718   0x0800c718   0x00000008   Data   RO         7045    .constdata          m_ws.l(qnan.o)
+    0x0800c720   0x0800c720   0x0000002a   Data   RO           24    .conststring        main.o
+    0x0800c74a   0x0800c74a   0x00000002   PAD
+    0x0800c74c   0x0800c74c   0x0000004d   Data   RO         6204    .conststring        inv_mpu.o
+    0x0800c799   0x0800c799   0x00000003   PAD
+    0x0800c79c   0x0800c79c   0x00000020   Data   RO         7099    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800c7ec, Size: 0x00003838, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x00000054])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800c7bc, Size: 0x00003838, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x00000058])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4697,49 +4697,49 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-      1356         88          0         24         48       2307   controller.o
-      1112         22          0          0         67       5059   data_transfer.o
-       308        170          0          0          0       1977   esp8266.o
-       132          6          0          0          0        855   gpio.o
-       648         98          0         60          0       5487   gy-86.o
-       392         42          0          0        168       2222   i2c.o
-      6852        288        157         53          0      29432   inv_mpu.o
-      3096        122       3062          0         16      19754   inv_mpu_dmp_motion_driver.o
-      1344        376         42         24       1660     448458   main.o
-       460         30          0          0          0       1921   motor.o
-      1052        114       2072         31          0       7925   oled.o
-      2318        416        256         92       3904      22367   os_core.o
-       180         32          0          0          0        328   os_cpu_a.o
-       216         12          0          6          0      14455   os_cpu_c.o
-       124         14          0          0          0       1166   os_flag.o
-        80          8          0          0          0        547   os_q.o
-       400         22          0          0          0       2350   os_sem.o
-      1198        116          0          0          0       6692   os_task.o
-       172         26          0          0          0       1128   os_time.o
-       588         98          0          0          0       3707   os_tmr.o
-       744         54          0          0       2232       9568   segger_rtt.o
-      2832        198         26         21       2315      29036   segger_sysview.o
-       128         76          0          0          0       1030   segger_sysview_config_ucosii.o
-       234         18          8          8       2176       3646   segger_sysview_ucosii.o
-        36          8        408          0       1024        796   startup_stm32f411xe.o
-       136         24          0          9          0       8442   stm32f4xx_hal.o
-       292         22          0          0          0      34048   stm32f4xx_hal_cortex.o
-       210          0          0          0          0       1883   stm32f4xx_hal_dma.o
-       472         32          0          0          0       1392   stm32f4xx_hal_gpio.o
-      2856         46          0          0          0      11238   stm32f4xx_hal_i2c.o
-        72          4          0          0          0        822   stm32f4xx_hal_msp.o
-      1888         94          0          0          0       5997   stm32f4xx_hal_rcc.o
-      3236        136          0          0          0      21038   stm32f4xx_hal_tim.o
-       160         22          0          0          0       2373   stm32f4xx_hal_tim_ex.o
-       140         18          0          0         72       1444   stm32f4xx_hal_timebase_tim.o
-      1980         16          0          0          0      10232   stm32f4xx_hal_uart.o
-       204         30          0          0          0       5884   stm32f4xx_it.o
-         2          0         24          4          0       1095   system_stm32f4xx.o
-      1080         72          0          0        288       4585   tim.o
-       236         28          0          0         68       2138   usart.o
+      1356         88          0         24         48       2343   controller.o
+      1112         22          0          0         67       5123   data_transfer.o
+       260        136          0          0          0       2001   esp8266.o
+       132          6          0          0          0        875   gpio.o
+       648         98          0         60          0       5579   gy-86.o
+       392         42          0          0        168       2266   i2c.o
+      6852        288        157         53          0      29768   inv_mpu.o
+      3096        122       3062          0         16      19942   inv_mpu_dmp_motion_driver.o
+      1344        376         42         24       1660     448706   main.o
+       460         30          0          0          0       1957   motor.o
+      1052        114       2072         31          0       8077   oled.o
+      2318        416        256         92       3904      22615   os_core.o
+       180         32          0          0          0        336   os_cpu_a.o
+       216         12          0          6          0      14599   os_cpu_c.o
+       124         14          0          0          0       1182   os_flag.o
+        80          8          0          0          0        555   os_q.o
+       400         22          0          0          0       2394   os_sem.o
+      1198        116          0          0          0       6776   os_task.o
+       172         26          0          0          0       1144   os_time.o
+       588         98          0          0          0       3775   os_tmr.o
+       744         54          0          0       2232       9636   segger_rtt.o
+      2832        198         26         21       2315      29288   segger_sysview.o
+       128         76          0          0          0       1046   segger_sysview_config_ucosii.o
+       234         18          8          8       2176       3694   segger_sysview_ucosii.o
+        36          8        408          0       1024        804   startup_stm32f411xe.o
+       136         24          0          9          0       8510   stm32f4xx_hal.o
+       292         22          0          0          0      34112   stm32f4xx_hal_cortex.o
+       210          0          0          0          0       1907   stm32f4xx_hal_dma.o
+       472         32          0          0          0       1408   stm32f4xx_hal_gpio.o
+      2856         46          0          0          0      11342   stm32f4xx_hal_i2c.o
+        72          4          0          0          0        842   stm32f4xx_hal_msp.o
+      1888         94          0          0          0       6073   stm32f4xx_hal_rcc.o
+      3236        136          0          0          0      21310   stm32f4xx_hal_tim.o
+       160         22          0          0          0       2409   stm32f4xx_hal_tim_ex.o
+       140         18          0          0         72       1472   stm32f4xx_hal_timebase_tim.o
+      1980         16          0          0          0      10356   stm32f4xx_hal_uart.o
+       204         30          0          0          0       6008   stm32f4xx_it.o
+         2          0         24          4          0       1119   system_stm32f4xx.o
+      1080         72          0          0        288       4653   tim.o
+       236         28          0          0         68       2186   usart.o
 
     ----------------------------------------------------------------------
-     39018       2998       6098        344      14040     734824   Object Totals
+     38970       2964       6098        344      14040     738188   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         52          0         11         12          2          0   (incl. Padding)
 
@@ -4826,15 +4826,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     44842       3240       6338        352      14040     721836   Grand Totals
-     44842       3240       6338         84      14040     721836   ELF Image Totals (compressed)
-     44842       3240       6338         84          0          0   ROM Totals
+     44794       3206       6338        352      14040     725200   Grand Totals
+     44794       3206       6338         88      14040     725200   ELF Image Totals (compressed)
+     44794       3206       6338         88          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                51180 (  49.98kB)
+    Total RO  Size (Code + RO Data)                51132 (  49.93kB)
     Total RW  Size (RW Data + ZI Data)             14392 (  14.05kB)
-    Total ROM Size (Code + RO Data + RW Data)      51264 (  50.06kB)
+    Total ROM Size (Code + RO Data + RW Data)      51220 (  50.02kB)
 
 ==============================================================================
 
