@@ -42,5 +42,16 @@ freertos-f411\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_
 freertos-f411\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 freertos-f411\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 freertos-f411\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+freertos-f411\freertos.o: ..\Drivers\Hardware\inc\oled.h
+freertos-f411\freertos.o: ../Core/Inc/i2c.h
+freertos-f411\freertos.o: ../Core/Inc/main.h
+freertos-f411\freertos.o: ..\Drivers\Hardware\inc\esp8266.h
+freertos-f411\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h
+freertos-f411\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+freertos-f411\freertos.o: ..\Drivers\Hardware\inc\gy-86.h
+freertos-f411\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+freertos-f411\freertos.o: ..\APP\inc\gauss-newton.h
+freertos-f411\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+freertos-f411\freertos.o: ..\Drivers\Hardware\inc\gy-86.h
 freertos-f411\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 freertos-f411\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h

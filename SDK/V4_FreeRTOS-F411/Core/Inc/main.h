@@ -32,7 +32,9 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "oled.h"
+#include "esp8266.h"
+#include "gy-86.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

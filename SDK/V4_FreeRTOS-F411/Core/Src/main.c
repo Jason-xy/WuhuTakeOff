@@ -37,6 +37,12 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define START_TASK_PRIO			5
+#define START_STK_SIZE			512
+void gy86_task(void * pvParameters);//gy-86任务函数
+TaskHandle_t gy86Task_Handler;		//gy-86任务句柄
+
+void system_init(void);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -100,18 +106,26 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
-
+	GY86 = (GY_86 *)malloc(sizeof(GY_86));
+	system_init();
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
   /* Start scheduler */
-  osKernelStart();
+  //osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	xTaskCreate((TaskFunction_t	) gy86_task,
+				(char*			) "start_task",
+				(uint16_t		) START_STK_SIZE,
+				(void * 		) NULL,
+				(UBaseType_t	) START_TASK_PRIO,
+				(TaskHandle_t*	) &gy86Task_Handler);
+	vTaskStartScheduler();
   while (1)
   {
     /* USER CODE END WHILE */
@@ -165,7 +179,76 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void system_init(void)
+{
+	//硬件模块初始化
+  //OLED初始化
+  OLED_Init();  
+	OLED_Clear();
+	
+  // //ESP8266初始化
+	// esp8266_init(); 
+  // //输出调试信息
+  // OLED_Clear();
+	// OLED_ShowString(8,3,(uint8_t*)"ESP8266_Init OK",16);
+	// esp8266_cipsend("ESP8266_Init OK\r\n");
+	// HAL_Delay(1000);
+	
+  // //电机初始化
+	// Motor_Init(); 
+  // //输出调试信息
+	// OLED_Clear();
+	// OLED_ShowString(12,3,(uint8_t*)"Motor_Init OK",16);
+	// esp8266_cipsend("Motor_Init OK\r\n");
+	// HAL_Delay(1000);
+	
+  // //输出调试信息
+	// OLED_Clear();
+	// OLED_ShowString(12,3,(uint8_t*)"Motor_Unlock",16);
+	// esp8266_cipsend("Motor_Unlock\r\n");
+	// HAL_Delay(1000);
+	// //电机自动解锁
+	// Motor_Init();
+	// Motor_Unlock();
+	// //输出调试信息
+	// OLED_Clear();
+	// OLED_ShowString(6,3,(uint8_t*)"Motor_Unlock OK",16);
+	// esp8266_cipsend("Motor_Unlock OK\r\n");
+	// HAL_Delay(1000);
 
+  // //接收机初始化
+	// Input_Capture_Init();
+	// //输出调试信息
+	// OLED_Clear();
+	// OLED_ShowString(0,3,(uint8_t*)"Input_Capture_Init",16);
+	// esp8266_cipsend("Input_Capture_Init OK\r\n");
+	// HAL_Delay(1000);
+	
+	//GY-86初始化
+	GY86_Init();
+	// mpu_dmp_init();
+	//HAL_TIM_Base_Start_IT(&htim1);
+  //输出调试信息
+	OLED_Clear();
+	OLED_ShowString(12,3,(uint8_t*)"GY86_Init OK",16);
+	esp8266_cipsend("GY86_Init OK\r\n");
+	HAL_Delay(1000);
+
+  //OLED图形界面绘制
+	OLED_Clear();
+	OLED_Draw_interface();
+}
+
+void gy86_task(void * pvParameters)
+{
+	while(1)
+	{
+		GY86_RawDataUpdate();
+		inputDataUpdate();
+		GaussNewtonOutput();
+		vTaskDelay(50);
+	}
+}
 /* USER CODE END 4 */
 
  /**

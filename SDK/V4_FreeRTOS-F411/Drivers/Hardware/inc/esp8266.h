@@ -22,6 +22,7 @@
 
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_usart.h"
+#include <stdio.h>
 
 void esp8266_cmd(char* cmd);    //发送AT指令
 void esp8266_init(void);    //8266的初始化

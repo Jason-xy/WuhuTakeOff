@@ -3,7 +3,7 @@
   * 文件名程: gy-86.h 
   * 作    者: Jason_xy
   * 个人博客：https://jason-xy.cn
-  * 版    本: V1.1.1
+  * 版    本: V1.2.1
   * 编写日期: 2020-10-2
   * 功    能: GY-86初始化
   ******************************************************************************
@@ -42,6 +42,9 @@
   * 3.陀螺仪显式数据读出。
   * 2020-12-20
   * 1.修改I2C读写入口参数，便于提供DMP接口。
+  * 2021-9-12
+  * 1.采用面向对象的方法重构代码
+  * 2.添加高斯牛顿迭代校准算法法
   ******************************************************************************
   */
 
@@ -51,6 +54,7 @@
 #include "stm32f4xx_hal.h"
 #include "i2c.h"
 #include "math.h"
+#include "gauss-newton.h"
 
 #define MPU_I2C     (hi2c2)                   //i2c句柄
 
@@ -196,20 +200,65 @@
 #define HMC_WRITE 0x3C  //HMC的i2c写地址
 #define HMC_READ  0x3D	//HMC的i2c读地址
 
+#define GYRO_250DPS 131.072
+
 //校准参数
-extern short Gyro_xFix,Gyro_yFix,Gyro_zFix;
-extern short offsetMagX,offsetMagY,offsetMagZ;
-extern float MagScaleX,MagScaleY,MagScaleZ;
+typedef struct Vector3f_t{
+  float x;
+  float y;
+  float z;
+}Vector3f_t;
 
-//原始数据变量
-extern short Gyro_x,Gyro_y,Gyro_z;
-extern short Accel_x,Accel_y,Accel_z;
-extern short Mag_x,Mag_y,Mag_z;
+typedef struct AccelData{
+  Vector3f_t Accel_offset;
+  Vector3f_t Accel_scale;
+  Vector3f_t Accel_raw;
+  Vector3f_t Accel_ms2;
+}AccelData;
 
-//显式数据变量
-extern short Ax,Ay,Az;//单位：m/s^2
-extern short Gx,Gy,Gz;//单位：°/s
-extern short Mxy,Myz,Mzx;//单位：°
+typedef struct GyroData{
+  Vector3f_t Gyro_offset;
+  Vector3f_t Gyro_scale;
+  Vector3f_t Gyro_raw;
+  Vector3f_t Gyro_ds;
+}GyroData;
+
+typedef struct MagData{
+  Vector3f_t Mag_offset;
+  Vector3f_t Mag_scale;
+  Vector3f_t Mag_raw;
+  Vector3f_t Mag_d;
+}MagData;
+
+typedef struct Accelerometer{
+  AccelData *data;
+  uint8_t (*Accelerometer_gauss_newton)(AccelData *data);
+  uint8_t (*getAccelerometer_raw)(AccelData *data);
+  uint8_t (*getAccelerometer_ms2)(AccelData *data);
+}Accelerometer;
+
+typedef struct Gyroscope{
+  GyroData *data;
+  uint8_t (*Gyroscope_gauss_newton)(GyroData *data);
+  uint8_t (*getGyroscope_raw)(GyroData *data);
+  uint8_t (*getGyroscope_ds)(GyroData *data);
+}Gyroscope;
+
+typedef struct Magnetic{
+  MagData *data;
+  uint8_t (*Magnetic_gauss_newton)(MagData const *data);
+  uint8_t (*getMagnetic_raw)(MagData const *data);
+  uint8_t (*getMagnetic_d)(MagData const *data);
+}Magnetic;
+
+typedef struct GY_86{
+  Accelerometer *Accel;
+  Gyroscope *Gyro;
+  Magnetic *Mag;
+}GY_86;
+
+extern GY_86 *GY86;   
+extern Vector3f_t Accel_raw[6], Gyro_raw[6], Mag_raw[6];
 
 uint8_t MPU_Write_Byte(uint8_t addr,uint8_t reg,uint8_t data);    //IIC写一个字节
 uint8_t MPU_Read_Byte(uint8_t addr,uint8_t reg,uint8_t *data);		//IIC读一个字节
@@ -221,6 +270,7 @@ uint8_t HMC_Write_Len(uint8_t reg,uint8_t len,uint8_t *buf);
 uint8_t HMC_Read_Len(uint8_t reg,uint8_t len,uint8_t *buf);
 
 void GY86_Init(void);
+void GY86_OOPinit(GY_86 *GY86);
 void HMC_Init(void);
 uint8_t MPU6050_Init(void);
 
@@ -229,8 +279,8 @@ uint8_t MPU_Set_Accel_Fsr(uint8_t fsr);
 uint8_t MPU_Set_Rate(uint16_t rate);
 uint8_t MPU_Set_LPF(uint16_t lpf);
 
-uint8_t MPU_Get_Gyroscope(short *gx,short *gy,short *gz);
-uint8_t MPU_Get_Accelerometer(short *ax,short *ay,short *az);
+uint8_t MPU_Get_Gyroscope(GyroData *data);
+uint8_t MPU_Get_Accelerometer(AccelData *data);
 uint8_t READ_HMCALL(short* x,short* y, short* z);
 float MPU_Get_Temperature(void);
 void read_hmc_degree(short *x,short *y,short* z);
@@ -238,6 +288,7 @@ void read_Gyroscope_DPS(void);
 void read_Accelerometer_MPS(void);
 
 void GY86_SelfTest(void);
+void GY86_RawDataUpdate(void);
 void Gyro_Test(void);
 void Mag_Test(void);
 

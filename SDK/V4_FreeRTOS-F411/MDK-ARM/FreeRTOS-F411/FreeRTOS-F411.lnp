@@ -41,6 +41,7 @@
 "freertos-f411\esp8266.o"
 "freertos-f411\gy-86.o"
 "freertos-f411\oled.o"
+"freertos-f411\gauss-newton.o"
 --library_type=microlib --strict --scatter "FreeRTOS-F411\FreeRTOS-F411.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

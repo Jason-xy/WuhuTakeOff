@@ -49,7 +49,7 @@ void esp8266_ap_cipsend_init(void)
 	
 		//esp8266_cmd("AT+RST\r\n");  //复位模块
 		esp8266_cmd("hello world!\r\n");
-		HAL_Delay(15000);
+		HAL_Delay(5000);
     esp8266_cmd("AT+CWMODE=1\r\n"); //设置为AP模式
     HAL_Delay(500);
     //esp8266_cmd("AT+CWJAP=\"WuhuTakeOff\",\"uestc404\"\r\n");   //WiFi基本设置
