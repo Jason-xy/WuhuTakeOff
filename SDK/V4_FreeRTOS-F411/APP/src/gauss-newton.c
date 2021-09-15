@@ -4,7 +4,7 @@
 // typedef unsigned int uint32_t;
 // typedef unsigned char uint8_t;
 
-static void ResetMatrices(float JtR[6], float JtJ[6][6])
+static void ResetMatrices(double JtR[6], double JtJ[6][6])
 {
     int16_t j,k;
     for(j=0; j<6; j++) 
@@ -18,13 +18,13 @@ static void ResetMatrices(float JtR[6], float JtJ[6][6])
 }
 
 //* UpdateMatrices
-static void UpdateMatrices(float JtR[6], float JtJ[6][6], float beta[6], Vector3f_t inputData[6])
+static void UpdateMatrices(double JtR[6], double JtJ[6][6], double beta[6], Vector3f_t inputData[6])
 {
     short i, j, k;
-    float dx, b;
-    float residual[6] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
-    float jacobian[6][6];
-    float data[6][3];
+    double dx, b;
+    double residual[6] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+    double jacobian[6][6];
+    double data[6][3];
 
     for(i=0; i<6; i++){
         data[i][0] = inputData[i].x;
@@ -36,7 +36,7 @@ static void UpdateMatrices(float JtR[6], float JtJ[6][6], float beta[6], Vector3
         for(j=0; j<3; j++) 
         { 
             b = beta[3+j];
-            dx = (float)data[i][j] - beta[j];
+            dx = (double)data[i][j] - beta[j];
             //计算残差 (传感器误差方程的误差)
             residual[i] -= b*b*dx*dx;
             
@@ -61,10 +61,10 @@ static void UpdateMatrices(float JtR[6], float JtJ[6][6], float beta[6], Vector3
 
 }
 //* GaussEliminateSolveDelta，使用高斯消元法求解△ \bigtriangleup△
-static void GaussEliminateSolveDelta(float JtR[6], float JtJ[6][6], float delta[6])
+static void GaussEliminateSolveDelta(double JtR[6], double JtJ[6][6], double delta[6])
 {
     int16_t i, j, k;
-    float mu;
+    double mu;
     
     
     //逐次消元，将线性方程组转换为上三角方程组
@@ -115,16 +115,16 @@ static void GaussEliminateSolveDelta(float JtR[6], float JtJ[6][6], float delta[
 void GaussNewton(Vector3f_t inputData[6], Vector3f_t* offset, Vector3f_t* scale, float length)
 {
     uint32_t cnt    = 0;   //迭代次数
-    float   eps    = 0.0000001;
-    float   change = 100.0;
-    float    beta[6];      //方程解
-    float    delta[6];     //迭代步长
-    float    JtR[6];       //梯度矩阵
-    float    JtJ[6][6];    //Hessian矩阵
+    double   eps    = 0.000001;
+    double   change = 100.0;
+    double    beta[6] = {39, 39, 9.8, 1, 1, 1.05};      //方程解
+    double    delta[6] = {0};     //迭代步长
+    double    JtR[6] = {0};       //梯度矩阵
+    double    JtJ[6][6];    //Hessian矩阵
    
     //设定方程解初值
-    beta[0] = beta[1] = beta[2] = 0; 
-    beta[3] = beta[4] = beta[5] = 1 / length;
+//    beta[0] = beta[1] = beta[2] = 0; 
+//    beta[3] = beta[4] = beta[5] = 1 / length;
 
     //开始迭代，当迭代步长小于eps时结束计算，得到方程近似最优解
     while(change > eps) 
@@ -152,7 +152,7 @@ void GaussNewton(Vector3f_t inputData[6], Vector3f_t* offset, Vector3f_t* scale,
         }
             
         //限制迭代次数
-        if(cnt++ > 100)
+        if(cnt++ > 10000)
             break;
     }
 
@@ -171,6 +171,7 @@ void inputDataUpdate(void){
         Accel_raw[count] = GY86->Accel->data->Accel_raw;
         Gyro_raw[count] = GY86->Gyro->data->Gyro_raw; 
         Mag_raw[count] = GY86->Mag->data->Mag_raw;
+				count++;
     }else 
         count = 0;
 }
@@ -179,5 +180,5 @@ void GaussNewtonOutput(void){
     float length;
     length = 1.0f;
     GaussNewton(Accel_raw, &(GY86->Accel->data->Accel_offset), &(GY86->Accel->data->Accel_scale), length);
-    GaussNewton(Gyro_raw, &(GY86->Gyro->data->Gyro_offset), &(GY86->Gyro->data->Gyro_scale), length);
+    //GaussNewton(Gyro_raw, &(GY86->Gyro->data->Gyro_offset), &(GY86->Gyro->data->Gyro_scale), length);
 }

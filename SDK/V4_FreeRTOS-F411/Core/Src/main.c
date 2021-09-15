@@ -243,10 +243,14 @@ void gy86_task(void * pvParameters)
 {
 	while(1)
 	{
-		GY86_RawDataUpdate();
-		inputDataUpdate();
+		for(int i = 0; i < 6; i++)
+		{
+			GY86_RawDataUpdate();
+			inputDataUpdate();
+		}
 		GaussNewtonOutput();
 		vTaskDelay(50);
+		//vTaskDelete(gy86Task_Handler);
 	}
 }
 /* USER CODE END 4 */

@@ -200,7 +200,8 @@
 #define HMC_WRITE 0x3C  //HMC的i2c写地址
 #define HMC_READ  0x3D	//HMC的i2c读地址
 
-#define GYRO_250DPS 131.072
+#define GYRO_250DPS 131.072f
+#define ACCEL_2G 1673.469f
 
 //校准参数
 typedef struct Vector3f_t{
