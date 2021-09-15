@@ -736,9 +736,9 @@ ARM Macro Assembler    Page 12
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=freertos-f411\startup_stm32f411xe.d -ofreertos-f411\startup_
 stm32f411xe.o -I..\Core\Inc -I.\RTE\_FreeRTOS-F411 -IC:\Keil_v5\ARM\PACK\ARM\CM
-SIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.14.0\Dr
+SIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Dr
 ivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --prede
-fine="__UVISION_VERSION SETA 531" --predefine="_RTE_ SETA 1" --predefine="STM32
+fine="__UVISION_VERSION SETA 532" --predefine="_RTE_ SETA 1" --predefine="STM32
 F411xE SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f411xe.lst startu
 p_stm32f411xe.s
 

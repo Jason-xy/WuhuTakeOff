@@ -133,9 +133,9 @@ uint8_t MPU_Get_Gyroscope(GyroData *data)
 	res = MPU_Read_Len(MPU_ADDR, MPU6050_RA_GYRO_XOUT_H, 6, buf);
 	if(res == 0)
 	{
-		data->Gyro_raw.x = (int)(((uint16_t)buf[0] << 8) | buf[1]) / GYRO_250DPS;  
-		data->Gyro_raw.y = (int)(((uint16_t)buf[2] << 8) | buf[3]) / GYRO_250DPS;  
-		data->Gyro_raw.z = (int)(((uint16_t)buf[4] << 8) | buf[5]) / GYRO_250DPS;
+		data->Gyro_raw.x = (float)((buf[0] << 8) | buf[1]) / GYRO_250DPS;  
+		data->Gyro_raw.y = (float)((buf[2] << 8) | buf[3]) / GYRO_250DPS;  
+		data->Gyro_raw.z = (float)((buf[4] << 8) | buf[5]) / GYRO_250DPS;
 	} 	
     return res;
 }
@@ -150,9 +150,9 @@ uint8_t MPU_Get_Accelerometer(AccelData *data)
 	res = MPU_Read_Len(MPU_ADDR,MPU6050_RA_ACCEL_XOUT_H, 6, buf);
 	if(res == 0)
 	{
-		data->Accel_raw.x=(int)(((uint16_t)buf[0] << 8) | buf[1]) / ACCEL_2G;  
-		data->Accel_raw.y=(int)(((uint16_t)buf[2] << 8) | buf[3]) / ACCEL_2G;  
-		data->Accel_raw.z=(int)(((uint16_t)buf[4] << 8) | buf[5]) / ACCEL_2G;
+		data->Accel_raw.x = (int)(((uint16_t)buf[0] << 8) | buf[1]) / ACCEL_2G;  
+		data->Accel_raw.y = (int)(((uint16_t)buf[2] << 8) | buf[3]) / ACCEL_2G;  
+		data->Accel_raw.z = (int)(((uint16_t)buf[4] << 8) | buf[5]) / ACCEL_2G;
 	} 	
     return res;
 }
@@ -172,26 +172,25 @@ uint8_t MPU6050_Init(void)
 { 
   uint8_t res;
   extern I2C_HandleTypeDef MPU_I2C;
-  MPU_Write_Byte(MPU_ADDR,MPU6050_RA_PWR_MGMT_1,0X80);	//复位MPU6050
   MPU_Write_Byte(MPU_ADDR,MPU6050_RA_PWR_MGMT_1,0X00);	//唤醒MPU6050 
+	HAL_Delay(100);
   MPU_Set_Gyro_Fsr(0);					//陀螺仪传感器,±250dps
+	HAL_Delay(100);
   MPU_Set_Accel_Fsr(0);					//加速度传感器,±2g
+	HAL_Delay(100);
   MPU_Set_Rate(200);						//设置采样率200Hz
-  MPU_Write_Byte(MPU_ADDR,MPU6050_RA_INT_ENABLE,0X00);	//关闭所有中断
+	HAL_Delay(100);
   MPU_Write_Byte(MPU_ADDR,MPU6050_RA_USER_CTRL,0X00);	//I2C主模式关闭
+	HAL_Delay(100);
   MPU_Write_Byte(MPU_ADDR,MPU6050_RA_FIFO_EN,0X00);	//关闭FIFO
-  MPU_Write_Byte(MPU_ADDR,MPU6050_RA_INT_PIN_CFG,0X80);	//INT引脚低电平有效
 	HAL_Delay(100);
   MPU_Read_Byte(MPU_ADDR,MPU6050_RA_WHO_AM_I,&res);
   if(res==MPU_ADDR)//器件ID正确
   {
     MPU_Write_Byte(MPU_ADDR,MPU6050_RA_PWR_MGMT_1,0X01);	//设置CLKSEL,PLL X轴为参考
     MPU_Write_Byte(MPU_ADDR,MPU6050_RA_PWR_MGMT_2,0X00);	//加速度与陀螺仪都工作
-    MPU_Set_Rate(200);						//设置采样率为50Hz
   }else
-    {
 		return 1;
-    }
   return 0;
 }
 

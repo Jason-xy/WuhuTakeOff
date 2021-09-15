@@ -1,10 +1,20 @@
 //* ResetMatrices，用于初始化矩阵变量
-#include "gauss-newton.h"
-// typedef short int16_t;
-// typedef unsigned int uint32_t;
-// typedef unsigned char uint8_t;
+#include <stdio.h>
+#include <stdlib.h>
 
-static void ResetMatrices(float JtR[6], float JtJ[6][6]) {
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef unsigned char uint8_t;
+
+struct Vector3f_t {
+  double x;
+  double y;
+  double z;
+};
+
+typedef struct Vector3f_t Vector3f_t;
+
+static void ResetMatrices(double JtR[6], double JtJ[6][6]) {
   int16_t j, k;
   for (j = 0; j < 6; j++) {
     JtR[j] = 0.0f;
@@ -14,7 +24,7 @@ static void ResetMatrices(float JtR[6], float JtJ[6][6]) {
   }
 }
 
-static void ResetBeta(float beta[6], Vector3f_t inputData[6]) {
+static void ResetBeta(double beta[6], Vector3f_t inputData[6]) {
   beta[0] = (inputData[0].x + inputData[1].x + inputData[2].x + inputData[3].x +
              inputData[4].x + inputData[5].x) /
             6;
@@ -24,20 +34,20 @@ static void ResetBeta(float beta[6], Vector3f_t inputData[6]) {
   beta[2] = (inputData[0].z + inputData[1].z + inputData[2].z + inputData[3].z +
              inputData[4].z + inputData[5].z) /
             6;
-//  beta[2] = 9.8;
+  // beta[2] = 9.8;
   beta[3] = 1;
   beta[4] = 1;
   beta[5] = 1;
 }
 
 //* UpdateMatrices
-static void UpdateMatrices(float JtR[6], float JtJ[6][6], float beta[6],
+static void UpdateMatrices(double JtR[6], double JtJ[6][6], double beta[6],
                            Vector3f_t inputData[6]) {
   short i, j, k;
-  float dx, b;
-  float residual[6] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
-  float jacobian[6][6];
-  float data[6][3];
+  double dx, b;
+  double residual[6] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+  double jacobian[6][6];
+  double data[6][3];
 
   for (i = 0; i < 6; i++) {
     data[i][0] = inputData[i].x;
@@ -48,7 +58,7 @@ static void UpdateMatrices(float JtR[6], float JtJ[6][6], float beta[6],
   for (i = 0; i < 6; i++) {
     for (j = 0; j < 3; j++) {
       b = beta[3 + j];
-      dx = (float)data[i][j] - beta[j];
+      dx = (double)data[i][j] - beta[j];
       //计算残差 (传感器误差方程的误差)
       residual[i] -= b * b * dx * dx;
 
@@ -71,10 +81,10 @@ static void UpdateMatrices(float JtR[6], float JtJ[6][6], float beta[6],
 }
 
 //* GaussEliminateSolveDelta，使用高斯消元法求解△ \bigtriangleup△
-static int GaussEliminateSolveDelta(float JtR[6], float JtJ[6][6],
-                                    float delta[6]) {
+static int GaussEliminateSolveDelta(double JtR[6], double JtJ[6][6],
+                                    double delta[6]) {
   int16_t i, j, k;
-  float mu;
+  double mu;
 
   //逐次消元，将线性方程组转换为上三角方程组
   for (j = 0; j < 6; j++) {
@@ -118,15 +128,15 @@ static int GaussEliminateSolveDelta(float JtR[6], float JtJ[6][6],
  *返 回 值: 无
  **********************************************************************************************************/
 void GaussNewton(Vector3f_t inputData[6], Vector3f_t *offset, Vector3f_t *scale,
-                 float length) {
+                 double length) {
   uint32_t cnt = 0; //迭代次数
-  float eps = 0.0000001;
-  float change = 100.0;
-  float prechange = 100.0;
-  float beta[6];   //方程解
-  float delta[6];  //迭代步长
-  float JtR[6];    //梯度矩阵
-  float JtJ[6][6]; // Hessian矩阵
+  double eps = 0.0000001;
+  double change = 100.0;
+  double prechange = 100.0;
+  double beta[6];   //方程解
+  double delta[6];  //迭代步长
+  double JtR[6];    //梯度矩阵
+  double JtJ[6][6]; // Hessian矩阵
 
   //设定方程解初值
   // beta[0] = beta[1]  = 38;
@@ -134,9 +144,9 @@ void GaussNewton(Vector3f_t inputData[6], Vector3f_t *offset, Vector3f_t *scale,
   // beta[3] = beta[4] = beta[5] = 1 / length;
 
   //分段取值
-  for (float step_0 = -1.0f; step_0 < 1.0f; step_0 += 0.01f) {     //更新x 步长0.05
-    for (float step_1 = -1.0f; step_1 < 1.0f; step_1 += 0.01f) {   //更新y 步长0.05
-      for (float step_2 = -1.0f; step_2 < 1.0f; step_2 += 0.01f) { //更新z 步长0.05
+  for (double step_0 = -1.0; step_0 <= 1.0; step_0 += 0.01) {     //更新x 步长0.05
+    for (double step_1 = -1.0; step_1 <= 1.0; step_1 += 0.01) {   //更新y 步长0.05
+      for (double step_2 = -1.0; step_2 <= 1.0; step_2 += 0.01) { //更新z 步长0.05
         //初值设定平均数+-1的区间
         ResetBeta(beta, inputData);
         beta[0] += step_0;
@@ -186,20 +196,37 @@ void GaussNewton(Vector3f_t inputData[6], Vector3f_t *offset, Vector3f_t *scale,
   }
 }
 
-int count = 0;
-void inputDataUpdate(void){
-    if(count < 6){
-        Accel_raw[count] = GY86->Accel->data->Accel_raw;
-        Gyro_raw[count] = GY86->Gyro->data->Gyro_raw; 
-        Mag_raw[count] = GY86->Mag->data->Mag_raw;
-				count++;
-    }else 
-        count = 0;
-}
 
-void GaussNewtonOutput(void){
-    float length;
-    length = 1.0f;
-    GaussNewton(Accel_raw, &(GY86->Accel->data->Accel_offset), &(GY86->Accel->data->Accel_scale), length);
-    //GaussNewton(Gyro_raw, &(GY86->Gyro->data->Gyro_offset), &(GY86->Gyro->data->Gyro_scale), length);
+int main(void) {
+  Vector3f_t inputData[6];
+  Vector3f_t offset;
+  Vector3f_t scale;
+  double length;
+  inputData[0].x = 0.148195162f;
+  inputData[0].y = 39.0028152f;
+  inputData[0].z = 9.30641651f;
+  inputData[1].x = 0.106365882f;
+  inputData[1].y = 38.9741325f;
+  inputData[1].z = 9.27175808f;
+  inputData[2].x = 0.112341493f;
+  inputData[2].y = 39.0111809f;
+  inputData[2].z = 9.27414894f;
+  inputData[3].x = 0.145804912f;
+  inputData[3].y = 38.9729347f;
+  inputData[3].z = 9.23470974f;
+  inputData[4].x = 0.11712198f;
+  inputData[4].y = 39.0279121f;
+  inputData[4].z = 9.22753906f;
+  inputData[5].x = 0.0848536789f;
+  inputData[5].y = 39.0577888f;
+  inputData[5].z = 9.27653885f;
+  length = 1.0f;
+  GaussNewton(inputData, &offset, &scale, length);
+  //  printf("inputData: 1:%f 2:%f 3:%f 4:%f 5:%f 6:%f",offset);
+  printf("offest x: %f\n", offset.x);
+  printf("scale x: %f\n", scale.x);
+  printf("offest y: %f\n", offset.y);
+  printf("scale y: %f\n", scale.y);
+  printf("offest z: %f\n", offset.z);
+  printf("scale z: %f\n", scale.z);
 }

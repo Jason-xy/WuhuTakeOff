@@ -237,18 +237,26 @@ void system_init(void)
   //OLED图形界面绘制
 	OLED_Clear();
 	OLED_Draw_interface();
+	
+	
+	for(int i = 0; i < 200; i++)
+	{
+		GY86_RawDataUpdate();
+	}
+	for(int i = 0; i < 400; i++)
+	{
+		GY86_RawDataUpdate();
+		if(i%50 == 0)
+		inputDataUpdate();
+	}
+	GaussNewtonOutput();
 }
 
 void gy86_task(void * pvParameters)
 {
 	while(1)
 	{
-		for(int i = 0; i < 6; i++)
-		{
-			GY86_RawDataUpdate();
-			inputDataUpdate();
-		}
-		GaussNewtonOutput();
+		GY86_RawDataUpdate();
 		vTaskDelay(50);
 		//vTaskDelete(gy86Task_Handler);
 	}
