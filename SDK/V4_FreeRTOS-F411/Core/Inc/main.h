@@ -35,6 +35,7 @@ extern "C" {
 #include "oled.h"
 #include "esp8266.h"
 #include "gy-86.h"
+#include "datafusion.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

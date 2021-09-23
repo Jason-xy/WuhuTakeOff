@@ -45,3 +45,4 @@ freertos-f411\gpio.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 freertos-f411\gpio.o: ..\APP\inc\gauss-newton.h
 freertos-f411\gpio.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 freertos-f411\gpio.o: ..\Drivers\Hardware\inc\gy-86.h
+freertos-f411\gpio.o: ..\APP\inc\datafusion.h

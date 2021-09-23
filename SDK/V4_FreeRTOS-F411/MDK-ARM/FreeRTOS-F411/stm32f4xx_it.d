@@ -44,4 +44,5 @@ freertos-f411\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 freertos-f411\stm32f4xx_it.o: ..\APP\inc\gauss-newton.h
 freertos-f411\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 freertos-f411\stm32f4xx_it.o: ..\Drivers\Hardware\inc\gy-86.h
+freertos-f411\stm32f4xx_it.o: ..\APP\inc\datafusion.h
 freertos-f411\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h

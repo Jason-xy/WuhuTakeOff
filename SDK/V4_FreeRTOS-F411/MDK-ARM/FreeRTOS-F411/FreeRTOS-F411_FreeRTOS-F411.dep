@@ -1,8 +1,8 @@
 Dependencies for Project 'FreeRTOS-F411', Target 'FreeRTOS-F411': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::ARMCC
 F (startup_stm32f411xe.s)(0x613DCF0B)(--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1" -I ..\Core\Inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 532" --pd "_RTE_ SETA 1" --pd "STM32F411xE SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f411xe.lst --xref -o freertos-f411\startup_stm32f411xe.o --depend freertos-f411\startup_stm32f411xe.d)
-F (../Core/Src/main.c)(0x6141FE27)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\main.o --omf_browse freertos-f411\main.crf --depend freertos-f411\main.d)
-I (../Core/Inc/main.h)(0x613F2716)
+F (../Core/Src/main.c)(0x614C0FD9)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\main.o --omf_browse freertos-f411\main.crf --depend freertos-f411\main.d)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -40,10 +40,11 @@ I (../Core/Inc/i2c.h)(0x613DCF08)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x613DC7A1)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x613DC7A1)
 I (../Core/Inc/FreeRTOSConfig.h)(0x613DCF08)
@@ -60,7 +61,7 @@ I (../Core/Inc/usart.h)(0x613DCF08)
 I (../Core/Inc/gpio.h)(0x613DCF07)
 F (../Core/Src/gpio.c)(0x613DCF07)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\gpio.o --omf_browse freertos-f411\gpio.crf --depend freertos-f411\gpio.d)
 I (../Core/Inc/gpio.h)(0x613DCF07)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -98,10 +99,11 @@ I (../Core/Inc/i2c.h)(0x613DCF08)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 F (../Core/Src/freertos.c)(0x613DCF08)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\freertos.o --omf_browse freertos-f411\freertos.crf --depend freertos-f411\freertos.d)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x613DC7A1)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
@@ -114,7 +116,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x613DC7A1)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x613DC7A1)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x613DC7A1)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -150,15 +152,16 @@ I (../Core/Inc/i2c.h)(0x613DCF08)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x613DC7A1)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x613DC7A1)
 F (../Core/Src/i2c.c)(0x613DCF08)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\i2c.o --omf_browse freertos-f411\i2c.crf --depend freertos-f411\i2c.d)
 I (../Core/Inc/i2c.h)(0x613DCF08)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -195,13 +198,14 @@ I (..\Drivers\Hardware\inc\oled.h)(0x613DCF49)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 F (../Core/Src/tim.c)(0x613DCF08)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\tim.o --omf_browse freertos-f411\tim.crf --depend freertos-f411\tim.d)
 I (../Core/Inc/tim.h)(0x613DCF08)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -239,13 +243,14 @@ I (../Core/Inc/i2c.h)(0x613DCF08)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 F (../Core/Src/usart.c)(0x613F2BD9)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\usart.o --omf_browse freertos-f411\usart.crf --depend freertos-f411\usart.d)
 I (../Core/Inc/usart.h)(0x613DCF08)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -283,12 +288,13 @@ I (../Core/Inc/i2c.h)(0x613DCF08)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 F (../Core/Src/stm32f4xx_it.c)(0x613DCF08)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\stm32f4xx_it.o --omf_browse freertos-f411\stm32f4xx_it.crf --depend freertos-f411\stm32f4xx_it.d)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -326,13 +332,14 @@ I (../Core/Inc/i2c.h)(0x613DCF08)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 I (../Core/Inc/stm32f4xx_it.h)(0x613DCF08)
 F (../Core/Src/stm32f4xx_hal_msp.c)(0x613DCF08)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\stm32f4xx_hal_msp.o --omf_browse freertos-f411\stm32f4xx_hal_msp.crf --depend freertos-f411\stm32f4xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -370,10 +377,11 @@ I (../Core/Inc/i2c.h)(0x613DCF08)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 F (../Core/Src/stm32f4xx_hal_timebase_tim.c)(0x613DCF08)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\stm32f4xx_hal_timebase_tim.o --omf_browse freertos-f411\stm32f4xx_hal_timebase_tim.crf --depend freertos-f411\stm32f4xx_hal_timebase_tim.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
@@ -1245,8 +1253,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x613DC7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x613DC7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-F (..\Drivers\Hardware\src\gy-86.c)(0x614200E3)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\gy-86.o --omf_browse freertos-f411\gy-86.crf --depend freertos-f411\gy-86.d)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+F (..\Drivers\Hardware\src\gy-86.c)(0x614C1252)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\gy-86.o --omf_browse freertos-f411\gy-86.crf --depend freertos-f411\gy-86.d)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -1280,11 +1288,12 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x613DC7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x613DC7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x613DC7D2)
 I (../Core/Inc/i2c.h)(0x613DCF08)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (..\Drivers\Hardware\inc\oled.h)(0x613DCF49)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
@@ -1292,7 +1301,7 @@ F (..\Drivers\Hardware\src\oled.c)(0x6138479A)(--c99 -c --cpu Cortex-M4.fp.sp -D
 I (..\Drivers\Hardware\inc\oled.h)(0x613DCF49)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
 I (../Core/Inc/i2c.h)(0x613DCF08)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -1327,16 +1336,17 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x613DC7D2)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 I (..\Drivers\Hardware\inc\oledfont.h)(0x6138479A)
 F (..\APP\src\gauss-newton.c)(0x61420487)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\gauss-newton.o --omf_browse freertos-f411\gauss-newton.crf --depend freertos-f411\gauss-newton.d)
 I (..\APP\inc\gauss-newton.h)(0x61420411)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
-I (..\Drivers\Hardware\inc\gy-86.h)(0x61415511)
+I (..\Drivers\Hardware\inc\gy-86.h)(0x6142F1B0)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
@@ -1370,8 +1380,53 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x613DC7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x613DC7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x613DC7D2)
 I (../Core/Inc/i2c.h)(0x613DCF08)
-I (../Core/Inc/main.h)(0x613F2716)
+I (../Core/Inc/main.h)(0x614C0E7F)
 I (..\Drivers\Hardware\inc\oled.h)(0x613DCF49)
 I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
+F (..\APP\src\datafusion.c)(0x614C0FDE)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\Hardware\inc -I ..\APP\inc-I.\RTE\_FreeRTOS-F411-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE-o freertos-f411\datafusion.o --omf_browse freertos-f411\datafusion.crf --depend freertos-f411\datafusion.d)
+I (..\APP\inc\datafusion.h)(0x614C0FDE)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5F63877C)
+I (..\Drivers\Hardware\inc\GY-86.h)(0x6142F1B0)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x613DC7D2)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x613DCF08)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x613DC7D2)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x613DC7D2)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h)(0x613DC7D2)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x613DC79F)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x613DC79F)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x613DC79F)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x613DC79F)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x613DC79F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x613DC7D2)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x613DC7D2)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x613DC7D2)
+I (../Core/Inc/i2c.h)(0x613DCF08)
+I (../Core/Inc/main.h)(0x614C0E7F)
+I (..\Drivers\Hardware\inc\oled.h)(0x613DCF49)
+I (..\Drivers\Hardware\inc\esp8266.h)(0x613F28F6)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h)(0x613DC7D2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
+I (..\APP\inc\gauss-newton.h)(0x61420411)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)

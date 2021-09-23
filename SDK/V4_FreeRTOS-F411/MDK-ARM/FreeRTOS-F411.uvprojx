@@ -832,6 +832,11 @@
               <FileType>1</FileType>
               <FilePath>..\APP\src\gauss-newton.c</FilePath>
             </File>
+            <File>
+              <FileName>datafusion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\datafusion.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -252,10 +252,16 @@ typedef struct Magnetic{
   uint8_t (*getMagnetic_d)(MagData const *data);
 }Magnetic;
 
+typedef struct MS561101BA{
+	float Temperature;
+	float	pressure;
+}MS561101BA;
+
 typedef struct GY_86{
   Accelerometer *Accel;
   Gyroscope *Gyro;
   Magnetic *Mag;
+	MS561101BA *MS;
 }GY_86;
 
 extern GY_86 *GY86;   
@@ -282,16 +288,11 @@ uint8_t MPU_Set_LPF(uint16_t lpf);
 
 uint8_t MPU_Get_Gyroscope(GyroData *data);
 uint8_t MPU_Get_Accelerometer(AccelData *data);
-uint8_t READ_HMCALL(short* x,short* y, short* z);
-float MPU_Get_Temperature(void);
-void read_hmc_degree(short *x,short *y,short* z);
-void read_Gyroscope_DPS(void);
-void read_Accelerometer_MPS(void);
+uint8_t READ_HMCALL(MagData *data);
+uint8_t MPU_Get_Temperature(MS561101BA* Temperature);
 
-void GY86_SelfTest(void);
+void GY86_Offset(void);
 void GY86_RawDataUpdate(void);
-void Gyro_Test(void);
-void Mag_Test(void);
 
 #endif /* __GY_86_H__ */
 

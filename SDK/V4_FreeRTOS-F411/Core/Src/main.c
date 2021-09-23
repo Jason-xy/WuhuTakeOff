@@ -108,6 +108,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	GY86 = (GY_86 *)malloc(sizeof(GY_86));
 	system_init();
+	Quat_Init();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -233,23 +234,10 @@ void system_init(void)
 	OLED_ShowString(12,3,(uint8_t*)"GY86_Init OK",16);
 	esp8266_cipsend("GY86_Init OK\r\n");
 	HAL_Delay(1000);
-
+	
   //OLED图形界面绘制
 	OLED_Clear();
 	OLED_Draw_interface();
-	
-	
-	for(int i = 0; i < 200; i++)
-	{
-		GY86_RawDataUpdate();
-	}
-	for(int i = 0; i < 400; i++)
-	{
-		GY86_RawDataUpdate();
-		if(i%50 == 0)
-		inputDataUpdate();
-	}
-	GaussNewtonOutput();
 }
 
 void gy86_task(void * pvParameters)
@@ -257,8 +245,9 @@ void gy86_task(void * pvParameters)
 	while(1)
 	{
 		GY86_RawDataUpdate();
-		vTaskDelay(50);
-		//vTaskDelete(gy86Task_Handler);
+		Attitude_Update(GY86->Gyro->data->Gyro_ds.x, GY86->Gyro->data->Gyro_ds.y, GY86->Gyro->data->Gyro_ds.z, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z, \
+										GY86->Mag->data->Mag_d.x, GY86->Mag->data->Mag_d.y, GY86->Mag->data->Mag_d.z);
+		HAL_Delay(10);
 	}
 }
 /* USER CODE END 4 */

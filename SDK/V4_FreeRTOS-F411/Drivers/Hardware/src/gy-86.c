@@ -62,6 +62,7 @@ void GY86_Init(void)
 	HAL_Delay(200);
 	HMC_Init();				        //HMC初始化
   GY86_OOPinit(GY86);
+	GY86_Offset();
 }
 
 //对象实例化
@@ -69,6 +70,7 @@ void GY86_OOPinit(GY_86 *GY86){
   GY86->Accel = (Accelerometer *)malloc(sizeof(Accelerometer));
   GY86->Gyro = (Gyroscope *)malloc(sizeof(Gyroscope));
   GY86->Mag = (Magnetic *)malloc(sizeof(Magnetic));
+	GY86->MS = (MS561101BA *)malloc(sizeof(MS561101BA));
   //dataMem
   GY86->Accel->data = (AccelData *)malloc(sizeof(AccelData));
   GY86->Gyro->data = (GyroData *)malloc(sizeof(GyroData));
@@ -118,8 +120,20 @@ void GY86_OOPinit(GY_86 *GY86){
 
 //得到GY-86值(原始值)
 void GY86_RawDataUpdate(void){
-  MPU_Get_Gyroscope(GY86->Gyro->data);
-  MPU_Get_Accelerometer(GY86->Accel->data);
+  //更新陀螺仪数据
+	MPU_Get_Gyroscope(GY86->Gyro->data);
+	GY86->Gyro->data->Gyro_ds.x = (GY86->Gyro->data->Gyro_raw.x - GY86->Gyro->data->Gyro_offset.x) * GY86->Gyro->data->Gyro_scale.x / GYRO_250DPS;
+	GY86->Gyro->data->Gyro_ds.y = (GY86->Gyro->data->Gyro_raw.y - GY86->Gyro->data->Gyro_offset.y) * GY86->Gyro->data->Gyro_scale.y / GYRO_250DPS;
+	GY86->Gyro->data->Gyro_ds.z = (GY86->Gyro->data->Gyro_raw.z - GY86->Gyro->data->Gyro_offset.z) * GY86->Gyro->data->Gyro_scale.z / GYRO_250DPS;	
+  //更新加速度计数据
+	MPU_Get_Accelerometer(GY86->Accel->data);
+	GY86->Accel->data->Accel_ms2.x = (GY86->Accel->data->Accel_raw.x - GY86->Accel->data->Accel_offset.x) * GY86->Accel->data->Accel_scale.x / ACCEL_2G;
+	GY86->Accel->data->Accel_ms2.y = (GY86->Accel->data->Accel_raw.y - GY86->Accel->data->Accel_offset.y) * GY86->Accel->data->Accel_scale.y / ACCEL_2G;
+	GY86->Accel->data->Accel_ms2.z = (GY86->Accel->data->Accel_raw.z - GY86->Accel->data->Accel_offset.z) * GY86->Accel->data->Accel_scale.z / ACCEL_2G;
+	//更新磁力计数据
+	READ_HMCALL(GY86->Mag->data);
+	//更新温度计数据
+	MPU_Get_Temperature(GY86->MS);
 }
 
 //得到陀螺仪值(原始值)
@@ -133,28 +147,93 @@ uint8_t MPU_Get_Gyroscope(GyroData *data)
 	res = MPU_Read_Len(MPU_ADDR, MPU6050_RA_GYRO_XOUT_H, 6, buf);
 	if(res == 0)
 	{
-		data->Gyro_raw.x = (float)((buf[0] << 8) | buf[1]) / GYRO_250DPS;  
-		data->Gyro_raw.y = (float)((buf[2] << 8) | buf[3]) / GYRO_250DPS;  
-		data->Gyro_raw.z = (float)((buf[4] << 8) | buf[5]) / GYRO_250DPS;
+		data->Gyro_raw.x = (short)(((int16_t)buf[0] << 8) | buf[1]);  
+		data->Gyro_raw.y = (short)(((int16_t)buf[2] << 8) | buf[3]);  
+		data->Gyro_raw.z = (short)(((int16_t)buf[4] << 8) | buf[5]);
 	} 	
     return res;
 }
 
 //得到加速度值(原始值)
 //gx,gy,gz:陀螺仪x,y,z轴的原始读数(带符号)
-//返回值:0,成功逻辑分析仪出现framing error
+//返回值:0,成功
 //    其他,错误代码
 uint8_t MPU_Get_Accelerometer(AccelData *data)
 {
-    uint8_t buf[6],res;  
+  uint8_t buf[6],res;  
 	res = MPU_Read_Len(MPU_ADDR,MPU6050_RA_ACCEL_XOUT_H, 6, buf);
 	if(res == 0)
 	{
-		data->Accel_raw.x = (int)(((uint16_t)buf[0] << 8) | buf[1]) / ACCEL_2G;  
-		data->Accel_raw.y = (int)(((uint16_t)buf[2] << 8) | buf[3]) / ACCEL_2G;  
-		data->Accel_raw.z = (int)(((uint16_t)buf[4] << 8) | buf[5]) / ACCEL_2G;
+		data->Accel_raw.x = (short)(((int16_t)buf[0] << 8) | buf[1]);  
+		data->Accel_raw.y = (short)(((int16_t)buf[2] << 8) | buf[3]);  
+		data->Accel_raw.z = (short)(((int16_t)buf[4] << 8) | buf[5]);
 	} 	
     return res;
+}
+
+//得到磁力计值(原始值)
+//mx,my,mz:陀螺仪x,y,z轴的原始读数(带符号)
+//返回值:0,成功
+//    其他,错误代码
+uint8_t READ_HMCALL(MagData *data)
+{
+	uint8_t buf[6],res;  
+	res = HMC_Read_Len(HMC_DATA_XMSB, 6, buf);
+	if(res == 0)
+	{
+		data->Mag_raw.x = (short)(((int16_t)buf[0] << 8) | buf[1]);  
+		data->Mag_raw.y = (short)(((int16_t)buf[2] << 8) | buf[3]);  
+		data->Mag_raw.z = (short)(((int16_t)buf[4] << 8) | buf[5]);
+		// 读取的原数据为补码形式，这里完成转换
+		if (data->Mag_raw.x > 0x7fff)
+			data->Mag_raw.x -= 0xffff;
+		if (data->Mag_raw.y > 0x7fff)
+			data->Mag_raw.y -= 0xffff;
+		if (data->Mag_raw.z > 0x7fff)
+			data->Mag_raw.z -= 0xffff;
+	} 	
+  return res;
+}
+
+//得到温度值
+//返回值:温度值(扩大了100倍)
+uint8_t MPU_Get_Temperature(MS561101BA* MS)
+{
+  unsigned char  buf[2]; 
+  int16_t raw, res;
+  
+  res = MPU_Read_Len(MPU_ADDR,MPU6050_RA_TEMP_OUT_H, 2, buf); 
+	if(res == 0){
+		raw = (buf[0] << 8) | buf[1];  
+		MS->Temperature = (36.53f + ((double)raw) / 340.0f);  
+	}
+  return res;
+}
+
+//GY-86零偏校正
+void GY86_Offset(void)
+{
+	static float ACC_X = 0, ACC_Y = 0, ACC_Z = 0;
+	static float GYRO_X = 0, GYRO_Y = 0, GYRO_Z = 0;
+	int i = 0;
+	for(i = 0; i < 100; i++)
+	{
+		GY86_RawDataUpdate();
+		ACC_X += GY86->Accel->data->Accel_raw.x;
+		ACC_Y += GY86->Accel->data->Accel_raw.y;
+		ACC_Z += GY86->Accel->data->Accel_raw.z;
+		
+		GYRO_X += GY86->Gyro->data->Gyro_raw.x;
+		GYRO_Y += GY86->Gyro->data->Gyro_raw.y;
+		GYRO_Z += GY86->Gyro->data->Gyro_raw.z;
+	}
+	GY86->Accel->data->Accel_offset.x = ACC_X / 100;
+	GY86->Accel->data->Accel_offset.y = ACC_Y / 100;
+	GY86->Accel->data->Accel_offset.z = ACC_Z / 100 - 16384;//+-2g量程
+	
+	GY86->Gyro->data->Gyro_offset.x = GYRO_X / 100;
+	GY86->Gyro->data->Gyro_offset.y = GYRO_Y / 100;
+	GY86->Gyro->data->Gyro_offset.z = GYRO_Z / 100;
 }
 
 //HMC初始化配置

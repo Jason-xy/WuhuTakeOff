@@ -53,5 +53,6 @@ freertos-f411\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 freertos-f411\freertos.o: ..\APP\inc\gauss-newton.h
 freertos-f411\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 freertos-f411\freertos.o: ..\Drivers\Hardware\inc\gy-86.h
+freertos-f411\freertos.o: ..\APP\inc\datafusion.h
 freertos-f411\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 freertos-f411\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h

@@ -43,5 +43,6 @@ freertos-f411\gauss-newton.o: ../Core/Inc/i2c.h
 freertos-f411\gauss-newton.o: ..\Drivers\Hardware\inc\esp8266.h
 freertos-f411\gauss-newton.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h
 freertos-f411\gauss-newton.o: ..\Drivers\Hardware\inc\gy-86.h
+freertos-f411\gauss-newton.o: ..\APP\inc\datafusion.h
 freertos-f411\gauss-newton.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 freertos-f411\gauss-newton.o: ..\APP\inc\gauss-newton.h
