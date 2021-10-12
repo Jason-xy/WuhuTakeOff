@@ -53,9 +53,3 @@ freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portabl
 freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
 freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-freertos-f411\main.o: ../Core/Inc/tim.h
-freertos-f411\main.o: ../Core/Inc/usart.h
-freertos-f411\main.o: ../Core/Inc/gpio.h

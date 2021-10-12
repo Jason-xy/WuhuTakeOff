@@ -10,7 +10,3 @@ freertos-f411\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portab
 freertos-f411\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
 freertos-f411\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 freertos-f411\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-freertos-f411\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-freertos-f411\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-freertos-f411\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
-freertos-f411\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/stack_macros.h

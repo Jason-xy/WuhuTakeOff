@@ -8,7 +8,3 @@ freertos-f411\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/por
 freertos-f411\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
 freertos-f411\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 freertos-f411\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-freertos-f411\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-freertos-f411\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-freertos-f411\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/croutine.h
-freertos-f411\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
