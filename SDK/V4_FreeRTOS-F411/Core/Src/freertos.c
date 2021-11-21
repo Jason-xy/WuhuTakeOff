@@ -30,6 +30,7 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
+typedef StaticSemaphore_t osStaticMutexDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -55,6 +56,22 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for GY86Mutex */
+osMutexId_t GY86MutexHandle;
+osStaticMutexDef_t GY86MutexControlBlock;
+const osMutexAttr_t GY86Mutex_attributes = {
+  .name = "GY86Mutex",
+  .cb_mem = &GY86MutexControlBlock,
+  .cb_size = sizeof(GY86MutexControlBlock),
+};
+/* Definitions for ReceiverMutex */
+osMutexId_t ReceiverMutexHandle;
+osStaticMutexDef_t ReceiverMutexControlBlock;
+const osMutexAttr_t ReceiverMutex_attributes = {
+  .name = "ReceiverMutex",
+  .cb_mem = &ReceiverMutexControlBlock,
+  .cb_size = sizeof(ReceiverMutexControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -74,6 +91,12 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
+  /* Create the mutex(es) */
+  /* creation of GY86Mutex */
+  GY86MutexHandle = osMutexNew(&GY86Mutex_attributes);
+
+  /* creation of ReceiverMutex */
+  ReceiverMutexHandle = osMutexNew(&ReceiverMutex_attributes);
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */

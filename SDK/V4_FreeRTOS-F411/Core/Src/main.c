@@ -37,12 +37,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define START_TASK_PRIO			5
-#define START_STK_SIZE			512
-void gy86_task(void * pvParameters);//gy-86任务函数
-TaskHandle_t gy86Task_Handler;		//gy-86任务句柄
-
-void system_init(void);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -65,7 +59,40 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void system_init(void);
+#define Task_Angel_PRIO			6
+#define Task_Angel_SIZE			512
+TaskHandle_t Task_AngelHandler;
+void Task_AngelFunction(void *argument)
+{
+	while(1)
+	{
+		GY86_RawDataUpdate();
+		Attitude_Update(GY86->Gyro->data->Gyro_ds.x, GY86->Gyro->data->Gyro_ds.y, GY86->Gyro->data->Gyro_ds.z, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z, \
+										GY86->Mag->data->Mag_d.x, GY86->Mag->data->Mag_d.y, GY86->Mag->data->Mag_d.z);
+		vTaskDelay(10);
+	}
+}
+void Task_HightFunction(void *argument)
+{
+	;
+}
+void Task_PIDFunction(void *argument)
+{
+	;
+}
+void Task_ANOFunction(void *argument)
+{
+	;
+}
+void Task_OLEDFunction(void *argument)
+{
+	;
+}
+void Task_ExtSensorFunction(void *argument)
+{
+	;
+}
 /* USER CODE END 0 */
 
 /**
@@ -106,9 +133,9 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
-	GY86 = (GY_86 *)malloc(sizeof(GY_86));
-	system_init();
-	Quat_Init();
+  GY86 = (GY_86 *)malloc(sizeof(GY_86));
+  system_init();
+  Quat_Init();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -120,13 +147,14 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	xTaskCreate((TaskFunction_t	) gy86_task,
+  xTaskCreate((TaskFunction_t	) Task_AngelFunction,
 				(char*			) "start_task",
-				(uint16_t		) START_STK_SIZE,
+				(uint16_t		) Task_Angel_SIZE,
 				(void * 		) NULL,
-				(UBaseType_t	) START_TASK_PRIO,
-				(TaskHandle_t*	) &gy86Task_Handler);
+				(UBaseType_t	) Task_Angel_PRIO,
+				(TaskHandle_t*	) &Task_AngelHandler);
 	vTaskStartScheduler();
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -156,8 +184,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 6;
-  RCC_OscInitStruct.PLL.PLLN = 100;
+  RCC_OscInitStruct.PLL.PLLM = 12;
+  RCC_OscInitStruct.PLL.PLLN = 96;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -182,12 +210,12 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void system_init(void)
 {
-	//硬件模块初始化
-  //OLED初始化
+	//硬件模块初始�?
+  //OLED初始�?
   OLED_Init();  
 	OLED_Clear();
 	
-  // //ESP8266初始化
+  // //ESP8266初始�?
 	// esp8266_init(); 
   // //输出调试信息
   // OLED_Clear();
@@ -195,7 +223,7 @@ void system_init(void)
 	// esp8266_cipsend("ESP8266_Init OK\r\n");
 	// HAL_Delay(1000);
 	
-  // //电机初始化
+  // //电机初始�?
 	// Motor_Init(); 
   // //输出调试信息
 	// OLED_Clear();
@@ -225,7 +253,7 @@ void system_init(void)
 	// esp8266_cipsend("Input_Capture_Init OK\r\n");
 	// HAL_Delay(1000);
 	
-	//GY-86初始化
+	//GY-86初始�?
 	GY86_Init();
 	// mpu_dmp_init();
 	//HAL_TIM_Base_Start_IT(&htim1);
@@ -239,20 +267,9 @@ void system_init(void)
 	OLED_Clear();
 	OLED_Draw_interface();
 }
-
-void gy86_task(void * pvParameters)
-{
-	while(1)
-	{
-		GY86_RawDataUpdate();
-		Attitude_Update(GY86->Gyro->data->Gyro_ds.x, GY86->Gyro->data->Gyro_ds.y, GY86->Gyro->data->Gyro_ds.z, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z, \
-										GY86->Mag->data->Mag_d.x, GY86->Mag->data->Mag_d.y, GY86->Mag->data->Mag_d.z);
-		HAL_Delay(10);
-	}
-}
 /* USER CODE END 4 */
 
- /**
+/**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM10 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment

@@ -1,0 +1,6 @@
+{ 
+     "EIDE.ARM.INI.Path": "c:\\Keil_v5\\TOOLS.INI",
+    "EIDE.STLink.ExePath": "${userRoot}\\.eide\\tools\\st_cube_programer\\bin\\STM32_Programmer_CLI.exe",
+    "cortex-debug.armToolchainPath": "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10\\bin",
+    "cortex-debug.openocdPath": "C:\\OpenOCD\\bin\\openocd.exe"
+}

@@ -21,7 +21,7 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-//重定向c库函数printf到DEBUG_USARTx
+/*printf->usart*/
 int fputc(int ch, FILE *f)
 {
   HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
@@ -145,6 +145,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* USART1 interrupt Init */
+    HAL_NVIC_SetPriority(USART1_IRQn, 8, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
   /* USER CODE END USART1_MspInit 1 */
@@ -169,6 +172,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* USART2 interrupt Init */
+    HAL_NVIC_SetPriority(USART2_IRQn, 7, 0);
+    HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspInit 1 */
 
   /* USER CODE END USART2_MspInit 1 */
@@ -193,6 +199,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* USART6 interrupt Init */
+    HAL_NVIC_SetPriority(USART6_IRQn, 6, 0);
+    HAL_NVIC_EnableIRQ(USART6_IRQn);
   /* USER CODE BEGIN USART6_MspInit 1 */
 
   /* USER CODE END USART6_MspInit 1 */
@@ -216,6 +225,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_10|GPIO_PIN_15);
 
+    /* USART1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
   /* USER CODE END USART1_MspDeInit 1 */
@@ -234,6 +245,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2|GPIO_PIN_3);
 
+    /* USART2 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspDeInit 1 */
 
   /* USER CODE END USART2_MspDeInit 1 */
@@ -252,6 +265,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_11|GPIO_PIN_12);
 
+    /* USART6 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART6_IRQn);
   /* USER CODE BEGIN USART6_MspDeInit 1 */
 
   /* USER CODE END USART6_MspDeInit 1 */

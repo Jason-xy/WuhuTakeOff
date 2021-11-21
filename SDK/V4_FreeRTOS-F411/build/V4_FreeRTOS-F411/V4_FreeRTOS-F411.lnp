@@ -1,0 +1,45 @@
+--cpu Cortex-M4.fp --library_type=microlib --scatter "c:/Users/Jason/Desktop/eIDE/V4_FreeRTOS-F411/build/V4_FreeRTOS-F411/V4_FreeRTOS-F411.sct" --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols --info sizes --info totals --info unused --info veneers
+--list .\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.map
+.\build\V4_FreeRTOS-F411\datafusion.o
+.\build\V4_FreeRTOS-F411\freertos.o
+.\build\V4_FreeRTOS-F411\gpio.o
+.\build\V4_FreeRTOS-F411\i2c.o
+.\build\V4_FreeRTOS-F411\main.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_msp.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_timebase_tim.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_it.o
+.\build\V4_FreeRTOS-F411\system_stm32f4xx.o
+.\build\V4_FreeRTOS-F411\tim.o
+.\build\V4_FreeRTOS-F411\usart.o
+.\build\V4_FreeRTOS-F411\esp8266.o
+.\build\V4_FreeRTOS-F411\gy-86.o
+.\build\V4_FreeRTOS-F411\oled.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_cortex.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_dma.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_dma_ex.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_exti.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_flash.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_flash_ex.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_flash_ramfunc.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_gpio.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_i2c.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_i2c_ex.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_pwr.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_pwr_ex.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_rcc.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_rcc_ex.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_tim.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_tim_ex.o
+.\build\V4_FreeRTOS-F411\stm32f4xx_hal_uart.o
+.\build\V4_FreeRTOS-F411\cmsis_os2.o
+.\build\V4_FreeRTOS-F411\croutine.o
+.\build\V4_FreeRTOS-F411\event_groups.o
+.\build\V4_FreeRTOS-F411\list.o
+.\build\V4_FreeRTOS-F411\heap_4.o
+.\build\V4_FreeRTOS-F411\port.o
+.\build\V4_FreeRTOS-F411\queue.o
+.\build\V4_FreeRTOS-F411\stream_buffer.o
+.\build\V4_FreeRTOS-F411\tasks.o
+.\build\V4_FreeRTOS-F411\timers.o
+.\build\V4_FreeRTOS-F411\startup_stm32f411xe.o -o .\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.axf

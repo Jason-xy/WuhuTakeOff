@@ -57,7 +57,12 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void Task_AngelFunction(void *argument);
+void Task_HightFunction(void *argument);
+void Task_PIDFunction(void *argument);
+void Task_ANOFunction(void *argument);
+void Task_OLEDFunction(void *argument);
+void Task_ExtSensorFunction(void *argument);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

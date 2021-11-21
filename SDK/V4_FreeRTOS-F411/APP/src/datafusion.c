@@ -19,7 +19,7 @@ float invSqrt(float x)
 }
 
 //互补滤波数据融合
-float Kp = 2.0f; // 比例常数
+float Kp = 4.0f; // 比例常数
 float Ki = 0.005f; // 积分常数
 float halfT = 0.005f; //采样周期的一半，实际halfT由定时器求出
 float T = 0.01f; // 采样周期为10ms

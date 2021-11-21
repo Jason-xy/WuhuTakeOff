@@ -1,0 +1,27 @@
+[2021-11-21 01:38:40]	[done]
+	build successfully !
+
+[2021-11-21 02:43:38]	[done]
+	build successfully !
+
+[2021-11-21 03:02:10]	compilation failed at : "c:\Users\Jason\Desktop\eIDE\V4_FreeRTOS-F411\Core\Src\main.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 03:02:43]	[done]
+	build successfully !
+
+[2021-11-21 03:05:41]	[done]
+	build successfully !
+
+[2021-11-21 03:08:08]	[done]
+	build successfully !
+
+[2021-11-21 03:20:22]	[done]
+	build successfully !
+
+[2021-11-21 03:21:23]	[done]
+	build successfully !
+
+[2021-11-21 03:25:31]	[done]
+	build successfully !
+

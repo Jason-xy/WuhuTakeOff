@@ -1,0 +1,12 @@
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\timers.c
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Core\Inc\FreeRTOSConfig.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\task.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\list.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h
+.\build\V4_FreeRTOS-F411\timers.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h
