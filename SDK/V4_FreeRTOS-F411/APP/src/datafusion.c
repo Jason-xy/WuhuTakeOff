@@ -1,7 +1,26 @@
+/**
+  ******************************************************************************
+  * 文件名程: datafusion.c
+  * 作    者: Jason_xy
+  * 个人博客：https://jason-xy.cn
+  * 版    本: V1.0.0
+  * 编写日期: 2021-10-01
+  * 功    能: 数据融合、姿态解算
+  ******************************************************************************
+  * 说明：
+  * 1.需要姿态数据接口。
+  * 
+  * 功能：
+  * 1.姿态解算，输出四元数和欧拉角。
+  * 
+  * 更新：
+  * 
+  ******************************************************************************
+  */
 #include "datafusion.h"
 
 //变量声明
-extern GY_86 *GY86;
+extern GY_86 *GY86;         
 Angle_t angle; //姿态解算-角度值
 
 // Fast inverse square-root
@@ -19,8 +38,8 @@ float invSqrt(float x)
 }
 
 //互补滤波数据融合
-float Kp = 4.0f; // 比例常数
-float Ki = 0.005f; // 积分常数
+float Kp = 40.0f; // 比例常数
+float Ki = 0.5f; // 积分常数
 float halfT = 0.005f; //采样周期的一半，实际halfT由定时器求出
 float T = 0.01f; // 采样周期为10ms
 float q0 = 1, q1 = 0, q2 = 0, q3 = 0; // 四元数
@@ -63,7 +82,7 @@ void Quat_Init(void)
 // ==================================================================================
 // 函数原型：void Attitude_Update(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz)
 // 功        能：互补滤波进行姿态解算
-// 输        入：陀螺仪数据及加速度计数据及磁力计数据
+// 输        入：陀螺仪数据及加速度计数据及磁力计数据（RAD, m/s2, RAW）
 // ==================================================================================
 void Attitude_Update(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz)
 {
@@ -153,7 +172,12 @@ void Attitude_Update(float gx, float gy, float gz, float ax, float ay, float az,
     q3 = q3 * norm; //z
 
     //四元数转欧拉角
-    angle.roll = asin(2.0f * (q0 * q2 - q1 * q3)) * RAD_TO_ANGLE;
-    angle.pitch = -atan2(2.0f * (q0 * q1 + q2 * q3), q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3) * RAD_TO_ANGLE;
+	//传感器坐标系
+    // angle.roll = asin(2.0f * (q0 * q2 - q1 * q3)) * RAD_TO_ANGLE;
+    // angle.pitch = -atan2(2.0f * (q0 * q1 + q2 * q3), q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3) * RAD_TO_ANGLE;
+    // angle.yaw = atan2(2.0f * (q0 * q3 + q1 * q2), q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3) * RAD_TO_ANGLE;
+	//实际安装后机体坐标系
+    angle.pitch = asin(2.0f * (q0 * q2 - q1 * q3)) * RAD_TO_ANGLE;
+    angle.roll = -atan2(2.0f * (q0 * q1 + q2 * q3), q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3) * RAD_TO_ANGLE;
     angle.yaw = atan2(2.0f * (q0 * q3 + q1 * q2), q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3) * RAD_TO_ANGLE;
 }

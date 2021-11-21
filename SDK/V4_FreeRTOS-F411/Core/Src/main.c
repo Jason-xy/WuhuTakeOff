@@ -27,7 +27,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "semphr.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +47,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern Angle_t angle;
+extern osMutexId_t GY86MutexHandle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,6 +61,7 @@ void MX_FREERTOS_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void system_init(void);
+
 #define Task_Angel_PRIO			6
 #define Task_Angel_SIZE			512
 TaskHandle_t Task_AngelHandler;
@@ -68,23 +70,46 @@ void Task_AngelFunction(void *argument)
 	while(1)
 	{
 		GY86_RawDataUpdate();
-		Attitude_Update(GY86->Gyro->data->Gyro_ds.x, GY86->Gyro->data->Gyro_ds.y, GY86->Gyro->data->Gyro_ds.z, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z, \
-										GY86->Mag->data->Mag_d.x, GY86->Mag->data->Mag_d.y, GY86->Mag->data->Mag_d.z);
+		xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
+		Attitude_Update(GY86->Gyro->data->Gyro_ds.x * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.y * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.z * ANGLE_TO_RAD, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z, \
+										GY86->Mag->data->Mag_raw.x, GY86->Mag->data->Mag_raw.y, GY86->Mag->data->Mag_raw.z);
+		xSemaphoreGive(GY86MutexHandle);
 		vTaskDelay(10);
 	}
 }
+
 void Task_HightFunction(void *argument)
 {
 	;
 }
+
+#define Task_PID_PRIO			7
+#define Task_PID_SIZE			256
+TaskHandle_t Task_AngelHandler;
 void Task_PIDFunction(void *argument)
 {
 	;
 }
+
+#define Task_ANO_PRIO			10
+#define Task_ANO_SIZE			256
+TaskHandle_t Task_ANOHandler;
 void Task_ANOFunction(void *argument)
 {
-	;
+  int roll, pitch, yaw;
+  while(1)
+  {
+    xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
+    roll = angle.roll * 100;
+    pitch = angle.pitch * 100;
+    yaw = angle.yaw * 100;
+    xSemaphoreGive(GY86MutexHandle);
+
+	  ANO_Angle_Transform(roll, pitch, yaw);
+    vTaskDelay(20);
+  }
 }
+
 void Task_OLEDFunction(void *argument)
 {
 	;
@@ -148,11 +173,19 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   xTaskCreate((TaskFunction_t	) Task_AngelFunction,
-				(char*			) "start_task",
+				(char*			) "Angel_Task",
 				(uint16_t		) Task_Angel_SIZE,
 				(void * 		) NULL,
 				(UBaseType_t	) Task_Angel_PRIO,
 				(TaskHandle_t*	) &Task_AngelHandler);
+
+   xTaskCreate((TaskFunction_t	) Task_ANOFunction,
+				(char*			) "ANO_Task",
+				(uint16_t		) Task_ANO_SIZE,
+				(void * 		) NULL,
+				(UBaseType_t	) Task_ANO_PRIO,
+				(TaskHandle_t*	) &Task_ANOHandler);
+
 	vTaskStartScheduler();
 
   while (1)
@@ -210,20 +243,20 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void system_init(void)
 {
-	//硬件模块初始�?
-  //OLED初始�?
+	//硬件模块初始�?
+  //OLED初始�?
   OLED_Init();  
 	OLED_Clear();
 	
-  // //ESP8266初始�?
-	// esp8266_init(); 
-  // //输出调试信息
-  // OLED_Clear();
-	// OLED_ShowString(8,3,(uint8_t*)"ESP8266_Init OK",16);
-	// esp8266_cipsend("ESP8266_Init OK\r\n");
-	// HAL_Delay(1000);
+  //ESP8266初始�?
+	esp8266_init(); 
+  //输出调试信息
+  OLED_Clear();
+	OLED_ShowString(8,3,(uint8_t*)"ESP8266_Init OK",16);
+	esp8266_cipsend("ESP8266_Init OK\r\n");
+	HAL_Delay(1000);
 	
-  // //电机初始�?
+  // //电机初始�?
 	// Motor_Init(); 
   // //输出调试信息
 	// OLED_Clear();
@@ -253,7 +286,7 @@ void system_init(void)
 	// esp8266_cipsend("Input_Capture_Init OK\r\n");
 	// HAL_Delay(1000);
 	
-	//GY-86初始�?
+	//GY-86初始�??
 	GY86_Init();
 	// mpu_dmp_init();
 	//HAL_TIM_Base_Start_IT(&htim1);

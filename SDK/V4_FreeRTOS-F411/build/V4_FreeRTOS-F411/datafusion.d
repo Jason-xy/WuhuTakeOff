@@ -40,4 +40,6 @@
 .\build\V4_FreeRTOS-F411\datafusion.o: .\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
 .\build\V4_FreeRTOS-F411\datafusion.o: .\Drivers\Hardware\inc\gy-86.h
 .\build\V4_FreeRTOS-F411\datafusion.o: .\APP\inc\datafusion.h
-.\build\V4_FreeRTOS-F411\datafusion.o: .\APP\inc\gauss-newton.h
+.\build\V4_FreeRTOS-F411\datafusion.o: .\APP\inc\ANO.h
+.\build\V4_FreeRTOS-F411\datafusion.o: .\Core\Inc\usart.h
+.\build\V4_FreeRTOS-F411\datafusion.o: .\Core\Inc\main.h

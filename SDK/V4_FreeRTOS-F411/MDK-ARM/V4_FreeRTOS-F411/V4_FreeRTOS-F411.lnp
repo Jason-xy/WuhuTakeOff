@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 "v4_freertos-f411\startup_stm32f411xe.o"
 "v4_freertos-f411\main.o"
 "v4_freertos-f411\gpio.o"
@@ -42,7 +42,8 @@
 "v4_freertos-f411\gy-86.o"
 "v4_freertos-f411\oled.o"
 "v4_freertos-f411\datafusion.o"
---library_type=microlib --strict --scatter "V4_FreeRTOS-F411\V4_FreeRTOS-F411.sct"
+"v4_freertos-f411\ano.o"
+--strict --scatter "V4_FreeRTOS-F411\V4_FreeRTOS-F411.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "V4_FreeRTOS-F411.map" -o V4_FreeRTOS-F411\V4_FreeRTOS-F411.axf

@@ -17,8 +17,8 @@
                 "${workspaceFolder}\\.cmsis\\include",
                 "${workspaceFolder}\\MDK-ARM\\RTE\\_V4_FreeRTOS-F411",
                 "${workspaceFolder}\\.eide\\deps",
-                "${workspaceFolder}\\..\\..\\..\\..\\..\\Keil_v5\\ARM\\ARMCC\\include",
-                "${workspaceFolder}\\..\\..\\..\\..\\..\\Keil_v5\\ARM\\ARMCC\\include\\rw"
+                "${workspaceFolder}\\..\\..\\..\\..\\..\\..\\Keil_v5\\ARM\\ARMCC\\include",
+                "${workspaceFolder}\\..\\..\\..\\..\\..\\..\\Keil_v5\\ARM\\ARMCC\\include\\rw"
             ],
             "defines": [
                 "${default}",
@@ -32,7 +32,7 @@
                 "databaseFilename": "${default}"
             },
             "forcedInclude": [
-                ".\\..\\..\\..\\.vscode\\extensions\\cl.eide-2.14.0\\bin\\include\\internal_headers\\armcc_intr.h"
+                ".\\..\\..\\..\\..\\.vscode\\extensions\\cl.eide-2.14.0\\bin\\include\\internal_headers\\armcc_intr.h"
             ]
         }
     ],

@@ -37,9 +37,9 @@
 .\build\V4_FreeRTOS-F411\main.o: .\Drivers\Hardware\inc\esp8266.h
 .\build\V4_FreeRTOS-F411\main.o: .\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
 .\build\V4_FreeRTOS-F411\main.o: .\Drivers\Hardware\inc\gy-86.h
-.\build\V4_FreeRTOS-F411\main.o: .\APP\inc\gauss-newton.h
-.\build\V4_FreeRTOS-F411\main.o: .\Drivers\Hardware\inc\gy-86.h
 .\build\V4_FreeRTOS-F411\main.o: .\APP\inc\datafusion.h
+.\build\V4_FreeRTOS-F411\main.o: .\APP\inc\ANO.h
+.\build\V4_FreeRTOS-F411\main.o: .\Core\Inc\usart.h
 .\build\V4_FreeRTOS-F411\main.o: .\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h
 .\build\V4_FreeRTOS-F411\main.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h
 .\build\V4_FreeRTOS-F411\main.o: .\Core\Inc\FreeRTOSConfig.h
@@ -52,5 +52,6 @@
 .\build\V4_FreeRTOS-F411\main.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\list.h
 .\build\V4_FreeRTOS-F411\main.o: .\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h
 .\build\V4_FreeRTOS-F411\main.o: .\Core\Inc\tim.h
-.\build\V4_FreeRTOS-F411\main.o: .\Core\Inc\usart.h
 .\build\V4_FreeRTOS-F411\main.o: .\Core\Inc\gpio.h
+.\build\V4_FreeRTOS-F411\main.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h
+.\build\V4_FreeRTOS-F411\main.o: .\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h

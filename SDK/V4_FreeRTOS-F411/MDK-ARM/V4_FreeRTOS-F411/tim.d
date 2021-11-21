@@ -34,3 +34,14 @@ v4_freertos-f411\tim.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex
 v4_freertos-f411\tim.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 v4_freertos-f411\tim.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 v4_freertos-f411\tim.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+v4_freertos-f411\tim.o: ..\Drivers\Hardware\inc\oled.h
+v4_freertos-f411\tim.o: ../Core/Inc/i2c.h
+v4_freertos-f411\tim.o: ../Core/Inc/main.h
+v4_freertos-f411\tim.o: ..\Drivers\Hardware\inc\esp8266.h
+v4_freertos-f411\tim.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h
+v4_freertos-f411\tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+v4_freertos-f411\tim.o: ..\Drivers\Hardware\inc\gy-86.h
+v4_freertos-f411\tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+v4_freertos-f411\tim.o: ..\APP\inc\datafusion.h
+v4_freertos-f411\tim.o: ..\APP\inc\ANO.h
+v4_freertos-f411\tim.o: ../Core/Inc/usart.h

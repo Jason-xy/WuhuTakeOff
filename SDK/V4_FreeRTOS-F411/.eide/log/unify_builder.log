@@ -25,3 +25,155 @@
 [2021-11-21 03:25:31]	[done]
 	build successfully !
 
+[2021-11-21 12:29:55]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 12:30:38]	[done]
+	build successfully !
+
+[2021-11-21 16:42:05]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Core\Src\main.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:42:52]	link failed !, exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x0130d] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:43:22]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:44:26]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:44:43]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:46:54]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:47:31]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:48:00]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:49:37]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:50:38]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:55:32]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\ANO.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 16:55:56]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\ANO.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 17:03:37]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\ANO.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 17:05:43]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\ANO.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 17:05:54]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 17:08:28]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Drivers\Hardware\src\gy-86.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 17:11:49]	[done]
+	build successfully !
+
+[2021-11-21 17:14:21]	[done]
+	build successfully !
+
+[2021-11-21 17:15:58]	[done]
+	build successfully !
+
+[2021-11-21 17:26:01]	[done]
+	build successfully !
+
+[2021-11-21 17:30:57]	[done]
+	build successfully !
+
+[2021-11-21 17:32:06]	[done]
+	build successfully !
+
+[2021-11-21 17:32:50]	[done]
+	build successfully !
+
+[2021-11-21 17:36:52]	[done]
+	build successfully !
+
+[2021-11-21 17:50:21]	[done]
+	build successfully !
+
+[2021-11-21 17:58:02]	[done]
+	build successfully !
+
+[2021-11-21 18:00:17]	[done]
+	build successfully !
+
+[2021-11-21 18:06:21]	[done]
+	build successfully !
+
+[2021-11-21 19:07:24]	[done]
+	build successfully !
+
+[2021-11-21 19:36:56]	[done]
+	build successfully !
+
+[2021-11-21 20:53:36]	[done]
+	build successfully !
+
+[2021-11-21 21:02:27]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Core\Src\main.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:03:25]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:04:19]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:05:14]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Core\Src\main.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:07:06]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Core\Src\freertos.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:09:46]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Core\Src\freertos.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:10:23]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Core\Src\stm32f4xx_hal_msp.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:11:37]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Core\Src\stm32f4xx_hal_msp.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:12:01]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:12:53]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:13:20]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\datafusion.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-21 21:59:07]	[done]
+	build successfully !
+
+[2021-11-21 23:02:07]	[done]
+	build successfully !
+

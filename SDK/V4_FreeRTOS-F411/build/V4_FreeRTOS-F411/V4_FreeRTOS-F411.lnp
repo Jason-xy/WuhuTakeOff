@@ -1,5 +1,6 @@
---cpu Cortex-M4.fp --library_type=microlib --scatter "c:/Users/Jason/Desktop/eIDE/V4_FreeRTOS-F411/build/V4_FreeRTOS-F411/V4_FreeRTOS-F411.sct" --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols --info sizes --info totals --info unused --info veneers
+--cpu Cortex-M4.fp --library_type=microlib --scatter "c:/Users/Jason/Desktop/WuhuTakeOff/SDK/V4_FreeRTOS-F411/build/V4_FreeRTOS-F411/V4_FreeRTOS-F411.sct" --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols --info sizes --info totals --info unused --info veneers
 --list .\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.map
+.\build\V4_FreeRTOS-F411\ANO.o
 .\build\V4_FreeRTOS-F411\datafusion.o
 .\build\V4_FreeRTOS-F411\freertos.o
 .\build\V4_FreeRTOS-F411\gpio.o

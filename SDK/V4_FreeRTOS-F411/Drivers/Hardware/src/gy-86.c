@@ -182,8 +182,8 @@ uint8_t READ_HMCALL(MagData *data)
 	if(res == 0)
 	{
 		data->Mag_raw.x = (short)(((int16_t)buf[0] << 8) | buf[1]);  
-		data->Mag_raw.y = (short)(((int16_t)buf[2] << 8) | buf[3]);  
-		data->Mag_raw.z = (short)(((int16_t)buf[4] << 8) | buf[5]);
+		data->Mag_raw.y = (short)(((int16_t)buf[4] << 8) | buf[5]);  
+		data->Mag_raw.z = (short)(((int16_t)buf[2] << 8) | buf[3]);
 		// 读取的原数据为补码形式，这里完成转换
 		if (data->Mag_raw.x > 0x7fff)
 			data->Mag_raw.x -= 0xffff;

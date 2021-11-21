@@ -38,7 +38,8 @@
 .\build\V4_FreeRTOS-F411\oled.o: .\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
 .\build\V4_FreeRTOS-F411\oled.o: .\Drivers\Hardware\inc\gy-86.h
 .\build\V4_FreeRTOS-F411\oled.o: .\Core\Inc\i2c.h
-.\build\V4_FreeRTOS-F411\oled.o: .\APP\inc\gauss-newton.h
-.\build\V4_FreeRTOS-F411\oled.o: .\Drivers\Hardware\inc\gy-86.h
 .\build\V4_FreeRTOS-F411\oled.o: .\APP\inc\datafusion.h
+.\build\V4_FreeRTOS-F411\oled.o: .\APP\inc\ANO.h
+.\build\V4_FreeRTOS-F411\oled.o: .\Core\Inc\usart.h
+.\build\V4_FreeRTOS-F411\oled.o: .\Core\Inc\main.h
 .\build\V4_FreeRTOS-F411\oled.o: .\Drivers\Hardware\inc\oledfont.h

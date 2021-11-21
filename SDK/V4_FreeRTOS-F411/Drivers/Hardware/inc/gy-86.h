@@ -54,7 +54,6 @@
 #include "stm32f4xx_hal.h"
 #include "i2c.h"
 #include "math.h"
-#include "gauss-newton.h"
 
 #define MPU_I2C     (hi2c2)                   //i2c¾ä±ú
 

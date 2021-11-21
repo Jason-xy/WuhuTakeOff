@@ -36,6 +36,7 @@ extern "C" {
 #include "esp8266.h"
 #include "gy-86.h"
 #include "datafusion.h"
+#include "ANO.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -67,7 +68,12 @@ void Task_ExtSensorFunction(void *argument);
 
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
-
+#define u8 uint8_t
+#define u16 uint16_t
+#define u32 uint32_t
+#define s8 int8_t
+#define s16 int16_t
+#define s32 int32_t
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

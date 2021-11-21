@@ -29,6 +29,7 @@ INCLUDE_FOLDERS += .eide/deps
 # library search folders
 
 # c source files
+C_SOURCES += APP/src/ANO.c
 C_SOURCES += APP/src/datafusion.c
 C_SOURCES += Core/Src/freertos.c
 C_SOURCES += Core/Src/gpio.c

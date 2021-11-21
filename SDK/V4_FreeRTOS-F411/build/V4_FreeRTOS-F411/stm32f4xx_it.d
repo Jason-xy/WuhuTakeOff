@@ -37,7 +37,7 @@
 .\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\Drivers\Hardware\inc\esp8266.h
 .\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
 .\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\Drivers\Hardware\inc\gy-86.h
-.\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\APP\inc\gauss-newton.h
-.\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\Drivers\Hardware\inc\gy-86.h
 .\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\APP\inc\datafusion.h
+.\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\APP\inc\ANO.h
+.\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\Core\Inc\usart.h
 .\build\V4_FreeRTOS-F411\stm32f4xx_it.o: .\Core\Inc\stm32f4xx_it.h

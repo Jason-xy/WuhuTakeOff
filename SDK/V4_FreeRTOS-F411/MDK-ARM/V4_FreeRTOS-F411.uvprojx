@@ -14,7 +14,7 @@
             
       <ToolsetName>ARM-ADS</ToolsetName>
             
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::ARMCC</pCCUsed>
             
       <uAC6>0</uAC6>
             
@@ -26,9 +26,9 @@
                     
           <Vendor>STMicroelectronics</Vendor>
                     
-          <PackID>Keil.STM32F4xx_DFP.2.15.0</PackID>
+          <PackID>Keil.STM32F4xx_DFP.2.13.0</PackID>
                     
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackURL>http://www.keil.com/pack</PackURL>
                     
           <Cpu>IRAM(0x20000000-0x2001FFFF) IROM(0x8000000-0x807FFFF) CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
                     
@@ -364,6 +364,8 @@
                         
             <RvdsMve>0</RvdsMve>
                         
+            <RvdsCdeCp>0</RvdsCdeCp>
+                        
             <hadIRAM2>0</hadIRAM2>
                         
             <hadIROM2>0</hadIROM2>
@@ -670,7 +672,7 @@
                             
               <Undefine/>
                             
-              <IncludePath>../Core/Inc; ../Drivers/STM32F4xx_HAL_Driver/Inc; ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy; ../Middlewares/Third_Party/FreeRTOS/Source/include; ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2; ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F; ../Drivers/CMSIS/Device/ST/STM32F4xx/Include; ../Drivers/CMSIS/Include; ..\Drivers\Hardware\inc; ..\APP\inc</IncludePath>
+              <IncludePath>../Core/Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;  ../Middlewares/Third_Party/FreeRTOS/Source/include;  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;  ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;  ../Drivers/CMSIS/Include;  ..\Drivers\Hardware\inc;  ..\APP\inc</IncludePath>
                           
             </VariousControls>
                       
@@ -696,7 +698,7 @@
                         
             <useXO>0</useXO>
                         
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
                         
             <VariousControls>
                             
@@ -1039,6 +1041,16 @@
               <FileType>1</FileType>
                             
               <FilePath>..\APP\src\datafusion.c</FilePath>
+                          
+            </File>
+                        
+            <File>
+                            
+              <FileName>ANO.c</FileName>
+                            
+              <FileType>1</FileType>
+                            
+              <FilePath>..\APP\src\ANO.c</FilePath>
                           
             </File>
                       

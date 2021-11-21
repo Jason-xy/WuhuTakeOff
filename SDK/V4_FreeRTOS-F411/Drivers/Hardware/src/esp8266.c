@@ -47,13 +47,13 @@ void esp8266_ap_cipsend_init(void)
 //    esp8266_cmd("AT+CIPSERVER=1,8080\r\n"); //TCP_Server启动
 //    HAL_Delay(500);
 	
-		//esp8266_cmd("AT+RST\r\n");  //复位模块
-		esp8266_cmd("hello world!\r\n");
+		esp8266_cmd("AT+RST\r\n");  //复位模块
+		//esp8266_cmd("hello world!\r\n");
 		HAL_Delay(5000);
     esp8266_cmd("AT+CWMODE=1\r\n"); //设置为AP模式
     HAL_Delay(500);
-    //esp8266_cmd("AT+CWJAP=\"WuhuTakeOff\",\"uestc404\"\r\n");   //WiFi基本设置
-    //HAL_Delay(15000);
+    esp8266_cmd("AT+CWJAP=\"WuhuTakeOff\",\"uestc404\"\r\n");   //WiFi基本设置
+    HAL_Delay(10000);
     esp8266_cmd("AT+CIPMUX=0\r\n");   //单链路设置
     HAL_Delay(500);
     esp8266_cmd("AT+CIPSTART=\"TCP\",\"192.168.4.1\",8080\r\n"); //TCP服务器
