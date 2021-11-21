@@ -177,3 +177,21 @@
 [2021-11-21 23:02:07]	[done]
 	build successfully !
 
+[2021-11-22 00:17:17]	[done]
+	build successfully !
+
+[2021-11-22 00:21:12]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Drivers\Hardware\src\controller.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-22 00:21:42]	[done]
+	build successfully !
+
+[2021-11-22 00:22:36]	[done]
+	build successfully !
+
+[2021-11-22 00:40:07]	[done]
+	build successfully !
+
+[2021-11-22 00:41:33]	[done]
+	build successfully !
+

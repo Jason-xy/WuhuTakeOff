@@ -12,8 +12,10 @@
 .\build\V4_FreeRTOS-F411\system_stm32f4xx.o
 .\build\V4_FreeRTOS-F411\tim.o
 .\build\V4_FreeRTOS-F411\usart.o
+.\build\V4_FreeRTOS-F411\controller.o
 .\build\V4_FreeRTOS-F411\esp8266.o
 .\build\V4_FreeRTOS-F411\gy-86.o
+.\build\V4_FreeRTOS-F411\motor.o
 .\build\V4_FreeRTOS-F411\oled.o
 .\build\V4_FreeRTOS-F411\stm32f4xx_hal.o
 .\build\V4_FreeRTOS-F411\stm32f4xx_hal_cortex.o
