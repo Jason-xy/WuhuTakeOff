@@ -45,3 +45,6 @@ v4_freertos-f411\usart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 v4_freertos-f411\usart.o: ..\APP\inc\datafusion.h
 v4_freertos-f411\usart.o: ..\APP\inc\ANO.h
 v4_freertos-f411\usart.o: ../Core/Inc/usart.h
+v4_freertos-f411\usart.o: ..\Drivers\Hardware\inc\controller.h
+v4_freertos-f411\usart.o: ../Core/Inc/tim.h
+v4_freertos-f411\usart.o: ..\Drivers\Hardware\inc\motor.h

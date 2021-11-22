@@ -45,3 +45,6 @@ v4_freertos-f411\gpio.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 v4_freertos-f411\gpio.o: ..\APP\inc\datafusion.h
 v4_freertos-f411\gpio.o: ..\APP\inc\ANO.h
 v4_freertos-f411\gpio.o: ../Core/Inc/usart.h
+v4_freertos-f411\gpio.o: ..\Drivers\Hardware\inc\controller.h
+v4_freertos-f411\gpio.o: ../Core/Inc/tim.h
+v4_freertos-f411\gpio.o: ..\Drivers\Hardware\inc\motor.h

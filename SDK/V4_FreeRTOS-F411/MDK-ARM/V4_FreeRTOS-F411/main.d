@@ -44,6 +44,9 @@ v4_freertos-f411\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 v4_freertos-f411\main.o: ..\APP\inc\datafusion.h
 v4_freertos-f411\main.o: ..\APP\inc\ANO.h
 v4_freertos-f411\main.o: ../Core/Inc/usart.h
+v4_freertos-f411\main.o: ..\Drivers\Hardware\inc\controller.h
+v4_freertos-f411\main.o: ../Core/Inc/tim.h
+v4_freertos-f411\main.o: ..\Drivers\Hardware\inc\motor.h
 v4_freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 v4_freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 v4_freertos-f411\main.o: ../Core/Inc/FreeRTOSConfig.h
@@ -55,7 +58,6 @@ v4_freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_
 v4_freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 v4_freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 v4_freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-v4_freertos-f411\main.o: ../Core/Inc/tim.h
 v4_freertos-f411\main.o: ../Core/Inc/gpio.h
 v4_freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 v4_freertos-f411\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h

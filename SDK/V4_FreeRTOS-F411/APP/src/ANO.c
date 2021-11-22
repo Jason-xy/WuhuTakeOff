@@ -63,4 +63,8 @@ void ANO_Angle_Transform(int roll, int pitch, int yaw){
     HAL_UART_Transmit(&huart1, send_buffer, _cnt, 0xfff);
 }
 
+void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6)
+{
+  
+}
 //DataToRecive

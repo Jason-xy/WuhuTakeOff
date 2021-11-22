@@ -44,3 +44,6 @@ v4_freertos-f411\stm32f4xx_hal_msp.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 v4_freertos-f411\stm32f4xx_hal_msp.o: ..\APP\inc\datafusion.h
 v4_freertos-f411\stm32f4xx_hal_msp.o: ..\APP\inc\ANO.h
 v4_freertos-f411\stm32f4xx_hal_msp.o: ../Core/Inc/usart.h
+v4_freertos-f411\stm32f4xx_hal_msp.o: ..\Drivers\Hardware\inc\controller.h
+v4_freertos-f411\stm32f4xx_hal_msp.o: ../Core/Inc/tim.h
+v4_freertos-f411\stm32f4xx_hal_msp.o: ..\Drivers\Hardware\inc\motor.h

@@ -49,5 +49,8 @@
 .\build\V4_FreeRTOS-F411\freertos.o: .\APP\inc\datafusion.h
 .\build\V4_FreeRTOS-F411\freertos.o: .\APP\inc\ANO.h
 .\build\V4_FreeRTOS-F411\freertos.o: .\Core\Inc\usart.h
+.\build\V4_FreeRTOS-F411\freertos.o: .\Drivers\Hardware\inc\controller.h
+.\build\V4_FreeRTOS-F411\freertos.o: .\Core\Inc\tim.h
+.\build\V4_FreeRTOS-F411\freertos.o: .\Drivers\Hardware\inc\motor.h
 .\build\V4_FreeRTOS-F411\freertos.o: .\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h
 .\build\V4_FreeRTOS-F411\freertos.o: .\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h

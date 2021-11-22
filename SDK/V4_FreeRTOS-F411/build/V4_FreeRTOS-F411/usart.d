@@ -41,3 +41,6 @@
 .\build\V4_FreeRTOS-F411\usart.o: .\APP\inc\datafusion.h
 .\build\V4_FreeRTOS-F411\usart.o: .\APP\inc\ANO.h
 .\build\V4_FreeRTOS-F411\usart.o: .\Core\Inc\usart.h
+.\build\V4_FreeRTOS-F411\usart.o: .\Drivers\Hardware\inc\controller.h
+.\build\V4_FreeRTOS-F411\usart.o: .\Core\Inc\tim.h
+.\build\V4_FreeRTOS-F411\usart.o: .\Drivers\Hardware\inc\motor.h

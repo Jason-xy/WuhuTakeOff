@@ -48,7 +48,9 @@
 
 /* USER CODE BEGIN PV */
 extern Angle_t angle;
-extern osMutexId_t GY86MutexHandle;
+extern osMutexId_t GY86MutexHandle;       
+unsigned int Cap[6];  //接收机各通道实时行程 0~100%
+extern float Duty[6]; //接收机各通道PWM占空比	<controller.c>
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -191,7 +193,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+		for(int i = 0; i < 6; i++)
+		{
+			Cap[i] =  (Duty[i] * 100 - 5) / 0.05;
+		}
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -243,12 +248,12 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void system_init(void)
 {
-	//硬件模块初始�?
-  //OLED初始�?
+	//硬件模块
+  //OLED
   OLED_Init();  
 	OLED_Clear();
 	
-  //ESP8266初始�?
+  //ESP8266
 	esp8266_init(); 
   //输出调试信息
   OLED_Clear();
@@ -256,7 +261,7 @@ void system_init(void)
 	esp8266_cipsend("ESP8266_Init OK\r\n");
 	HAL_Delay(1000);
 	
-  // //电机初始�?
+  // //电机
 	// Motor_Init(); 
   // //输出调试信息
 	// OLED_Clear();
@@ -277,23 +282,21 @@ void system_init(void)
 	// OLED_ShowString(6,3,(uint8_t*)"Motor_Unlock OK",16);
 	// esp8266_cipsend("Motor_Unlock OK\r\n");
 	// HAL_Delay(1000);
-
-  // //接收机初始化
-	// Input_Capture_Init();
-	// //输出调试信息
-	// OLED_Clear();
-	// OLED_ShowString(0,3,(uint8_t*)"Input_Capture_Init",16);
-	// esp8266_cipsend("Input_Capture_Init OK\r\n");
-	// HAL_Delay(1000);
 	
 	//GY-86初始�??
 	GY86_Init();
-	// mpu_dmp_init();
-	//HAL_TIM_Base_Start_IT(&htim1);
   //输出调试信息
 	OLED_Clear();
 	OLED_ShowString(12,3,(uint8_t*)"GY86_Init OK",16);
 	esp8266_cipsend("GY86_Init OK\r\n");
+	HAL_Delay(1000);
+
+  //接收机初始化
+	Input_Capture_Init();
+	//输出调试信息
+	OLED_Clear();
+	OLED_ShowString(0,3,(uint8_t*)"Input_Capture_Init",16);
+	esp8266_cipsend("Input_Capture_Init OK\r\n");
 	HAL_Delay(1000);
 	
   //OLED图形界面绘制

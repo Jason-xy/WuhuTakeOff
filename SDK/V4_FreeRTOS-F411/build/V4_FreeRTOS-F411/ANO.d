@@ -41,3 +41,6 @@
 .\build\V4_FreeRTOS-F411\ANO.o: .\Drivers\Hardware\inc\gy-86.h
 .\build\V4_FreeRTOS-F411\ANO.o: .\APP\inc\datafusion.h
 .\build\V4_FreeRTOS-F411\ANO.o: .\APP\inc\ANO.h
+.\build\V4_FreeRTOS-F411\ANO.o: .\Drivers\Hardware\inc\controller.h
+.\build\V4_FreeRTOS-F411\ANO.o: .\Core\Inc\tim.h
+.\build\V4_FreeRTOS-F411\ANO.o: .\Drivers\Hardware\inc\motor.h

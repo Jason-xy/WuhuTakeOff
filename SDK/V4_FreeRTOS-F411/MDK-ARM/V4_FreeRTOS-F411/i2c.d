@@ -45,3 +45,6 @@ v4_freertos-f411\i2c.o: ..\APP\inc\datafusion.h
 v4_freertos-f411\i2c.o: ..\APP\inc\ANO.h
 v4_freertos-f411\i2c.o: ../Core/Inc/usart.h
 v4_freertos-f411\i2c.o: ../Core/Inc/main.h
+v4_freertos-f411\i2c.o: ..\Drivers\Hardware\inc\controller.h
+v4_freertos-f411\i2c.o: ../Core/Inc/tim.h
+v4_freertos-f411\i2c.o: ..\Drivers\Hardware\inc\motor.h

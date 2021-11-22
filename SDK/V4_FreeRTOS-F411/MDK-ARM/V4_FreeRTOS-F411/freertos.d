@@ -53,5 +53,8 @@ v4_freertos-f411\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 v4_freertos-f411\freertos.o: ..\APP\inc\datafusion.h
 v4_freertos-f411\freertos.o: ..\APP\inc\ANO.h
 v4_freertos-f411\freertos.o: ../Core/Inc/usart.h
+v4_freertos-f411\freertos.o: ..\Drivers\Hardware\inc\controller.h
+v4_freertos-f411\freertos.o: ../Core/Inc/tim.h
+v4_freertos-f411\freertos.o: ..\Drivers\Hardware\inc\motor.h
 v4_freertos-f411\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 v4_freertos-f411\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h

@@ -37,6 +37,8 @@ extern "C" {
 #include "gy-86.h"
 #include "datafusion.h"
 #include "ANO.h"
+#include "controller.h"
+#include "motor.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
