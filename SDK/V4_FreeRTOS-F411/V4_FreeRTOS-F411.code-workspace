@@ -8,7 +8,10 @@
         "files.associations": {
             ".eideignore": "ignore",
             "cmsis_os.h": "c",
-            "main.h": "c"
+            "main.h": "c",
+            "string": "c",
+            "xstring": "c",
+            "xutility": "c"
         },
         "C_Cpp.default.intelliSenseMode": "gcc-arm",
         "files.autoGuessEncoding": true,

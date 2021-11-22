@@ -204,3 +204,25 @@
 [2021-11-22 18:51:42]	[done]
 	build successfully !
 
+[2021-11-22 19:37:12]	[done]
+	build successfully !
+
+[2021-11-22 19:41:56]	[done]
+	build successfully !
+
+[2021-11-22 19:43:31]	[done]
+	build successfully !
+
+[2021-11-22 21:50:55]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\APP\src\ANO.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-22 21:51:45]	[done]
+	build successfully !
+
+[2021-11-22 21:52:37]	compilation failed at : "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Core\Src\main.c", exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x01190] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-22 21:53:57]	[done]
+	build successfully !
+

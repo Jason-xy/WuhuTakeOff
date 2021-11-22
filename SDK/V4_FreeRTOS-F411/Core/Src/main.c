@@ -50,7 +50,8 @@
 extern Angle_t angle;
 extern osMutexId_t GY86MutexHandle;       
 unsigned int Cap[6];  //接收机各通道实时行程 0~100%
-extern float Duty[6]; //接收机各通道PWM占空比	<controller.c>
+extern float Duty[6]; //接收机各通道PWM占空比
+extern uint8_t *UART1_temp;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -106,8 +107,10 @@ void Task_ANOFunction(void *argument)
     pitch = angle.pitch * 100;
     yaw = angle.yaw * 100;
     xSemaphoreGive(GY86MutexHandle);
-
+    //datafusion
 	  ANO_Angle_Transform(roll, pitch, yaw);
+    //RC
+    ANO_RC_Transform(Cap[0], Cap[1], Cap[2], Cap[3], Cap[4], Cap[6]);
     vTaskDelay(20);
   }
 }
@@ -193,10 +196,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-		for(int i = 0; i < 6; i++)
-		{
-			Cap[i] =  (Duty[i] * 100 - 5) / 0.05;
-		}
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -222,8 +222,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 12;
-  RCC_OscInitStruct.PLL.PLLN = 96;
+  RCC_OscInitStruct.PLL.PLLM = 6;
+  RCC_OscInitStruct.PLL.PLLN = 100;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -254,6 +254,7 @@ void system_init(void)
 	OLED_Clear();
 	
   //ESP8266
+  HAL_UART_Receive_IT(&huart1,(uint8_t *)UART1_temp, 1);
 	esp8266_init(); 
   //输出调试信息
   OLED_Clear();
@@ -283,7 +284,7 @@ void system_init(void)
 	// esp8266_cipsend("Motor_Unlock OK\r\n");
 	// HAL_Delay(1000);
 	
-	//GY-86初始�??
+	//GY-86初始�???
 	GY86_Init();
   //输出调试信息
 	OLED_Clear();

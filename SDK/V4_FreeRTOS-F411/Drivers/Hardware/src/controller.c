@@ -37,8 +37,8 @@ volatile uint32_t CapVal[6] = {0}; //第一次下降沿计数值
 volatile uint8_t Flag[6] = {0};    //捕获状态
 
 const float Cycle = 20000; //PWM波周期 20000us
-const float MaxVal = 960;
-const float MinVal = 460;
+const float MaxVal = 2000;
+const float MinVal = 1000;
 float Duty[6] = {0};       //捕获所得占空比
 int i = 0;                 //临时计数器
 int cap = 0;               //正在进行捕获的通道识别

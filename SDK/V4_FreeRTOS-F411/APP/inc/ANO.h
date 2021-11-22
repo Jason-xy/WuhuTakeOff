@@ -29,8 +29,13 @@
 #define BYTE1(dwTemp)       ( *( (char *)(&dwTemp) + 1) )
 #define BYTE2(dwTemp)       ( *( (char *)(&dwTemp) + 2) )
 #define BYTE3(dwTemp)       ( *( (char *)(&dwTemp) + 3) )
+#define UART1_Rx_MAX 100
+#define REC_LENGTH 1
+#define HW_ALL 0xFF
+#define HW_TYPE 0x61
 	
 void ANO_Angle_Transform(int roll, int pitch, int yaw);
 void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6);
+void Ano_DataAnl(uint8_t *data, int length);
 
 #endif // __ANO_H__
