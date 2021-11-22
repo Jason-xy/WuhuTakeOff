@@ -97,6 +97,10 @@ void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6
   send_buffer[_cnt++] = BYTE0(ch_6);
   send_buffer[_cnt++] = BYTE1(ch_6);
 
+  //ch7
+  send_buffer[_cnt++] = BYTE0(ch_6);
+  send_buffer[_cnt++] = BYTE1(ch_6);
+
   //data check
   uint8_t check_sum1 = 0, check_sum2 = 0;
   for (uint8_t i = 0; i < _cnt; i++)
