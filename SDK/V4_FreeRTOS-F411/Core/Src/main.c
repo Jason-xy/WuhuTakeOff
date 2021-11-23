@@ -49,7 +49,6 @@
 /* USER CODE BEGIN PV */
 extern Angle_t angle;
 extern osMutexId_t GY86MutexHandle;       
-unsigned int Cap[6];  //接收机各通道实时行程 0~100%
 extern float Duty[6]; //接收机各通道PWM占空比
 extern uint8_t *UART1_temp;
 /* USER CODE END PV */
@@ -110,7 +109,7 @@ void Task_ANOFunction(void *argument)
     //datafusion
 	  ANO_Angle_Transform(roll, pitch, yaw);
     //RC
-    ANO_RC_Transform(Cap[0], Cap[1], Cap[2], Cap[3], Cap[4], Cap[6]);
+    ANO_RC_Transform(Duty[0], Duty[1], Duty[2], Duty[3], Duty[4], Duty[6]);
     vTaskDelay(20);
   }
 }

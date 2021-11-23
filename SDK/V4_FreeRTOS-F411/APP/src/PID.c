@@ -20,294 +20,285 @@
 
 #include "PID.h"
 
-PID_TYPE Roll_w_PID = {0}, Pitch_w_PID = {0}, Yaw_w_PID = {0};
-PID_TYPE Roll_PID = {0}, Pitch_PID = {0}, Yaw_PID = {0};
+extern PID_t rollCore, rollShell, pitchCore, pitchShell, yawCore, thrShell; //六个环的pid结构体
+extern float pidT; //采样周期
+extern float expRoll, expPitch, expYaw, expMode, expHeight; //期望值
+extern float motor1, motor2, motor3, motor4; //四个电机速度
+extern float Duty[6]; //遥控器推杆百分比
+extern FlyMode_t flyMode; //飞行模式
+//extern Float_t fGyro; //角速度数据（rad）
+extern GY_86 GY86;
+extern Angle_t angle; //姿态解算-角度值
+extern float height, velocity; //高度（cm）,速度(cm/s)
+extern float pidRoll, pidPitch, pidYaw, pidThr; //pid输出
 
-extern volatile uint16_t Base_CCR; // 遥控器提供的基准油门
-extern uint16_t Fly_Thre_CCR; // 无人机起飞的最低油门
-extern uint16_t Margin_CCR; // 做姿态需要的油门余量, 防止掉下来
+float rollShellKp = 4.4f; //外环Kp
+float rollCoreKp = 2.6f; //内环Kp
+float rollCoreTi = 0.5f; //内环Ti
+float rollCoreTd = 0.08f; //内环Td
 
-void Gesture_PID_Init(void){
-    Gain_Type K_pid[3];
+float pitchShellKp = 4.4f;
+float pitchCoreKp = 2.6f;
+float pitchCoreTi = 0.5f;
+float pitchCoreTd = 0.08f;
 
-    PID_Init(&Roll_w_PID);
-    // 注册PID类型函数
-    Roll_w_PID.Calculate_Output_Handler = Calculate_Position_PID_Output;
-    // 注册更新反馈值函数
-    Roll_w_PID.Update_Feedback_Handler = Update_Roll_w_Feedback;
-    // 注册更新目标函数
-    Roll_w_PID.Update_Target_Handler = Update_Roll_w_Target;
-    // 注册增益设置函数
-    Roll_w_PID.Set_PID_Arg_Handler = Set_PID_Arg;
-    // 设置误差限幅
-    Roll_w_PID.Err_Max = ;
-    // 设置输出限幅 
-    Roll_w_PID.Output_Max = ;
-    // 设置积分限幅 
-    Roll_w_PID.Accu_Err_Max = ;
-    // 设置增益Kp, Ki, Kd
-    K_pid[0] = ; K_pid[1] = ; K_pid[2] = ;
-    Roll_w_PID.Set_PID_Arg_Handler(&Roll_w_PID, K_pid);
+float yawCoreKp = 2.6f;
+float yawCoreTd = 0.08f;
 
-    PID_Init(&Pitch_w_PID);
-    // 注册PID类型函数
-    Pitch_w_PID.Calculate_Output_Handler = Calculate_Position_PID_Output;
-    // 注册更新反馈值函数
-    Pitch_w_PID.Update_Feedback_Handler = Update_Pitch_w_Feedback;
-    // 注册更新目标函数
-    Pitch_w_PID.Update_Target_Handler = Update_Pitch_w_Target;
-    // 注册增益设置函数
-    Pitch_w_PID.Set_PID_Arg_Handler = Set_PID_Arg;
-    // 设置误差限幅
-    Pitch_w_PID.Err_Max = ;
-    // 设置输出限幅 
-    Pitch_w_PID.Output_Max = ;
-    // 设置积分限幅
-    Pitch_w_PID.Accu_Err_Max = ;
-    // 设置增益Kp, Ki, Kd
-    K_pid[0] = ; K_pid[1] = ; K_pid[2] = ;
-    Pitch_w_PID.Set_PID_Arg_Handler(&Pitch_w_PID, K_pid);
+float thrShellKp = 1.0f;
+float thrShellTd = 0.0f;
 
-    PID_Init(&Yaw_w_PID);
-    // 注册PID类型函数
-    Yaw_w_PID.Calculate_Output_Handler = Calculate_Position_PID_Output;
-    // 注册更新反馈值函数
-    Yaw_w_PID.Update_Feedback_Handler = Update_Yaw_w_Feedback;
-    // 注册更新目标函数
-    Yaw_w_PID.Update_Target_Handler = Update_Yaw_w_Target;
-    // 注册增益设置函数
-    Yaw_w_PID.Set_PID_Arg_Handler = Set_PID_Arg;
-    // 设置误差限幅
-    Yaw_w_PID.Err_Max = ;
-    // 设置输出限幅 
-    Yaw_w_PID.Output_Max = ;
-    // 设置积分限幅
-    Yaw_w_PID.Accu_Err_Max = ;
-    // 设置增益Kp, Ki, Kd
-    K_pid[0] = ; K_pid[1] = ; K_pid[2] = ;
-    Yaw_w_PID.Set_PID_Arg_Handler(&Yaw_w_PID, K_pid);
+/******************************************************************************
+函数原型：	void PID_Init(void)
+功    能：	PID初始化
+*******************************************************************************/
+void PID_Init(void)
+{
+    //roll
+    rollShell.Kp = rollShellKp;
+    rollCore.Kp = rollCoreKp;
+    rollCore.Ti = rollCoreTi;
+    rollCore.Td = rollCoreTd;
 
-    PID_Init(&Roll_PID);
-    // 注册PID类型函数
-    Roll_PID.Calculate_Output_Handler = Calculate_Position_PID_Output;
-    // 注册更新反馈值函数
-    Roll_PID.Update_Feedback_Handler = Update_Roll_Feedback;
-    // 注册更新目标函数
-    Roll_PID.Update_Target_Handler = Update_Roll_Target;
-    // 注册增益设置函数
-    Roll_PID.Set_PID_Arg_Handler = Set_PID_Arg;
-    // 设置误差限幅
-    Roll_PID.Err_Max = ;
-    // 设置输出限幅  
-    Roll_PID.Output_Max = ;
-    // 设置积分限幅
-    Roll_PID.Accu_Err_Max = ;
-    // 设置增益Kp, Ki, Kd
-    K_pid[0] = ; K_pid[1] = ; K_pid[2] = ;
-    Roll_PID.Set_PID_Arg_Handler(&Roll_PID, K_pid);
+    //pitch
+    pitchShell.Kp = pitchShellKp;
+    pitchCore.Kp = pitchCoreKp;
+    pitchCore.Ti = pitchCoreTi;
+    pitchCore.Td = pitchCoreTd;
 
-    PID_Init(&Pitch_PID);
-    // 注册PID类型函数
-    Pitch_PID.Calculate_Output_Handler = Calculate_Position_PID_Output;
-    // 注册更新反馈值函数
-    Pitch_PID.Update_Feedback_Handler = Update_Pitch_Feedback;
-    // 注册更新目标函数
-    Pitch_PID.Update_Target_Handler = Update_Pitch_Target;
-    // 注册增益设置函数
-    Pitch_PID.Set_PID_Arg_Handler = Set_PID_Arg;
-    // 设置误差限幅
-    Pitch_PID.Err_Max = ;
-    // 设置输出限幅
-    Pitch_PID.Output_Max = ;
-    // 设置积分限幅
-    Pitch_PID.Accu_Err_Max = ;
-    // 设置增益Kp, Ki, Kd
-    K_pid[0] = ; K_pid[1] = ; K_pid[2] = ;
-    Pitch_PID.Set_PID_Arg_Handler(&Pitch_PID, K_pid);
+    //yaw
+    yawCore.Kp = yawCoreKp;
+    yawCore.Td = yawCoreTd;
 
-    PID_Init(&Yaw_PID);
-    // 注册PID类型函数
-    Yaw_PID.Calculate_Output_Handler = Calculate_Position_PID_Output;
-    // 注册更新反馈值函数
-    Yaw_PID.Update_Feedback_Handler = Update_Yaw_Feedback;
-    // 注册更新目标函数
-    Yaw_PID.Update_Target_Handler = Update_Yaw_Target;
-    // 注册增益设置函数
-    Yaw_PID.Set_PID_Arg_Handler = Set_PID_Arg;
-    // 设置误差限幅
-    Yaw_PID.Err_Max = ;
-    // 设置输出限幅
-    Yaw_PID.Output_Max = ;
-    // 设置积分限幅
-    Yaw_PID.Accu_Err_Max = ;
-    // 设置增益Kp, Ki, Kd
-    K_pid[0] = ; K_pid[1] = ; K_pid[2] = ;
-    Yaw_PID.Set_PID_Arg_Handler(&Yaw_PID, K_pid);
+    //thr
+    thrShell.Kp = thrShellKp;
+    thrShell.Td = thrShellTd;
 
+    //flyMode
+    flyMode = STOP;
+
+    //expHeight
+    expHeight = 0;
 }
 
-// 内环PID目标值来自外环输出, 单环调试时来自上位机
-void Update_Roll_w_Target(p_PID_TYPE PID){
-    PID->Target = Roll_PID.Output;
-}
+/******************************************************************************
+函数原型：	float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
+功    能：	PID计算
+输    入：  shellErr，角度偏差
+            coreStatus，对应轴角速度
+            shell,外环
+            core，内环
+返    回：  内环输出
+*******************************************************************************/
+float PID_Calc(float shellErr, float coreStatus, PID_t* shell, PID_t* core)
+{
+    //TODO:0是否可以当空指针
+    float shellKd, coreKi, coreKd;
 
-void Update_Pitch_w_Target(p_PID_TYPE PID){
-    PID->Target = Pitch_PID.Output;
-}
+    //ROLL,PITCH--串级PID
+    if (shell && core) {
+        coreKi = pidT / core->Ti;
+        coreKd = core->Td / pidT;
 
-void Update_Yaw_w_Target(p_PID_TYPE PID){
-    PID->Target = Yaw_PID.Output;
-}
+        shell->eK = shellErr;
+        shell->output = shell->Kp * shell->eK;
+        shell->eK_1 = shell->eK;
 
-// Roll_T, Pitch_T, Yaw_T是外环目标值, 来自遥控器
-void Update_Roll_Target(p_PID_TYPE PID){
-    PID->Target = Roll_T;
-}
+        core->eK = shell->output - coreStatus; //外环输出，作为内环输入 用陀螺仪当前的角速度作为实际值
 
-void Update_Pitch_Target(p_PID_TYPE PID){
-    PID->Target = Pitch_T;
-}
+        //TODO:内环积分浮点数比大小出问题
+        //内环积分限幅
+        if (core->eSum > CORE_INT_MAX) {
+            if (core->eK < -0.0f)
+                core->eSum += core->eK;
+        } else if (core->eSum < -CORE_INT_MAX) {
+            if (core->eK > 0.0f)
+                core->eSum += core->eK;
+        } else {
+            core->eSum += core->eK;
+        }
 
-void Update_Yaw_Target(p_PID_TYPE PID){
-    PID->Target = Yaw_T;
-}
+        core->output = core->Kp * (core->eK + core->eSum * coreKi + (core->eK - core->eK_1) * coreKd); //内环输出
+        core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
+        core->eK_1 = core->eK;
 
-// 角速度计的值, 来自GY86的数据
-void Update_Roll_w_Feedback(p_PID_TYPE PID){
-    PID->Feedback = Gyro.wx;
-}
-
-void Update_Pitch_w_Feedback(p_PID_TYPE PID){
-    PID->Feedback = Gyro.wy;
-}
-
-void Update_Yaw_w_Feedback(p_PID_TYPE PID){
-    PID->Feedback = Gyro.wz;
-}
-
-// Roll, Pitch, Yaw角来自姿态解算四元数转欧拉角后的欧拉角
-void Update_Roll_Feedback(p_PID_TYPE PID){
-    PID->Feedback = Roll;
-}
-
-void Update_Pitch_Feedback(p_PID_TYPE PID){
-    PID->Feedback = Pitch;
-}
-
-void Update_Yaw_Feedback(p_PID_TYPE PID){
-    PID->Feedback = Yaw;
-}
-
-uint16_t Servo_PWM[4] = {0};
-// 内环任务, 运行频率可以和姿态更新频率保持一致。
-void Quadcopter_Imple_Task(void){
-    PID_Cycle(&Roll_w_PID);
-    PID_Cycle(&Pitch_w_PID);
-    PID_Cycle(&Yaw_w_PID);
-
-    /* 给电机分配占空比 */
-    // 电机输出足够起飞且有一定余量做动作时, 设置PWM
-    // TODO: 电机输出分配要根据飞行模式(十字或X), 正反桨位置来调整, 本代码适用飞行模式是X飞行模式, 仅供参考
-    if(Base_CCR > (Fly_Thre_CCR + Margin_CCR)){
-        Servo_PWM[0] = Base_CCR + Roll_w_PID.Output + Pitch_w_PID.Output - Yaw_w_PID.Output;
-        Servo_PWM[1] = Base_CCR - Roll_w_PID.Output + Pitch_w_PID.Output + Yaw_w_PID.Output;
-        Servo_PWM[2] = Base_CCR + Roll_w_PID.Output - Pitch_w_PID.Output + Yaw_w_PID.Output;
-        Servo_PWM[3] = Base_CCR - Roll_w_PID.Output - Pitch_w_PID.Output - Yaw_w_PID.Output;
-    }
-    // 电机输出不够, 不允许起飞
-    else{
-        for(int i = 0; i < 4; i++)
-            Servo_PWM[i] = 0;
+        return core->output;
     }
 
-    // TODO: 将Servo_PWM中的值写入控制电机的TIM相应通道的CCR寄存器
-    // 未实现, 仅作为逻辑示意
-    Set_Servo(Servo_PWM);
+    //HEIGHT--外环PID
+    if (shell && !core) {
+        shellKd = shell->Td / pidT;
+        shell->eK = shellErr;
+        shell->output = shell->Kp * (shell->eK + (shell->eK - shell->eK_1) * shellKd);
+        shell->output = Limit(shell->output, -PID_OUT_MAX, PID_OUT_MAX);
+        shell->eK_1 = shell->eK;
+        return shell->output;
+    }
+
+    //YAW--内环PID
+    if (!shell && core) {
+        coreKd = core->Td / pidT;
+        core->eK = expYaw - coreStatus;
+        core->output = core->Kp * (core->eK + (core->eK - core->eK_1) * coreKd);
+        core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
+        core->eK_1 = core->eK;
+        return core->output;
+    }
+
+    return 0;
 }
 
-
-// 外环任务, 运行频率要小于内环频率, 运行频率小于内环的一半计算才有意义, 本人设定 外环频率 : 内环频率 = 1 : 5
-void Quadcopter_Control_Task(void){
-    PID_Cycle(&Roll_PID);
-    PID_Cycle(&Pitch_PID);
-    PID_Cycle(&Yaw_PID);
+//飞行器模式状态机转换
+void Judge_FlyMode(float expMode)
+{
+    switch (flyMode) {
+    case STOP:
+        if (expMode > 1350) {
+            flyMode = HOVER;
+            expHeight = 100;
+        }
+        break;
+    case HOVER:
+        if (expMode > 1650) {
+            flyMode = UP;
+        }
+        if (expMode < 1350) {
+            flyMode = DOWN;
+        }
+        break;
+    case DOWN:
+        if (expMode > 1350) {
+            flyMode = HOVER;
+            expHeight = height;
+        }
+        if (expMode < 1050) {
+            flyMode = STOP;
+        }
+        break;
+    case UP:
+        if (expMode < 1650) {
+            flyMode = HOVER;
+            expHeight = height;
+        }
+        break;
+    default:
+        flyMode = STOP;
+    }
 }
 
-void PID_Init(p_PID_TYPE PID){
-	PID->Set_PID_Arg_Handler = Set_PID_Arg;
-	PID->Update_Err_Handler = Update_Err;
+/******************************************************************************
+函数原型：	void Motor_Calc(void)
+功    能：	计算输出速度（PWM）给四个电机
+*******************************************************************************/
+void Motor_Calc(void)
+{
+    //float pidRoll = 0, pidPitch = 0, pidYaw = 0, pidThr = 0; //pid输出
+    //计算采样周期
+    pidT = Get_PID_Time();
+
+    //计算姿态PID
+    //TODO:注意正负
+    pidRoll = PID_Calc(expRoll - angle.roll, fGyro.y * RAD_TO_ANGLE, &rollShell, &rollCore);
+    pidPitch = PID_Calc(expPitch - angle.pitch, -fGyro.x * RAD_TO_ANGLE, &pitchShell, &pitchCore);
+    //TODO:yaw 与pitch、roll的pid计算不一样
+    pidYaw = PID_Calc(0,  fGyro.z * RAD_TO_ANGLE, 0, &yawCore);
+
+    //PWM限幅
+    motor1 = Limit(expMode - pidPitch + pidRoll - pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+    motor2 = Limit(expMode - pidPitch - pidRoll + pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+    motor3 = Limit(expMode + pidPitch + pidRoll + pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+    motor4 = Limit(expMode + pidPitch - pidRoll - pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+
+    //如果机体处于停止模式或倾斜角大于65度，则停止飞行
+    if (expMode <= 1050 || angle.pitch >= 65 || angle.pitch <= -65 || angle.roll >= 65 || angle.roll <= -65) {
+        motor1 = PWM_OUT_MIN;
+        motor2 = PWM_OUT_MIN;
+        motor3 = PWM_OUT_MIN;
+        motor4 = PWM_OUT_MIN;
+    }
+
+    // //飞行模式判断
+    // Judge_FlyMode(expMode);
+
+    // if (flyMode == HOVER) {
+    //     pidThr = PID_Calc(expHeight - height, 0, &thrShell, 0);
+    // } else if (flyMode == UP) {
+    //     pidThr = PID_Calc((expMode - 1650) * 0.1f, 0, &thrShell, 0);
+    // } else if (flyMode == DOWN) {
+    //     pidThr = PID_Calc((expMode - 1350) * 0.1f, 0, &thrShell, 0);
+    // }
 }
 
-void Set_PID_Arg(p_PID_TYPE PID, Gain_Type* K_pid){
-	PID->Kp = K_pid[0];
-	PID->Ki = K_pid[1];
-	PID->Kd = K_pid[2];
+/******************************************************************************
+函数原型：	float inline Limit(float pwm, float min, float max)
+功    能：	PWM限幅
+输    入：  pwm，输入pwm值
+            min，最小值
+            max，最大值
+返    回：  限幅后的pwm
+*******************************************************************************/
+float inline Limit(float pwm, float min, float max)
+{
+    return pwm < min ? min : (pwm > max ? max : pwm);
 }
 
-// 计算位置式PID
-void Calculate_Position_PID_Output(p_PID_TYPE PID){
-	PID->Output = PID->Kp * PID->Err + PID->Ki * PID->ErrAccu + PID->Kd * PID->ErrDiff;
-	//	printf("PID->Output %d\n", PID->Output);
+/******************************************************************************
+函数原型：	void Motor_Exp_Calc(void)
+功    能：	计算遥控器的期望值
+*******************************************************************************/
+void Motor_Exp_Calc(void)
+{
+    int16_t PWMInCh1, PWMInCh2, PWMInCh3, PWMInCh4;
+    //限幅
+    PWMInCh1 = Limit(Duty[0], 1000, 2000);
+    PWMInCh2 = Limit(Duty[1], 1000, 2000);
+    PWMInCh3 = Limit(Duty[2], 1000, 2000);
+    PWMInCh4 = Limit(Duty[3], 1000, 2000);
 
-	if(PID->Output > PID->Output_Max)
-		PID->Output = PID->Output_Max;
-	else if(PID->Output < (-1) * PID->Output_Max)
-		PID->Output = (-1) * PID->Output_Max;
+    //调节角速度环
+    //    expRoll = (PWMInCh4 - 1500)*0.1f;
+
+    //转化为期望值
+    expRoll = (float)((PWMInCh4 - 1500) * 0.03f); //最大20度
+    expPitch = (float)((PWMInCh2 - 1500) * 0.04f); //最大20度
+    //TODO:yaw与roll、pitch不一样
+    expYaw = (float)((PWMInCh1 - 1500) * 0.02f); //最大10度每秒
+    expMode = PWMInCh3; //模式
 }
 
-// 计算增量式PID
-void Calculate_Delta_PID_Output(p_PID_TYPE PID){
-	PID->Delta = PID->Kp * PID->ErrDiff + PID->Ki * PID->Err + PID->Kd * (PID->Err - 2*PID->LastErr + PID->PrevErr);
-//	printf("PID->Delta %d\n", PID->Delta);
+//用于求pid采样时间
+void PID_Time_Init(void)
+{
+    // TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 
-	PID->Output = PID->Output + PID->Delta;
-//	printf("PID->Output %d\n", PID->Output);
+    // // Enable TIM4 clock
+    // RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
+
+    // // Close TIM4
+    // TIM_DeInit(TIM4);
+    // // TIM4 configuration. Prescaler is 84, period is 0xFFFF, and counter mode is up
+    // TIM_TimeBaseStructure.TIM_Period = 0xFFFF;
+    // TIM_TimeBaseStructure.TIM_Prescaler = 80 - 1;
+    // TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+    // TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+    // TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
+
+    // // Enable TIM4
+    // TIM_Cmd(TIM4, ENABLE);
 }
 
-void PID_Cycle(p_PID_TYPE PID){
-	// 更新反馈值
-	PID->Update_Feedback_Handler(PID);
-//	printf("PID->Feedback %f\n", PID->Feedback);
-	
-	// 更新目标值
-	PID->Update_Target_Handler(PID);
-//	printf("PID->Target %f\n", PID->Target);
-	
-	// 更新误差值
-	PID->Update_Err_Handler(PID);
-//	printf("PID->Err %f\n", PID->Err);
-	
-	// 计算输出值
-	PID->Calculate_Output_Handler(PID);
-//	printf("PID->Output %d\n", PID->Output);
-}
-	
-void Update_Err(p_PID_TYPE PID){
-	
-	PID->PrevErr = PID->LastErr;
-//	printf("PID->PrevErr %f\n", PID->PrevErr);
-	
-	PID->LastErr = PID->Err;
-//	printf("PID->LastErr %f\n", PID->LastErr);
+// Get PID update time
+float Get_PID_Time(void)
+{
+    // float temp = 0;
+    // static uint32_t now = 0;
 
-	PID->Err = PID->Target - PID->Feedback;
-//	printf("PID->Err %f\n", PID->Err);
-	
-	PID->ErrDiff = PID->Err - PID->LastErr;
-//	printf("PID->ErrDiff %f\n", PID->ErrDiff);
-	
-	if(PID->Err > PID->Err_Max)
-		PID->ErrAccu += PID->Err_Max;
-	else if(PID->Err < -1 * PID->Err_Max)
-		PID->ErrAccu += -1 * PID->Err_Max;
-	else
-		PID->ErrAccu += PID->Err;
+    // // Get timer count
+    // now = TIM4->CNT;
+    // // Clear timer count
+    // TIM4->CNT = 0;
+    // // Convert to HZ unit
+    // temp = (float)now / 1000000.0f;
 
-	// 积分限幅
-	if(PID->Err > PID->Accu_Err_Max)
-		PID->ErrAccu = PID->Accu_Err_Max;
-	else if(PID->Err < -1 * PID->Accu_Err_Max)
-		PID->ErrAccu = -1 * PID->Accu_Err_Max;
-
-//	printf("PID->ErrAccu %f\n", PID->ErrAccu);
+    // return temp;
 }

@@ -21,80 +21,38 @@
 #define __PID_H
 
 #include "pid.h"
+#include "main.h"
 
-#define PID_Err_MAX			180		
-#define PID_AccuErr_MAX		1200    
+#define CORE_INT_SEP_MAX 300.0f //内环积分分离幅值
+#define CORE_INT_MAX 4000.0f //内环积分幅值
+#define PID_OUT_MAX 500.0f //PID输出幅值
+#define PWM_OUT_MAX 2000.0f //PWM输出幅值最大值
+#define PWM_OUT_MIN 1000.0f //PWM输出幅值最小值
 
-typedef float Target_Type;
-typedef float Feedback_Type;
-typedef float Error_Type;
-typedef float Gain_Type;
-typedef float Output_Type;
+typedef struct {
+    float eK; //本次误差
+    float eK_1; //上次误差
+    float eSum; //误差和
+    float Kp; //比例系数
+    float Ti; //积分时间
+    float Td; //微分时间
+    float output; //pid输出
+} PID_t;
 
-typedef struct PID{
-	Target_Type Target;
-	Feedback_Type Feedback;
-	Feedback_Type LastFeedback;
-	Feedback_Type PrevFeedback;
-	Error_Type Err;				
-	Error_Type LastErr;        
-	Error_Type PrevErr;       
-	Error_Type ErrDiff;        
-	Error_Type ErrAccu;         
-	Error_Type Err_Max;			
-	Error_Type Accu_Err_Max;   
-	Gain_Type Kp;
-	Gain_Type Ki;
-	Gain_Type Kd;
-	Output_Type Delta;			
-	Output_Type Output;			
-	Output_Type Output_Max;		
-	void (*Set_PID_Arg_Handler)(struct PID*, Gain_Type*);
-	void (*Update_Target_Handler)(struct PID*);
-	void (*Update_Feedback_Handler)(struct PID*);
-	void (*Update_Err_Handler)(struct PID*);
-	void (*Calculate_Output_Handler)(struct PID*);
-}PID_TYPE, *p_PID_TYPE;
+typedef enum {
+    STOP = 0, //停止
+    DOWN, //下降
+    HOVER, //悬停
+    UP //上升
+} FlyMode_t;
 
+void PID_Init(void);
+void Judge_FlyMode(float expMode);
+float PID_Calc(float shellErr, float coreErr, PID_t* shell, PID_t* core);
+void Motor_Calc(void);
+void Motor_Exp_Calc(void);
+float Limit(float pwm, float min, float max);
+void PID_Time_Init(void);
+float Get_PID_Time(void);
 
-void PID_Init(p_PID_TYPE PID);
-void Set_PID_Arg(p_PID_TYPE PID, Gain_Type* K_pid);
-
-void PID_Cycle(p_PID_TYPE PID);
-
-void Calculate_Position_PID_Output(p_PID_TYPE PID);
-void Calculate_Delta_PID_Output(p_PID_TYPE PID);
-
-void Update_Target(p_PID_TYPE PID);
-void Update_Feedback(p_PID_TYPE PID);
-void Update_Err(p_PID_TYPE PID);
-
-void PID_DEBUG_ANO_Send(Target_Type target, Feedback_Type* real);
-
-
-void Gesture_PID_Init(void);
-
-// 内环PID, 以外环PID的输出值作为目标
-void Update_Roll_w_Target(p_PID_TYPE PID);
-void Update_Pitch_w_Target(p_PID_TYPE PID);
-void Update_Yaw_w_Target(p_PID_TYPE PID);
-
-// 内环PID, 角速度计的值作为反馈值
-void Update_Roll_w_Feedback(p_PID_TYPE PID);
-void Update_Pitch_w_Feedback(p_PID_TYPE PID);
-void Update_Yaw_w_Feedback(p_PID_TYPE PID);
-
-// 外环PID, 以上位机或遥控器设定的值为目标
-void Update_Roll_Target(p_PID_TYPE PID);
-void Update_Pitch_Target(p_PID_TYPE PID);
-void Update_Yaw_Target(p_PID_TYPE PID);
-
-// 外环PID, 四元数转欧拉角后的欧拉角作为反馈值
-void Update_Roll_Feedback(p_PID_TYPE PID);
-void Update_Pitch_Feedback(p_PID_TYPE PID);
-void Update_Yaw_Feedback(p_PID_TYPE PID);
-
-// 内环执行任务
-void Quadcopter_Imple_Task(void);
-// 外环遥控任务
-void Quadcopter_Control_Task(void);
+#endif
