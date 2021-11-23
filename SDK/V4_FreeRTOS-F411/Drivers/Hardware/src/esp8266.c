@@ -53,7 +53,7 @@ void esp8266_ap_cipsend_init(void)
     esp8266_cmd("AT+CWMODE=1\r\n"); //设置为AP模式
     HAL_Delay(500);
     esp8266_cmd("AT+CWJAP=\"WuhuTakeOff\",\"uestc404\"\r\n");   //WiFi基本设置
-    HAL_Delay(10000);
+    HAL_Delay(15000);
     esp8266_cmd("AT+CIPMUX=0\r\n");   //单链路设置
     HAL_Delay(500);
     esp8266_cmd("AT+CIPSTART=\"TCP\",\"192.168.4.1\",8080\r\n"); //TCP服务器

@@ -30,6 +30,7 @@ INCLUDE_FOLDERS += .eide/deps
 
 # c source files
 C_SOURCES += APP/src/ANO.c
+C_SOURCES += APP/src/PID.c
 C_SOURCES += APP/src/datafusion.c
 C_SOURCES += Core/Src/freertos.c
 C_SOURCES += Core/Src/gpio.c

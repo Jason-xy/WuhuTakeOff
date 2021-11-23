@@ -68,7 +68,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     {
         for (i = 0; i < 2; i++)
         {
-            if (htim->Channel == ActiveChannel[i] && Duty[5] > 0.7)
+            if (htim->Channel == ActiveChannel[i] && Duty[4] > 0.7)
             {
                 cap = 1;         //标志是否进行了一次捕获
                 switch (Flag[i]) //捕获状态
@@ -103,7 +103,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     {
         for (i = 2; i < 4; i++)
         {
-            if (htim->Channel == ActiveChannel[i-2] && Duty[5] > 0.7)
+            if (htim->Channel == ActiveChannel[i-2] && Duty[4] > 0.7)
             {
                 cap = 1;         //标志是否进行了一次捕获
                 switch (Flag[i]) //捕获状态

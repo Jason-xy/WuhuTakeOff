@@ -21,13 +21,13 @@
 #define __PID_H
 
 #include "pid.h"
-#include "main.h"
+#include "gy-86.h"
 
 #define CORE_INT_SEP_MAX 300.0f //内环积分分离幅值
-#define CORE_INT_MAX 4000.0f //内环积分幅值
-#define PID_OUT_MAX 500.0f //PID输出幅值
-#define PWM_OUT_MAX 2000.0f //PWM输出幅值最大值
-#define PWM_OUT_MIN 1000.0f //PWM输出幅值最小值
+#define CORE_INT_MAX 5.0f //内环积分幅值
+#define PID_OUT_MAX 50.0f //PID输出幅值
+#define MOTOR_OUT_MAX 100.0f //PWM输出幅值最大值
+#define MOTOR_OUT_MIN 0.0f //PWM输出幅值最小值
 
 typedef struct {
     float eK; //本次误差
@@ -52,7 +52,5 @@ float PID_Calc(float shellErr, float coreErr, PID_t* shell, PID_t* core);
 void Motor_Calc(void);
 void Motor_Exp_Calc(void);
 float Limit(float pwm, float min, float max);
-void PID_Time_Init(void);
-float Get_PID_Time(void);
 
 #endif

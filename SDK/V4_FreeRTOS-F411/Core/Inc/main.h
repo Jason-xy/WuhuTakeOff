@@ -39,6 +39,7 @@ extern "C" {
 #include "ANO.h"
 #include "controller.h"
 #include "motor.h"
+#include "PID.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

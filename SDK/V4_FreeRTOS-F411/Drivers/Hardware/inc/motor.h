@@ -26,11 +26,14 @@
 #include "oled.h"
 
 #define MOTOR_TIM   (htim3)
+#define MAX_TIM 1000
+#define MIN_TIM 500
 
 void Motor_Init(void);              //电机初始化
 void Motor_Unlock(void);            //电机解锁
 void Motor_Lock(void);              //电机锁定
-void Motor_Set(float percentage, uint8_t Channel);   //x号电机速度设定
+void Motor_Set(int percentage, uint8_t Channel);   //x号电机速度设定
+static inline int motorToPWM(int motorOut);
 
 void Motor_Test(void);
 

@@ -47,3 +47,5 @@ v4_freertos-f411\stm32f4xx_hal_msp.o: ../Core/Inc/usart.h
 v4_freertos-f411\stm32f4xx_hal_msp.o: ..\Drivers\Hardware\inc\controller.h
 v4_freertos-f411\stm32f4xx_hal_msp.o: ../Core/Inc/tim.h
 v4_freertos-f411\stm32f4xx_hal_msp.o: ..\Drivers\Hardware\inc\motor.h
+v4_freertos-f411\stm32f4xx_hal_msp.o: ..\APP\inc\PID.h
+v4_freertos-f411\stm32f4xx_hal_msp.o: ..\APP\inc\pid.h

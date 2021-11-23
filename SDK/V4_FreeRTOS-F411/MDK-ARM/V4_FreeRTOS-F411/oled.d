@@ -49,4 +49,6 @@ v4_freertos-f411\oled.o: ../Core/Inc/main.h
 v4_freertos-f411\oled.o: ..\Drivers\Hardware\inc\controller.h
 v4_freertos-f411\oled.o: ../Core/Inc/tim.h
 v4_freertos-f411\oled.o: ..\Drivers\Hardware\inc\motor.h
+v4_freertos-f411\oled.o: ..\APP\inc\PID.h
+v4_freertos-f411\oled.o: ..\APP\inc\pid.h
 v4_freertos-f411\oled.o: ..\Drivers\Hardware\inc\oledfont.h

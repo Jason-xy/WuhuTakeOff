@@ -45,4 +45,6 @@
 .\build\V4_FreeRTOS-F411\oled.o: .\Drivers\Hardware\inc\controller.h
 .\build\V4_FreeRTOS-F411\oled.o: .\Core\Inc\tim.h
 .\build\V4_FreeRTOS-F411\oled.o: .\Drivers\Hardware\inc\motor.h
+.\build\V4_FreeRTOS-F411\oled.o: .\APP\inc\PID.h
+.\build\V4_FreeRTOS-F411\oled.o: .\APP\inc\pid.h
 .\build\V4_FreeRTOS-F411\oled.o: .\Drivers\Hardware\inc\oledfont.h

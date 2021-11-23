@@ -20,6 +20,14 @@
 
 #include "motor.h"
 
+int motorOut[4]; //电机转速（0~100）
+
+//电机转速到TIM->compare
+static inline int motorToPWM(int motorOut)
+{
+  return (int)(MIN_TIM + (motorOut * (MAX_TIM - MIN_TIM)) / 100.0f);
+}
+
 //电机初始化
 void Motor_Init(void)
 {
@@ -52,8 +60,6 @@ void Motor_Test(void)
 	  __HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_2, a);
 	  __HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_3, a);
 	  __HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_4, a);
-		OLED_Show_2num((a-500)/5,(a-500)/5,5);
-		OLED_Show_2num((a-500)/5,(a-500)/5,6);
     HAL_Delay(2);
     a=a+5;
     if(a >= 1000)
@@ -61,9 +67,9 @@ void Motor_Test(void)
 }
 
 //x号电机速度设定
-void Motor_Set(float percentage, uint8_t Channel)
+void Motor_Set(int percentage, uint8_t Channel)
 {
-	__HAL_TIM_SetCompare(&MOTOR_TIM, Channel, (int)(500.0f + 500.0f*(percentage-0.05)/0.05)-200.0f);
+	__HAL_TIM_SetCompare(&MOTOR_TIM, Channel, motorToPWM(percentage));
 }
 
 //电机锁定

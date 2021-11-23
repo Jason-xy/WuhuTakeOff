@@ -46,3 +46,5 @@
 .\build\V4_FreeRTOS-F411\datafusion.o: .\Drivers\Hardware\inc\controller.h
 .\build\V4_FreeRTOS-F411\datafusion.o: .\Core\Inc\tim.h
 .\build\V4_FreeRTOS-F411\datafusion.o: .\Drivers\Hardware\inc\motor.h
+.\build\V4_FreeRTOS-F411\datafusion.o: .\APP\inc\PID.h
+.\build\V4_FreeRTOS-F411\datafusion.o: .\APP\inc\pid.h

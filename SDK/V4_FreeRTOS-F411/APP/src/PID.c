@@ -20,32 +20,32 @@
 
 #include "PID.h"
 
-extern PID_t rollCore, rollShell, pitchCore, pitchShell, yawCore, thrShell; //六个环的pid结构体
-extern float pidT; //采样周期
-extern float expRoll, expPitch, expYaw, expMode, expHeight; //期望值
-extern float motor1, motor2, motor3, motor4; //四个电机速度
+PID_t rollCore, rollShell, pitchCore, pitchShell, yawCore, thrShell; //六个环的pid结构体
+float pidT = 0.020; //采样周期
+float expRoll, expPitch, expYaw, expMode, expHeight; //期望值
+float motor1, motor2, motor3, motor4; //四个电机速度
 extern float Duty[6]; //遥控器推杆百分比
-extern FlyMode_t flyMode; //飞行模式
+FlyMode_t flyMode; //飞行模式
 //extern Float_t fGyro; //角速度数据（rad）
-extern GY_86 GY86;
+extern GY_86 *GY86;
 extern Angle_t angle; //姿态解算-角度值
-extern float height, velocity; //高度（cm）,速度(cm/s)
-extern float pidRoll, pidPitch, pidYaw, pidThr; //pid输出
+float height, velocity; //高度（cm）,速度(cm/s)
+float pidRoll, pidPitch, pidYaw, pidThr; //pid输出
 
-float rollShellKp = 4.4f; //外环Kp
-float rollCoreKp = 2.6f; //内环Kp
-float rollCoreTi = 0.5f; //内环Ti
-float rollCoreTd = 0.08f; //内环Td
+float rollShellKp = 0.22f; //外环Kp
+float rollCoreKp = 0.13f; //内环Kp
+float rollCoreTi = 0.1f; //内环Ti
+float rollCoreTd = 0.004f; //内环Td
 
-float pitchShellKp = 4.4f;
-float pitchCoreKp = 2.6f;
-float pitchCoreTi = 0.5f;
-float pitchCoreTd = 0.08f;
+float pitchShellKp = 0.22f;
+float pitchCoreKp = 0.13f;
+float pitchCoreTi = 0.1f;
+float pitchCoreTd = 0.004f;
 
 float yawCoreKp = 2.6f;
 float yawCoreTd = 0.08f;
 
-float thrShellKp = 1.0f;
+float thrShellKp = 0.05f;
 float thrShellTd = 0.0f;
 
 /******************************************************************************
@@ -92,7 +92,6 @@ void PID_Init(void)
 *******************************************************************************/
 float PID_Calc(float shellErr, float coreStatus, PID_t* shell, PID_t* core)
 {
-    //TODO:0是否可以当空指针
     float shellKd, coreKi, coreKd;
 
     //ROLL,PITCH--串级PID
@@ -153,30 +152,30 @@ void Judge_FlyMode(float expMode)
 {
     switch (flyMode) {
     case STOP:
-        if (expMode > 1350) {
+        if (expMode > 30) {
             flyMode = HOVER;
             expHeight = 100;
         }
         break;
     case HOVER:
-        if (expMode > 1650) {
+        if (expMode > 50) {
             flyMode = UP;
         }
-        if (expMode < 1350) {
+        if (expMode < 20) {
             flyMode = DOWN;
         }
         break;
     case DOWN:
-        if (expMode > 1350) {
+        if (expMode > 30) {
             flyMode = HOVER;
             expHeight = height;
         }
-        if (expMode < 1050) {
+        if (expMode < 10) {
             flyMode = STOP;
         }
         break;
     case UP:
-        if (expMode < 1650) {
+        if (expMode < 40) {
             flyMode = HOVER;
             expHeight = height;
         }
@@ -194,52 +193,28 @@ void Motor_Calc(void)
 {
     //float pidRoll = 0, pidPitch = 0, pidYaw = 0, pidThr = 0; //pid输出
     //计算采样周期
-    pidT = Get_PID_Time();
+    pidT = 0.020;
 
     //计算姿态PID
-    //TODO:注意正负
-    pidRoll = PID_Calc(expRoll - angle.roll, fGyro.y * RAD_TO_ANGLE, &rollShell, &rollCore);
-    pidPitch = PID_Calc(expPitch - angle.pitch, -fGyro.x * RAD_TO_ANGLE, &pitchShell, &pitchCore);
-    //TODO:yaw 与pitch、roll的pid计算不一样
-    pidYaw = PID_Calc(0,  fGyro.z * RAD_TO_ANGLE, 0, &yawCore);
+    //注意正负
+    pidRoll = PID_Calc(expRoll - angle.roll, GY86->Gyro->data->Gyro_ds.y, &rollShell, &rollCore);
+    pidPitch = PID_Calc(expPitch - angle.pitch, -GY86->Gyro->data->Gyro_ds.x, &pitchShell, &pitchCore);
+    //yaw 与pitch、roll的pid计算不一样
+    pidYaw = PID_Calc(0,  GY86->Gyro->data->Gyro_ds.z, 0, &yawCore);
 
     //PWM限幅
-    motor1 = Limit(expMode - pidPitch + pidRoll - pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
-    motor2 = Limit(expMode - pidPitch - pidRoll + pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
-    motor3 = Limit(expMode + pidPitch + pidRoll + pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
-    motor4 = Limit(expMode + pidPitch - pidRoll - pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+    motor1 = Limit(expMode + pidPitch - pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+    motor2 = Limit(expMode + pidPitch + pidRoll + pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+    motor3 = Limit(expMode - pidPitch + pidRoll + pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+    motor4 = Limit(expMode - pidPitch - pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
 
     //如果机体处于停止模式或倾斜角大于65度，则停止飞行
-    if (expMode <= 1050 || angle.pitch >= 65 || angle.pitch <= -65 || angle.roll >= 65 || angle.roll <= -65) {
-        motor1 = PWM_OUT_MIN;
-        motor2 = PWM_OUT_MIN;
-        motor3 = PWM_OUT_MIN;
-        motor4 = PWM_OUT_MIN;
+    if (expMode <= 20 || angle.pitch >= 65 || angle.pitch <= -65 || angle.roll >= 65 || angle.roll <= -65) {
+        motor1 = MOTOR_OUT_MIN;
+        motor2 = MOTOR_OUT_MIN;
+        motor3 = MOTOR_OUT_MIN;
+        motor4 = MOTOR_OUT_MIN;
     }
-
-    // //飞行模式判断
-    // Judge_FlyMode(expMode);
-
-    // if (flyMode == HOVER) {
-    //     pidThr = PID_Calc(expHeight - height, 0, &thrShell, 0);
-    // } else if (flyMode == UP) {
-    //     pidThr = PID_Calc((expMode - 1650) * 0.1f, 0, &thrShell, 0);
-    // } else if (flyMode == DOWN) {
-    //     pidThr = PID_Calc((expMode - 1350) * 0.1f, 0, &thrShell, 0);
-    // }
-}
-
-/******************************************************************************
-函数原型：	float inline Limit(float pwm, float min, float max)
-功    能：	PWM限幅
-输    入：  pwm，输入pwm值
-            min，最小值
-            max，最大值
-返    回：  限幅后的pwm
-*******************************************************************************/
-float inline Limit(float pwm, float min, float max)
-{
-    return pwm < min ? min : (pwm > max ? max : pwm);
 }
 
 /******************************************************************************
@@ -250,55 +225,32 @@ void Motor_Exp_Calc(void)
 {
     int16_t PWMInCh1, PWMInCh2, PWMInCh3, PWMInCh4;
     //限幅
-    PWMInCh1 = Limit(Duty[0], 1000, 2000);
-    PWMInCh2 = Limit(Duty[1], 1000, 2000);
-    PWMInCh3 = Limit(Duty[2], 1000, 2000);
-    PWMInCh4 = Limit(Duty[3], 1000, 2000);
+    PWMInCh1 = Limit(Duty[0] * 100, 0, 100);
+    PWMInCh2 = Limit(Duty[1] * 100, 0, 100);
+    PWMInCh3 = Limit(Duty[2] * 100, 0, 100);
+    PWMInCh4 = Limit(Duty[3] * 100, 0, 100);
 
     //调节角速度环
     //    expRoll = (PWMInCh4 - 1500)*0.1f;
 
     //转化为期望值
-    expRoll = (float)((PWMInCh4 - 1500) * 0.03f); //最大20度
-    expPitch = (float)((PWMInCh2 - 1500) * 0.04f); //最大20度
+    expRoll = (float)((PWMInCh1 - 50) * 0.4f); //最大20度
+    expPitch = (float)((PWMInCh2 - 50) * 0.4f); //最大20度
     //TODO:yaw与roll、pitch不一样
-    expYaw = (float)((PWMInCh1 - 1500) * 0.02f); //最大10度每秒
+    expYaw = (float)((PWMInCh4 - 50) * 0.1f); //最大10度每秒
     expMode = PWMInCh3; //模式
 }
 
-//用于求pid采样时间
-void PID_Time_Init(void)
+/******************************************************************************
+函数原型：	float inline Limit(float pwm, float min, float max)
+功    能：	PWM限幅
+输    入：  pwm，输入pwm值
+            min，最小值
+            max，最大值
+返    回：  限幅后的pwm
+*******************************************************************************/
+float Limit(float pwm, float min, float max)
 {
-    // TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-
-    // // Enable TIM4 clock
-    // RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
-
-    // // Close TIM4
-    // TIM_DeInit(TIM4);
-    // // TIM4 configuration. Prescaler is 84, period is 0xFFFF, and counter mode is up
-    // TIM_TimeBaseStructure.TIM_Period = 0xFFFF;
-    // TIM_TimeBaseStructure.TIM_Prescaler = 80 - 1;
-    // TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-    // TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    // TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
-
-    // // Enable TIM4
-    // TIM_Cmd(TIM4, ENABLE);
+    return pwm < min ? min : (pwm > max ? max : pwm);
 }
 
-// Get PID update time
-float Get_PID_Time(void)
-{
-    // float temp = 0;
-    // static uint32_t now = 0;
-
-    // // Get timer count
-    // now = TIM4->CNT;
-    // // Clear timer count
-    // TIM4->CNT = 0;
-    // // Convert to HZ unit
-    // temp = (float)now / 1000000.0f;
-
-    // return temp;
-}

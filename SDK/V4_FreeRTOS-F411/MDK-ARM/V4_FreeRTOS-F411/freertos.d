@@ -56,5 +56,7 @@ v4_freertos-f411\freertos.o: ../Core/Inc/usart.h
 v4_freertos-f411\freertos.o: ..\Drivers\Hardware\inc\controller.h
 v4_freertos-f411\freertos.o: ../Core/Inc/tim.h
 v4_freertos-f411\freertos.o: ..\Drivers\Hardware\inc\motor.h
+v4_freertos-f411\freertos.o: ..\APP\inc\PID.h
+v4_freertos-f411\freertos.o: ..\APP\inc\pid.h
 v4_freertos-f411\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 v4_freertos-f411\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h

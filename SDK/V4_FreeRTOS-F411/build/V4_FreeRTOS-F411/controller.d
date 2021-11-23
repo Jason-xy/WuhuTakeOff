@@ -45,3 +45,5 @@
 .\build\V4_FreeRTOS-F411\controller.o: .\Drivers\Hardware\inc\controller.h
 .\build\V4_FreeRTOS-F411\controller.o: .\Drivers\Hardware\inc\motor.h
 .\build\V4_FreeRTOS-F411\controller.o: .\Core\Inc\tim.h
+.\build\V4_FreeRTOS-F411\controller.o: .\APP\inc\PID.h
+.\build\V4_FreeRTOS-F411\controller.o: .\APP\inc\pid.h

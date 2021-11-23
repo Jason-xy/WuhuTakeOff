@@ -50,6 +50,7 @@
 extern Angle_t angle;
 extern osMutexId_t GY86MutexHandle;       
 extern float Duty[6]; //接收机各通道PWM占空比
+extern float motor1, motor2, motor3, motor4; //四个电机速度
 extern uint8_t *UART1_temp;
 /* USER CODE END PV */
 
@@ -80,6 +81,9 @@ void Task_AngelFunction(void *argument)
 	}
 }
 
+#define Task_Hight_PRIO			8
+#define Task_Hight_SIZE			256
+TaskHandle_t Task_HightHandler;
 void Task_HightFunction(void *argument)
 {
 	;
@@ -87,10 +91,20 @@ void Task_HightFunction(void *argument)
 
 #define Task_PID_PRIO			7
 #define Task_PID_SIZE			256
-TaskHandle_t Task_AngelHandler;
+TaskHandle_t Task_PIDHandler;
 void Task_PIDFunction(void *argument)
 {
-	;
+	while (1)
+  {
+    Motor_Exp_Calc();//计算遥控器期望值
+    Motor_Calc(); // 计算PID以及要输出的电机速度
+    // 输出电机速度
+    Motor_Set(motor1, TIM_CHANNEL_1);
+    Motor_Set(motor2, TIM_CHANNEL_2);
+    Motor_Set(motor3, TIM_CHANNEL_3);
+    Motor_Set(motor4, TIM_CHANNEL_4);
+    vTaskDelay(20);
+  }
 }
 
 #define Task_ANO_PRIO			10
@@ -109,14 +123,44 @@ void Task_ANOFunction(void *argument)
     //datafusion
 	  ANO_Angle_Transform(roll, pitch, yaw);
     //RC
-    ANO_RC_Transform(Duty[0], Duty[1], Duty[2], Duty[3], Duty[4], Duty[6]);
+    ANO_RC_Transform(Duty[0], Duty[1], Duty[2], Duty[3], Duty[4], Duty[5]);
     vTaskDelay(20);
   }
 }
 
+#define Task_OLED_PRIO			11
+#define Task_OLED_SIZE			256
+TaskHandle_t Task_OLEDHandler;
 void Task_OLEDFunction(void *argument)
 {
-	;
+  static short Gx, Gy, Gz, Ax, Ay, Az, yaw, pitch, roll, temp;
+  while(1)
+  {
+    xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
+    Gx = GY86->Gyro->data->Gyro_ds.x;
+    Gy = GY86->Gyro->data->Gyro_ds.y;
+    Gz = GY86->Gyro->data->Gyro_ds.z;
+
+    Ax = GY86->Accel->data->Accel_ms2.x;
+    Ay = GY86->Accel->data->Accel_ms2.y;
+    Az = GY86->Accel->data->Accel_ms2.z;
+
+    temp = GY86->MS->Temperature;
+
+    roll = angle.roll;
+    pitch = angle.pitch;
+    yaw = angle.yaw;
+    xSemaphoreGive(GY86MutexHandle);
+    OLED_Show_3num(Gx, Gy, Gz, 0);
+    OLED_Show_3num(Ax, Ay, Az, 1);
+    OLED_Show_3num(pitch, roll, yaw, 2);
+    OLED_Show_3num(Duty[0] * 100, Duty[1] * 100, Duty[2] * 100, 3);
+    OLED_Show_3num(Duty[3] * 100, Duty[4] * 100, Duty[5] * 100, 4);
+    OLED_Show_2num((short)motor1, (short)motor2, 5);
+    OLED_Show_2num((short)motor3, (short)motor4, 6);
+    OLED_ShowNum(24, 7, temp,2,12);
+    vTaskDelay(200);
+  }
 }
 void Task_ExtSensorFunction(void *argument)
 {
@@ -183,13 +227,27 @@ int main(void)
 				(UBaseType_t	) Task_Angel_PRIO,
 				(TaskHandle_t*	) &Task_AngelHandler);
 
-   xTaskCreate((TaskFunction_t	) Task_ANOFunction,
+  xTaskCreate((TaskFunction_t	) Task_ANOFunction,
 				(char*			) "ANO_Task",
 				(uint16_t		) Task_ANO_SIZE,
 				(void * 		) NULL,
 				(UBaseType_t	) Task_ANO_PRIO,
 				(TaskHandle_t*	) &Task_ANOHandler);
 
+  xTaskCreate((TaskFunction_t	) Task_OLEDFunction,
+				(char*			) "OLED_Task",
+				(uint16_t		) Task_OLED_SIZE,
+				(void * 		) NULL,
+				(UBaseType_t	) Task_OLED_PRIO,
+				(TaskHandle_t*	) &Task_OLEDHandler);
+
+  xTaskCreate((TaskFunction_t	) Task_PIDFunction,
+				(char*			) "PID_Task",
+				(uint16_t		) Task_PID_SIZE,
+				(void * 		) NULL,
+				(UBaseType_t	) Task_PID_PRIO,
+				(TaskHandle_t*	) &Task_PIDHandler);
+				
 	vTaskStartScheduler();
 
   while (1)
@@ -261,29 +319,7 @@ void system_init(void)
 	esp8266_cipsend("ESP8266_Init OK\r\n");
 	HAL_Delay(1000);
 	
-  // //电机
-	// Motor_Init(); 
-  // //输出调试信息
-	// OLED_Clear();
-	// OLED_ShowString(12,3,(uint8_t*)"Motor_Init OK",16);
-	// esp8266_cipsend("Motor_Init OK\r\n");
-	// HAL_Delay(1000);
-	
-  // //输出调试信息
-	// OLED_Clear();
-	// OLED_ShowString(12,3,(uint8_t*)"Motor_Unlock",16);
-	// esp8266_cipsend("Motor_Unlock\r\n");
-	// HAL_Delay(1000);
-	// //电机自动解锁
-	// Motor_Init();
-	// Motor_Unlock();
-	// //输出调试信息
-	// OLED_Clear();
-	// OLED_ShowString(6,3,(uint8_t*)"Motor_Unlock OK",16);
-	// esp8266_cipsend("Motor_Unlock OK\r\n");
-	// HAL_Delay(1000);
-	
-	//GY-86初始�???
+	//GY-86初始
 	GY86_Init();
   //输出调试信息
 	OLED_Clear();
@@ -298,7 +334,32 @@ void system_init(void)
 	OLED_ShowString(0,3,(uint8_t*)"Input_Capture_Init",16);
 	esp8266_cipsend("Input_Capture_Init OK\r\n");
 	HAL_Delay(1000);
+
+   //电机
+	Motor_Init(); 
+  //输出调试信息
+	OLED_Clear();
+	OLED_ShowString(12,3,(uint8_t*)"Motor_Init OK",16);
+	esp8266_cipsend("Motor_Init OK\r\n");
+	HAL_Delay(1000);
 	
+	//电机自动解锁
+	Motor_Init();
+	Motor_Unlock();
+	//输出调试信息
+	OLED_Clear();
+	OLED_ShowString(6,3,(uint8_t*)"Motor_Unlock OK",16);
+	esp8266_cipsend("Motor_Unlock OK\r\n");
+	HAL_Delay(1000);
+	
+	//PID初始化
+	PID_Init();
+	//输出调试信息
+	OLED_Clear();
+	OLED_ShowString(6,3,(uint8_t*)"PID_Init OK",16);
+	esp8266_cipsend("PID_Init OK\r\n");
+	HAL_Delay(1000);
+
   //OLED图形界面绘制
 	OLED_Clear();
 	OLED_Draw_interface();

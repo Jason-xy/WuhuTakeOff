@@ -48,3 +48,5 @@ v4_freertos-f411\ano.o: ..\APP\inc\ANO.h
 v4_freertos-f411\ano.o: ..\Drivers\Hardware\inc\controller.h
 v4_freertos-f411\ano.o: ../Core/Inc/tim.h
 v4_freertos-f411\ano.o: ..\Drivers\Hardware\inc\motor.h
+v4_freertos-f411\ano.o: ..\APP\inc\PID.h
+v4_freertos-f411\ano.o: ..\APP\inc\pid.h
