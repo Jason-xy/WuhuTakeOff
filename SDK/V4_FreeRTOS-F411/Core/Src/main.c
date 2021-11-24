@@ -96,14 +96,16 @@ void Task_HightFunction(void *argument)
 TaskHandle_t Task_PIDHandler;
 void Task_PIDFunction(void *argument)
 {
+	static uint32_t startT, endT;
 	while (1)
   {
-    pidT = (xTaskGetTickCount() - pidT) / 1000.0f;
     Motor_Exp_Calc();//计算遥控器期望值
-    xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
+		endT = xTaskGetTickCount();
+    xSemaphoreTake(GY86MutexHandle, portMAX_DELAY); 
+		pidT = endT - startT;
     Motor_Calc(); // 计算PID以及要输出的电机速度
     xSemaphoreGive(GY86MutexHandle);
-    pidT = xTaskGetTickCount();
+    startT = xTaskGetTickCount();
     // 输出电机速度
     Motor_Set(motor1, TIM_CHANNEL_1);
     Motor_Set(motor2, TIM_CHANNEL_2);

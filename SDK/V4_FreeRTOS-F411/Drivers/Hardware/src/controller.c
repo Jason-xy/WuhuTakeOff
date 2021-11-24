@@ -68,7 +68,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     {
         for (i = 0; i < 2; i++)
         {
-            if (htim->Channel == ActiveChannel[i] && Duty[5] > 0.7)
+            if (htim->Channel == ActiveChannel[i] && Duty[4] > 0.7)
             {
                 cap = 1;         //标志是否进行了一次捕获
                 switch (Flag[i]) //捕获状态
@@ -103,7 +103,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     {
         for (i = 2; i < 4; i++)
         {
-            if (htim->Channel == ActiveChannel[i-2] && Duty[5] > 0.7)
+            if (htim->Channel == ActiveChannel[i-2] && Duty[4] > 0.7)
             {
                 cap = 1;         //标志是否进行了一次捕获
                 switch (Flag[i]) //捕获状态
@@ -154,7 +154,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
                     CapVal[i] = HAL_TIM_ReadCapturedValue(htim, Channel[i - 2]);
                     if (CapVal[i] <= 2500)           //过滤超时情况
                         Duty[i] = (CapVal[i] - MinVal + 10) / (MaxVal - MinVal);//计算百分比
-                    if (Duty[5] <= 0.055)
+                    if (Duty[4] <= 0.055)
                         Motor_Lock(); //电机锁定
                     TIM_RESET_CAPTUREPOLARITY(htim, Channel[i - 2]);
                     TIM_SET_CAPTUREPOLARITY(htim, Channel[i - 2], TIM_ICPOLARITY_RISING);

@@ -32,18 +32,18 @@ extern Angle_t angle; //姿态解算-角度值
 float height, velocity; //高度（cm）,速度(cm/s)
 float pidRoll, pidPitch, pidYaw, pidThr; //pid输出
 
-float rollShellKp = 0.22f; //外环Kp
-float rollCoreKp = 0.13f; //内环Kp
-float rollCoreTi = 0.1f; //内环Ti
-float rollCoreTd = 0.004f; //内环Td
+float rollShellKp = 1.0f; //外环Kp
+float rollCoreKp = 0.5f; //内环Kp
+float rollCoreTi = 500.0f; //内环Ti
+float rollCoreTd = 20.0f; //内环Td
 
-float pitchShellKp = 0.22f;
-float pitchCoreKp = 0.13f;
-float pitchCoreTi = 0.1f;
-float pitchCoreTd = 0.004f;
+float pitchShellKp = 1.0f;
+float pitchCoreKp = 0.5f;
+float pitchCoreTi = 500.0f;
+float pitchCoreTd = 20.0f;
 
-float yawCoreKp = 2.6f;
-float yawCoreTd = 0.08f;
+float yawCoreKp = 1.0f;
+float yawCoreTd = 20.0f;
 
 float thrShellKp = 0.05f;
 float thrShellTd = 0.0f;
@@ -235,7 +235,7 @@ void Motor_Exp_Calc(void)
 
     //转化为期望值
     expRoll = (float)((PWMInCh1 - 50) * 0.4f); //最大20度
-    expPitch = (float)((PWMInCh2 - 50) * 0.4f); //最大20度
+    expPitch = -(float)((PWMInCh2 - 50) * 0.4f); //最大20度
     //TODO:yaw与roll、pitch不一样
     expYaw = (float)((PWMInCh4 - 50) * 0.1f); //最大10度每秒
     expMode = PWMInCh3; //模式

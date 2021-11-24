@@ -24,8 +24,8 @@ int motorOut[4]; //电机转速（0~100）
 
 //电机转速到TIM->compare
 static inline int motorToPWM(int motorOut)
-{
-  return (int)(MIN_TIM + (motorOut * (MAX_TIM - MIN_TIM)) / 100.0f);
+{    
+	return (int)(MIN_TIM + (motorOut * (MAX_TIM - MIN_TIM)) / 100.0f);
 }
 
 //电机初始化
