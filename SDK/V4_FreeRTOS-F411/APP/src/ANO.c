@@ -68,10 +68,10 @@ void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6
 {
   uint8_t _cnt = 0;
 
-  int roll = (ch_1 - 0.5) * 30 * 100;  //D
-  int pitch = (ch_2 - 0.5) * 30 * 100; //D
+  int roll = (ch_1 - 0.5) * 20 * 100;  //D
+  int pitch = (ch_2 - 0.5) * 20 * 100; //D
   int thr = ch_3;
-  int yaw = (ch_4 - 0.5) * 20 * 100; //DPS
+  int yaw = (ch_4 - 0.5) * 10 * 100; //DPS
 
   send_buffer[_cnt++] = 0xAA;
   send_buffer[_cnt++] = 0xff;
@@ -176,5 +176,5 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 void Ano_DataAnl(uint8_t *data, int length)
 {
-
+  ;
 }

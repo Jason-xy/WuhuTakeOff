@@ -28,6 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "semphr.h"
+//#include "timers.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,6 +53,7 @@ extern osMutexId_t GY86MutexHandle;
 extern float Duty[6]; //接收机各通道PWM占空比
 extern float motor1, motor2, motor3, motor4; //四个电机速度
 extern uint8_t *UART1_temp;
+extern uint32_t pidT; //采样周期
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -96,8 +98,12 @@ void Task_PIDFunction(void *argument)
 {
 	while (1)
   {
+    pidT = (xTaskGetTickCount() - pidT) / 1000.0f;
     Motor_Exp_Calc();//计算遥控器期望值
+    xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
     Motor_Calc(); // 计算PID以及要输出的电机速度
+    xSemaphoreGive(GY86MutexHandle);
+    pidT = xTaskGetTickCount();
     // 输出电机速度
     Motor_Set(motor1, TIM_CHANNEL_1);
     Motor_Set(motor2, TIM_CHANNEL_2);

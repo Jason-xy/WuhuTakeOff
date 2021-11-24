@@ -21,7 +21,7 @@
 #include "PID.h"
 
 PID_t rollCore, rollShell, pitchCore, pitchShell, yawCore, thrShell; //六个环的pid结构体
-float pidT = 0.020; //采样周期
+uint32_t pidT = 0; //采样周期
 float expRoll, expPitch, expYaw, expMode, expHeight; //期望值
 float motor1, motor2, motor3, motor4; //四个电机速度
 extern float Duty[6]; //遥控器推杆百分比
@@ -192,8 +192,8 @@ void Judge_FlyMode(float expMode)
 void Motor_Calc(void)
 {
     //float pidRoll = 0, pidPitch = 0, pidYaw = 0, pidThr = 0; //pid输出
-    //计算采样周期
-    pidT = 0.020;
+    //计算采样周期,已在Task中完成计算。
+    //pidT = 0.020;
 
     //计算姿态PID
     //注意正负

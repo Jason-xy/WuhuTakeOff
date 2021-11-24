@@ -68,7 +68,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     {
         for (i = 0; i < 2; i++)
         {
-            if (htim->Channel == ActiveChannel[i] && Duty[4] > 0.7)
+            if (htim->Channel == ActiveChannel[i] && Duty[5] > 0.7)
             {
                 cap = 1;         //标志是否进行了一次捕获
                 switch (Flag[i]) //捕获状态
@@ -83,7 +83,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
                 case 1:                                                      //第一次捕获到下降沿
                     CapVal[i] = HAL_TIM_ReadCapturedValue(htim, Channel[i]); //读取计数器值
                     if (CapVal[i] <= 2500)                                   //过滤超时情况
-                        Duty[i] = (CapVal[i] - MinVal + 10) / (MaxVal - MinVal);                         //计算占空比，Cycle = 20000us
+                        Duty[i] = (CapVal[i] - MinVal + 10) / (MaxVal - MinVal);//计算百分比
                     //Motor_Set(Duty[i], Channel[i]);                          //更改单机转速
                     //准备进行下一次捕获
                     TIM_RESET_CAPTUREPOLARITY(htim, Channel[i]);                      //重置触发条件
@@ -103,7 +103,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     {
         for (i = 2; i < 4; i++)
         {
-            if (htim->Channel == ActiveChannel[i-2] && Duty[4] > 0.7)
+            if (htim->Channel == ActiveChannel[i-2] && Duty[5] > 0.7)
             {
                 cap = 1;         //标志是否进行了一次捕获
                 switch (Flag[i]) //捕获状态
@@ -118,7 +118,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
                 case 1:                                                      //第一次捕获到下降沿
                     CapVal[i] = HAL_TIM_ReadCapturedValue(htim, Channel[i-2]); //读取计数器值
                     if (CapVal[i] <= 2500)                                   //过滤超时情况
-                        Duty[i] = (CapVal[i] - MinVal + 10) / (MaxVal - MinVal);                        //计算占空比，Cycle = 20000us
+                        Duty[i] = (CapVal[i] - MinVal + 10) / (MaxVal - MinVal);//计算百分比
                     //Motor_Set(Duty[i], Channel[i]);                          //更改单机转速
                     //准备进行下一次捕获
                     TIM_RESET_CAPTUREPOLARITY(htim, Channel[i-2]);                      //重置触发条件
@@ -153,7 +153,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
                 case 1:
                     CapVal[i] = HAL_TIM_ReadCapturedValue(htim, Channel[i - 2]);
                     if (CapVal[i] <= 2500)           //过滤超时情况
-                        Duty[i] = (CapVal[i] - MinVal + 10) / (MaxVal - MinVal); //Cycle = 20000us
+                        Duty[i] = (CapVal[i] - MinVal + 10) / (MaxVal - MinVal);//计算百分比
                     if (Duty[5] <= 0.055)
                         Motor_Lock(); //电机锁定
                     TIM_RESET_CAPTUREPOLARITY(htim, Channel[i - 2]);

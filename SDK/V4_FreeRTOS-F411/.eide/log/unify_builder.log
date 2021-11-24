@@ -307,3 +307,21 @@
 [2021-11-23 21:56:52]	[done]
 	build successfully !
 
+[2021-11-24 10:02:13]	link failed !, exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x0130d] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-24 10:03:50]	[done]
+	build successfully !
+
+[2021-11-24 10:30:21]	link failed !, exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x0130d] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-24 10:31:04]	link failed !, exit code: 1
+  at unify_builder.Program.Main (System.String[] args) [0x0130d] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-24 10:31:34]	[done]
+	build successfully !
+
+[2021-11-24 11:10:55]	[done]
+	build successfully !
+

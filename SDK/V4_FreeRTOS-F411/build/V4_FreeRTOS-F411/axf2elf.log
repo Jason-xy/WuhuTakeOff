@@ -1,6 +1,6 @@
-objcopy.exe --update-section ER_IROM1="c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.bin" "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.axf" "c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.elf"
+objcopy.exe --update-section ER_IROM1="c:\Users\Jason\Desktop\工程\WuhuTakeOff\SDK\V4_FreeRTOS-F411\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.bin" "c:\Users\Jason\Desktop\工程\WuhuTakeOff\SDK\V4_FreeRTOS-F411\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.axf" "c:\Users\Jason\Desktop\工程\WuhuTakeOff\SDK\V4_FreeRTOS-F411\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.elf"
 
-objcopy.exe: c:\Users\Jason\Desktop\WuhuTakeOff\SDK\V4_FreeRTOS-F411\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.elf: warning: allocated section `RW_IRAM1' not in segment
+objcopy.exe: c:\Users\Jason\Desktop\工程\WuhuTakeOff\SDK\V4_FreeRTOS-F411\build\V4_FreeRTOS-F411\V4_FreeRTOS-F411.elf: warning: allocated section `RW_IRAM1' not in segment
 
 WARNING: The runtime version supported by this application is unavailable.
 Using default runtime: v4.0.30319
