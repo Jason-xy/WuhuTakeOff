@@ -49,8 +49,9 @@
 
 /* USER CODE BEGIN PV */
 extern Angle_t angle;
-extern osMutexId_t GY86MutexHandle;       
+extern osMutexId_t GY86MutexHandle;
 extern float Duty[6]; //接收机各通道PWM占空比
+extern int isLock;
 extern float motor1, motor2, motor3, motor4; //四个电机速度
 extern uint8_t *UART1_temp;
 extern uint32_t pidT; //采样周期
@@ -67,61 +68,71 @@ void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN 0 */
 void system_init(void);
 
-#define Task_Angel_PRIO			6
-#define Task_Angel_SIZE			512
+#define Task_Angel_PRIO 6
+#define Task_Angel_SIZE 512
 TaskHandle_t Task_AngelHandler;
 void Task_AngelFunction(void *argument)
 {
-	while(1)
-	{
-		GY86_RawDataUpdate();
-		xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
-		Attitude_Update(GY86->Gyro->data->Gyro_ds.x * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.y * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.z * ANGLE_TO_RAD, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z, \
-										GY86->Mag->data->Mag_raw.x, GY86->Mag->data->Mag_raw.y, GY86->Mag->data->Mag_raw.z);
-		xSemaphoreGive(GY86MutexHandle);
-		vTaskDelay(10);
-	}
+  while (1)
+  {
+    GY86_RawDataUpdate();
+    xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
+    Attitude_Update(GY86->Gyro->data->Gyro_ds.x * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.y * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.z * ANGLE_TO_RAD, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z,
+                    GY86->Mag->data->Mag_raw.x, GY86->Mag->data->Mag_raw.y, GY86->Mag->data->Mag_raw.z);
+    xSemaphoreGive(GY86MutexHandle);
+    vTaskDelay(10);
+  }
 }
 
-#define Task_Hight_PRIO			8
-#define Task_Hight_SIZE			256
+#define Task_Hight_PRIO 8
+#define Task_Hight_SIZE 256
 TaskHandle_t Task_HightHandler;
 void Task_HightFunction(void *argument)
 {
-	;
+  ;
 }
 
-#define Task_PID_PRIO			7
-#define Task_PID_SIZE			256
+#define Task_PID_PRIO 7
+#define Task_PID_SIZE 256
 TaskHandle_t Task_PIDHandler;
 void Task_PIDFunction(void *argument)
 {
-	static uint32_t startT, endT;
-	while (1)
+  static uint32_t startT, endT;
+  while (1)
   {
-    Motor_Exp_Calc();//计算遥控器期望值
-		endT = xTaskGetTickCount();
-    xSemaphoreTake(GY86MutexHandle, portMAX_DELAY); 
-		pidT = endT - startT;
+    Motor_Exp_Calc(); //计算遥控器期望值
+    endT = xTaskGetTickCount();
+    xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
+    pidT = endT - startT;
     Motor_Calc(); // 计算PID以及要输出的电机速度
     xSemaphoreGive(GY86MutexHandle);
     startT = xTaskGetTickCount();
     // 输出电机速度
-    Motor_Set(motor1, TIM_CHANNEL_1);
-    Motor_Set(motor2, TIM_CHANNEL_2);
-    Motor_Set(motor3, TIM_CHANNEL_3);
-    Motor_Set(motor4, TIM_CHANNEL_4);
+    if (!isLock)
+    {
+      Motor_Set(motor1, TIM_CHANNEL_1);
+      Motor_Set(motor2, TIM_CHANNEL_2);
+      Motor_Set(motor3, TIM_CHANNEL_3);
+      Motor_Set(motor4, TIM_CHANNEL_4);
+    }
+    else
+    {
+      Motor_Set(0, TIM_CHANNEL_1);
+      Motor_Set(0, TIM_CHANNEL_2);
+      Motor_Set(0, TIM_CHANNEL_3);
+      Motor_Set(0, TIM_CHANNEL_4);
+    }
     vTaskDelay(20);
   }
 }
 
-#define Task_ANO_PRIO			10
-#define Task_ANO_SIZE			256
+#define Task_ANO_PRIO 10
+#define Task_ANO_SIZE 256
 TaskHandle_t Task_ANOHandler;
 void Task_ANOFunction(void *argument)
 {
   int roll, pitch, yaw;
-  while(1)
+  while (1)
   {
     xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
     roll = angle.roll * 100;
@@ -129,20 +140,20 @@ void Task_ANOFunction(void *argument)
     yaw = angle.yaw * 100;
     xSemaphoreGive(GY86MutexHandle);
     //datafusion
-	  ANO_Angle_Transform(roll, pitch, yaw);
+    ANO_Angle_Transform(roll, pitch, yaw);
     //RC
     ANO_RC_Transform(Duty[0], Duty[1], Duty[2], Duty[3], Duty[4], Duty[5]);
     vTaskDelay(20);
   }
 }
 
-#define Task_OLED_PRIO			11
-#define Task_OLED_SIZE			256
+#define Task_OLED_PRIO 11
+#define Task_OLED_SIZE 256
 TaskHandle_t Task_OLEDHandler;
 void Task_OLEDFunction(void *argument)
 {
   static short Gx, Gy, Gz, Ax, Ay, Az, yaw, pitch, roll, temp;
-  while(1)
+  while (1)
   {
     xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
     Gx = GY86->Gyro->data->Gyro_ds.x;
@@ -166,13 +177,13 @@ void Task_OLEDFunction(void *argument)
     OLED_Show_3num(Duty[3] * 100, Duty[4] * 100, Duty[5] * 100, 4);
     OLED_Show_2num((short)motor1, (short)motor2, 5);
     OLED_Show_2num((short)motor3, (short)motor4, 6);
-    OLED_ShowNum(24, 7, temp,2,12);
+    OLED_ShowNum(24, 7, temp, 2, 12);
     vTaskDelay(200);
   }
 }
 void Task_ExtSensorFunction(void *argument)
 {
-	;
+  ;
 }
 /* USER CODE END 0 */
 
@@ -220,7 +231,7 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
+  osKernelInitialize(); /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
   /* Start scheduler */
   //osKernelStart();
@@ -228,35 +239,35 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  xTaskCreate((TaskFunction_t	) Task_AngelFunction,
-				(char*			) "Angel_Task",
-				(uint16_t		) Task_Angel_SIZE,
-				(void * 		) NULL,
-				(UBaseType_t	) Task_Angel_PRIO,
-				(TaskHandle_t*	) &Task_AngelHandler);
+  xTaskCreate((TaskFunction_t)Task_AngelFunction,
+              (char *)"Angel_Task",
+              (uint16_t)Task_Angel_SIZE,
+              (void *)NULL,
+              (UBaseType_t)Task_Angel_PRIO,
+              (TaskHandle_t *)&Task_AngelHandler);
 
-  xTaskCreate((TaskFunction_t	) Task_ANOFunction,
-				(char*			) "ANO_Task",
-				(uint16_t		) Task_ANO_SIZE,
-				(void * 		) NULL,
-				(UBaseType_t	) Task_ANO_PRIO,
-				(TaskHandle_t*	) &Task_ANOHandler);
+  xTaskCreate((TaskFunction_t)Task_ANOFunction,
+              (char *)"ANO_Task",
+              (uint16_t)Task_ANO_SIZE,
+              (void *)NULL,
+              (UBaseType_t)Task_ANO_PRIO,
+              (TaskHandle_t *)&Task_ANOHandler);
 
-  xTaskCreate((TaskFunction_t	) Task_OLEDFunction,
-				(char*			) "OLED_Task",
-				(uint16_t		) Task_OLED_SIZE,
-				(void * 		) NULL,
-				(UBaseType_t	) Task_OLED_PRIO,
-				(TaskHandle_t*	) &Task_OLEDHandler);
+  xTaskCreate((TaskFunction_t)Task_OLEDFunction,
+              (char *)"OLED_Task",
+              (uint16_t)Task_OLED_SIZE,
+              (void *)NULL,
+              (UBaseType_t)Task_OLED_PRIO,
+              (TaskHandle_t *)&Task_OLEDHandler);
 
-  xTaskCreate((TaskFunction_t	) Task_PIDFunction,
-				(char*			) "PID_Task",
-				(uint16_t		) Task_PID_SIZE,
-				(void * 		) NULL,
-				(UBaseType_t	) Task_PID_PRIO,
-				(TaskHandle_t*	) &Task_PIDHandler);
-				
-	vTaskStartScheduler();
+  xTaskCreate((TaskFunction_t)Task_PIDFunction,
+              (char *)"PID_Task",
+              (uint16_t)Task_PID_SIZE,
+              (void *)NULL,
+              (UBaseType_t)Task_PID_PRIO,
+              (TaskHandle_t *)&Task_PIDHandler);
+
+  vTaskStartScheduler();
 
   while (1)
   {
@@ -297,8 +308,7 @@ void SystemClock_Config(void)
   }
   /** Initializes the CPU, AHB and APB buses clocks
   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
@@ -313,64 +323,64 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void system_init(void)
 {
-	//硬件模块
+  //硬件模块
   //OLED
-  OLED_Init();  
-	OLED_Clear();
-	
+  OLED_Init();
+  OLED_Clear();
+
   //ESP8266
-  HAL_UART_Receive_IT(&huart1,(uint8_t *)UART1_temp, 1);
-	esp8266_init(); 
+  HAL_UART_Receive_IT(&huart1, (uint8_t *)UART1_temp, 1);
+  esp8266_init();
   //输出调试信息
   OLED_Clear();
-	OLED_ShowString(8,3,(uint8_t*)"ESP8266_Init OK",16);
-	esp8266_cipsend("ESP8266_Init OK\r\n");
-	HAL_Delay(1000);
-	
-	//GY-86初始
-	GY86_Init();
+  OLED_ShowString(8, 3, (uint8_t *)"ESP8266_Init OK", 16);
+  esp8266_cipsend("ESP8266_Init OK\r\n");
+  HAL_Delay(1000);
+
+  //GY-86初始
+  GY86_Init();
   //输出调试信息
-	OLED_Clear();
-	OLED_ShowString(12,3,(uint8_t*)"GY86_Init OK",16);
-	esp8266_cipsend("GY86_Init OK\r\n");
-	HAL_Delay(1000);
+  OLED_Clear();
+  OLED_ShowString(12, 3, (uint8_t *)"GY86_Init OK", 16);
+  esp8266_cipsend("GY86_Init OK\r\n");
+  HAL_Delay(1000);
 
   //接收机初始化
-	Input_Capture_Init();
-	//输出调试信息
-	OLED_Clear();
-	OLED_ShowString(0,3,(uint8_t*)"Input_Capture_Init",16);
-	esp8266_cipsend("Input_Capture_Init OK\r\n");
-	HAL_Delay(1000);
-
-   //电机
-	Motor_Init(); 
+  Input_Capture_Init();
   //输出调试信息
-	OLED_Clear();
-	OLED_ShowString(12,3,(uint8_t*)"Motor_Init OK",16);
-	esp8266_cipsend("Motor_Init OK\r\n");
-	HAL_Delay(1000);
-	
-	//电机自动解锁
-	Motor_Init();
-	Motor_Unlock();
-	//输出调试信息
-	OLED_Clear();
-	OLED_ShowString(6,3,(uint8_t*)"Motor_Unlock OK",16);
-	esp8266_cipsend("Motor_Unlock OK\r\n");
-	HAL_Delay(1000);
-	
-	//PID初始化
-	PID_Init();
-	//输出调试信息
-	OLED_Clear();
-	OLED_ShowString(6,3,(uint8_t*)"PID_Init OK",16);
-	esp8266_cipsend("PID_Init OK\r\n");
-	HAL_Delay(1000);
+  OLED_Clear();
+  OLED_ShowString(0, 3, (uint8_t *)"Input_Capture_Init", 16);
+  esp8266_cipsend("Input_Capture_Init OK\r\n");
+  HAL_Delay(1000);
+
+  //电机
+  Motor_Init();
+  //输出调试信息
+  OLED_Clear();
+  OLED_ShowString(12, 3, (uint8_t *)"Motor_Init OK", 16);
+  esp8266_cipsend("Motor_Init OK\r\n");
+  HAL_Delay(1000);
+
+  //电机自动解锁
+  Motor_Init();
+  Motor_Unlock();
+  //输出调试信息
+  OLED_Clear();
+  OLED_ShowString(6, 3, (uint8_t *)"Motor_Unlock OK", 16);
+  esp8266_cipsend("Motor_Unlock OK\r\n");
+  HAL_Delay(1000);
+
+  //PID初始化
+  PID_Init();
+  //输出调试信息
+  OLED_Clear();
+  OLED_ShowString(6, 3, (uint8_t *)"PID_Init OK", 16);
+  esp8266_cipsend("PID_Init OK\r\n");
+  HAL_Delay(1000);
 
   //OLED图形界面绘制
-	OLED_Clear();
-	OLED_Draw_interface();
+  OLED_Clear();
+  OLED_Draw_interface();
 }
 /* USER CODE END 4 */
 
@@ -387,7 +397,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM10) {
+  if (htim->Instance == TIM10)
+  {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
@@ -410,7 +421,7 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

@@ -42,6 +42,7 @@ const float MinVal = 1000;
 float Duty[6] = {0};       //捕获所得占空比
 int i = 0;                 //临时计数器
 int cap = 0;               //正在进行捕获的通道识别
+int isLock = 1;            //解锁判断
 
 //输入捕获启动函数
 void Input_Capture_Init(void)
@@ -68,7 +69,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     {
         for (i = 0; i < 2; i++)
         {
-            if (htim->Channel == ActiveChannel[i] && Duty[4] > 0.7)
+            if (htim->Channel == ActiveChannel[i] && !isLock)
             {
                 cap = 1;         //标志是否进行了一次捕获
                 switch (Flag[i]) //捕获状态
@@ -103,7 +104,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     {
         for (i = 2; i < 4; i++)
         {
-            if (htim->Channel == ActiveChannel[i-2] && Duty[4] > 0.7)
+            if (htim->Channel == ActiveChannel[i-2] && !isLock)
             {
                 cap = 1;         //标志是否进行了一次捕获
                 switch (Flag[i]) //捕获状态
@@ -155,7 +156,10 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
                     if (CapVal[i] <= 2500)           //过滤超时情况
                         Duty[i] = (CapVal[i] - MinVal + 10) / (MaxVal - MinVal);//计算百分比
                     if (Duty[4] <= 0.055)
-                        Motor_Lock(); //电机锁定
+                        //Motor_Lock(); //电机锁定
+                        isLock = 1;
+                    else
+                        isLock = 0;
                     TIM_RESET_CAPTUREPOLARITY(htim, Channel[i - 2]);
                     TIM_SET_CAPTUREPOLARITY(htim, Channel[i - 2], TIM_ICPOLARITY_RISING);
                     Flag[i] = 0;
