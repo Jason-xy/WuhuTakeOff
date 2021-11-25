@@ -84,7 +84,7 @@ void Task_AngelFunction(void *argument)
   }
 }
 
-#define Task_Hight_PRIO 8
+#define Task_Hight_PRIO 7
 #define Task_Hight_SIZE 256
 TaskHandle_t Task_HightHandler;
 void Task_HightFunction(void *argument)
@@ -92,7 +92,7 @@ void Task_HightFunction(void *argument)
   ;
 }
 
-#define Task_PID_PRIO 7
+#define Task_PID_PRIO 8
 #define Task_PID_SIZE 256
 TaskHandle_t Task_PIDHandler;
 void Task_PIDFunction(void *argument)
