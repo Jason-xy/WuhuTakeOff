@@ -122,7 +122,7 @@ void Task_PIDFunction(void *argument)
       Motor_Set(0, TIM_CHANNEL_3);
       Motor_Set(0, TIM_CHANNEL_4);
     }
-    vTaskDelay(20);
+    vTaskDelay(10);
   }
 }
 
@@ -142,8 +142,10 @@ void Task_ANOFunction(void *argument)
     //datafusion
     ANO_Angle_Transform(roll, pitch, yaw);
     //RC
-    ANO_RC_Transform(Duty[0], Duty[1], Duty[2], Duty[3], Duty[4], Duty[5]);
-    vTaskDelay(20);
+    ANO_RC_Transform((short)(Duty[0]*100.0f), (short)(Duty[1]*100.0f), (short)(Duty[2]*100.0f), (short)(Duty[3]*100.0f), (short)(Duty[4]*100.0f), (short)(Duty[5]*100.0f));
+		//Motor
+		ANO_MotorOut(motor1, motor2, motor3, motor4);
+    vTaskDelay(10);
   }
 }
 

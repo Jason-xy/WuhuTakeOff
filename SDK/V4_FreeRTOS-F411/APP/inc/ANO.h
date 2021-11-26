@@ -36,6 +36,7 @@
 	
 void ANO_Angle_Transform(int roll, int pitch, int yaw);
 void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6);
+void ANO_MotorOut(int ch_1, int ch_2, int ch_3, int ch_4);
 void Ano_DataAnl(uint8_t *data, int length);
 
 #endif // __ANO_H__

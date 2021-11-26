@@ -29,18 +29,18 @@ FlyMode_t flyMode; //飞行模式
 //extern Float_t fGyro; //角速度数据（rad）
 extern GY_86 *GY86;
 extern Angle_t angle; //姿态解算-角度值
-float height, velocity; //高度（cm）,速度(cm/s)
+float height, velocity; //高度（cm）,速度short(cm/s)
 float pidRoll, pidPitch, pidYaw, pidThr; //pid输出
 
-float rollShellKp = 1.0f; //外环Kp
-float rollCoreKp = 0.5f; //内环Kp
-float rollCoreTi = 500.0f; //内环Ti
-float rollCoreTd = 20.0f; //内环Td
+float rollShellKp = 0.5f; //外环Kp
+float rollCoreKp = 0.25f; //内环Kp
+float rollCoreTi = 50.0f; //内环Ti
+float rollCoreTd = 5.0f; //内环Td
 
-float pitchShellKp = 1.0f;
-float pitchCoreKp = 0.5f;
-float pitchCoreTi = 500.0f;
-float pitchCoreTd = 20.0f;
+float pitchShellKp = 0.5f;
+float pitchCoreKp = 0.25f;
+float pitchCoreTi = 50.0f;
+float pitchCoreTd = 5.0f;
 
 float yawCoreKp = 1.0f;
 float yawCoreTd = 20.0f;
@@ -208,8 +208,8 @@ void Motor_Calc(void)
     motor3 = Limit(expMode - pidPitch + pidRoll + pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
     motor4 = Limit(expMode - pidPitch - pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
 
-    //如果机体处于停止模式或倾斜角大于65度，则停止飞行
-    if (expMode <= 20 || angle.pitch >= 65 || angle.pitch <= -65 || angle.roll >= 65 || angle.roll <= -65) {
+    //如果机体处于停止模式或倾斜角大于45度，则停止飞行
+    if (expMode <= 10 || angle.pitch >= 45 || angle.pitch <= -45 || angle.roll >= 45 || angle.roll <= -45) {
         motor1 = MOTOR_OUT_MIN;
         motor2 = MOTOR_OUT_MIN;
         motor3 = MOTOR_OUT_MIN;

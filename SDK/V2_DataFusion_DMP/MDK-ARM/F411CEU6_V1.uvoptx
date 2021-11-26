@@ -154,16 +154,16 @@
           <Type>0</Type>
           <LineNumber>178</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134247006</Address>
+          <Address>0</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
+          <BreakIfRCount>0</BreakIfRCount>
           <Filename>../Core/Src/main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\WuhuTakeOff_V1\../Core/Src/main.c\178</Expression>
+          <Expression></Expression>
         </Bp>
         <Bp>
           <Number>1</Number>

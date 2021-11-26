@@ -75,8 +75,8 @@ void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6
 
   send_buffer[_cnt++] = 0xAA;
   send_buffer[_cnt++] = 0xff;
-  send_buffer[_cnt++] = 0x41;
-  send_buffer[_cnt++] = 14;
+  send_buffer[_cnt++] = 0xf1;
+  send_buffer[_cnt++] = 12;
 
   //roll
   send_buffer[_cnt++] = BYTE0(roll);
@@ -97,9 +97,40 @@ void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6
   send_buffer[_cnt++] = BYTE0(ch_6);
   send_buffer[_cnt++] = BYTE1(ch_6);
 
-  //ch7
-  send_buffer[_cnt++] = BYTE0(ch_6);
-  send_buffer[_cnt++] = BYTE1(ch_6);
+  //data check
+  uint8_t check_sum1 = 0, check_sum2 = 0;
+  for (uint8_t i = 0; i < _cnt; i++)
+  {
+    check_sum1 += send_buffer[i];
+    check_sum2 += check_sum1;
+  }
+  send_buffer[_cnt++] = check_sum1;
+  send_buffer[_cnt++] = check_sum2;
+
+  HAL_UART_Transmit(&huart1, send_buffer, _cnt, 0xfff);
+}
+
+void ANO_MotorOut(int ch_1, int ch_2, int ch_3, int ch_4)
+{
+  uint8_t _cnt = 0;
+
+  send_buffer[_cnt++] = 0xAA;
+  send_buffer[_cnt++] = 0xff;
+  send_buffer[_cnt++] = 0xf2;
+  send_buffer[_cnt++] = 8;
+
+  //roll
+  send_buffer[_cnt++] = BYTE0(ch_1);
+  send_buffer[_cnt++] = BYTE1(ch_1);
+  //pitch
+  send_buffer[_cnt++] = BYTE0(ch_2);
+  send_buffer[_cnt++] = BYTE1(ch_2);
+  //thr
+  send_buffer[_cnt++] = BYTE0(ch_3);
+  send_buffer[_cnt++] = BYTE1(ch_3);
+  //yaw
+  send_buffer[_cnt++] = BYTE0(ch_4);
+  send_buffer[_cnt++] = BYTE1(ch_4);
 
   //data check
   uint8_t check_sum1 = 0, check_sum2 = 0;
