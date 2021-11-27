@@ -1,0 +1,23 @@
+参数调节协议：
+
+起始位	0xAA
+目标设备	0xFF
+功能号	0xA1(rollShellKp)
+	0xA2(rollCoreKp)
+	0xA3(rollCoreTi)
+	0xA4(rollCoreTd)
+
+	0xB1(rollShellKp)
+	0xB2(rollCoreKp)
+	0xB3(rollCoreTi)
+	0xB4(rollCoreTd)
+
+	0xC1(yawCoreKp)
+	0xC2(yawCoreTd)
+
+	0xD1(thrShellKp)
+	0xD2(thrShellTd)
+长度位	0x02
+数据域	val x 100
+和校验码	xxxx
+附加校验	xxxx

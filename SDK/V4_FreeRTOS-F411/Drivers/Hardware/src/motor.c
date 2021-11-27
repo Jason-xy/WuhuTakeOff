@@ -40,11 +40,11 @@ void Motor_Init(void)
 //µç»ú½âËø
 void Motor_Unlock(void)
 {
-  __HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_1, 1000);
-	__HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_2, 1000);
-	__HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_3, 1000);
-	__HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_4, 1000);
-    HAL_Delay(2000);
+//  __HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_1, 1000);
+//	__HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_2, 1000);
+//	__HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_3, 1000);
+//	__HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_4, 1000);
+//    HAL_Delay(2000);
   __HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_1, 500);
 	__HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_2, 500);
 	__HAL_TIM_SetCompare(&MOTOR_TIM, TIM_CHANNEL_3, 500);

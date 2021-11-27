@@ -17,6 +17,7 @@
   */
 
 #include "esp8266.h"
+#include "ANO.h"
 
 //8266指令发送
 void esp8266_cmd(char* cmd)
@@ -25,10 +26,11 @@ void esp8266_cmd(char* cmd)
 }
 
 //8266初始化
+extern uint8_t UART1_temp[REC_LENGTH];
 void esp8266_init(void)
 {
     esp8266_ap_cipsend_init();
-    
+		HAL_UART_Receive_IT(&huart1,(uint8_t *)UART1_temp, 1);
 }
 
 //8266的TCP_Server透传模式配置

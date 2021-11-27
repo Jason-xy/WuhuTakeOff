@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp.sp
+--cpu=Cortex-M4.fp
 "v4_freertos-f411\startup_stm32f411xe.o"
 "v4_freertos-f411\main.o"
 "v4_freertos-f411\gpio.o"

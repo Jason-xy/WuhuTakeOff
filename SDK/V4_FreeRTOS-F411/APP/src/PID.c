@@ -32,18 +32,18 @@ extern Angle_t angle; //姿态解算-角度值
 float height, velocity; //高度（cm）,速度short(cm/s)
 float pidRoll, pidPitch, pidYaw, pidThr; //pid输出
 
-float rollShellKp = 0.5f; //外环Kp
-float rollCoreKp = 0.25f; //内环Kp
-float rollCoreTi = 50.0f; //内环Ti
-float rollCoreTd = 5.0f; //内环Td
+float rollShellKp = 0.0f; //外环Kp 1.5
+float rollCoreKp = 0.5f; //内环Kp
+float rollCoreTi = 5000.0f; //内环Ti
+float rollCoreTd = 1.0f; //内环Td
 
-float pitchShellKp = 0.5f;
-float pitchCoreKp = 0.25f;
-float pitchCoreTi = 50.0f;
-float pitchCoreTd = 5.0f;
+float pitchShellKp = 0.0f;
+float pitchCoreKp = 0.5f;
+float pitchCoreTi = 5000.0f;
+float pitchCoreTd = 1.0f;
 
-float yawCoreKp = 1.0f;
-float yawCoreTd = 20.0f;
+float yawCoreKp = 0.0f;//0.25f
+float yawCoreTd = 2.0f;
 
 float thrShellKp = 0.05f;
 float thrShellTd = 0.0f;
@@ -96,8 +96,10 @@ float PID_Calc(float shellErr, float coreStatus, PID_t* shell, PID_t* core)
 
     //ROLL,PITCH--串级PID
     if (shell && core) {
-        coreKi = pidT / core->Ti;
-        coreKd = core->Td / pidT;
+//        coreKi = pidT / core->Ti;
+//        coreKd = core->Td / pidT;
+				coreKi = 0;
+        coreKd = 0;
 
         shell->eK = shellErr;
         shell->output = shell->Kp * shell->eK;
@@ -117,7 +119,7 @@ float PID_Calc(float shellErr, float coreStatus, PID_t* shell, PID_t* core)
             core->eSum += core->eK;
         }
 
-        core->output = core->Kp * (core->eK + core->eSum * coreKi + (core->eK - core->eK_1) * coreKd); //内环输出
+        core->output = core->Kp * core->eK + core->eSum * coreKi + (core->eK - core->eK_1) * coreKd; //内环输出
         core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
         core->eK_1 = core->eK;
 
@@ -128,7 +130,7 @@ float PID_Calc(float shellErr, float coreStatus, PID_t* shell, PID_t* core)
     if (shell && !core) {
         shellKd = shell->Td / pidT;
         shell->eK = shellErr;
-        shell->output = shell->Kp * (shell->eK + (shell->eK - shell->eK_1) * shellKd);
+        shell->output = shell->Kp * shell->eK + (shell->eK - shell->eK_1) * shellKd;
         shell->output = Limit(shell->output, -PID_OUT_MAX, PID_OUT_MAX);
         shell->eK_1 = shell->eK;
         return shell->output;
@@ -138,7 +140,7 @@ float PID_Calc(float shellErr, float coreStatus, PID_t* shell, PID_t* core)
     if (!shell && core) {
         coreKd = core->Td / pidT;
         core->eK = expYaw - coreStatus;
-        core->output = core->Kp * (core->eK + (core->eK - core->eK_1) * coreKd);
+        core->output = core->Kp * core->eK + (core->eK - core->eK_1) * coreKd;
         core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
         core->eK_1 = core->eK;
         return core->output;
@@ -192,15 +194,27 @@ void Judge_FlyMode(float expMode)
 void Motor_Calc(void)
 {
     //float pidRoll = 0, pidPitch = 0, pidYaw = 0, pidThr = 0; //pid输出
+	
     //计算采样周期,已在Task中完成计算。
     //pidT = 0.020;
+	
+		//角速度低通滤波
+		static float alpha = 0.4;
+		static int Gyro_now_x, Gyro_now_y, Gyro_now_z, Gyro_past_x, Gyro_past_y, Gyro_past_z;
+		Gyro_now_x = alpha * GY86->Gyro->data->Gyro_ds.x + (1 - alpha) * Gyro_past_x; 
+		Gyro_now_y = alpha * GY86->Gyro->data->Gyro_ds.y + (1 - alpha) * Gyro_past_y; 
+		Gyro_now_z = alpha * GY86->Gyro->data->Gyro_ds.z + (1 - alpha) * Gyro_past_z;	
+		Gyro_past_x = Gyro_now_x;
+		Gyro_past_y = Gyro_now_y;
+		Gyro_past_z = Gyro_now_z;
+
 
     //计算姿态PID
     //注意正负
-    pidRoll = PID_Calc(expRoll - angle.roll, GY86->Gyro->data->Gyro_ds.y, &rollShell, &rollCore);
-    pidPitch = PID_Calc(expPitch - angle.pitch, -GY86->Gyro->data->Gyro_ds.x, &pitchShell, &pitchCore);
+    pidRoll = PID_Calc(expRoll - angle.roll, Gyro_now_y, &rollShell, &rollCore);
+    pidPitch = PID_Calc(expPitch - angle.pitch, Gyro_now_x, &pitchShell, &pitchCore);
     //yaw 与pitch、roll的pid计算不一样
-    pidYaw = PID_Calc(0,  GY86->Gyro->data->Gyro_ds.z, 0, &yawCore);
+    pidYaw = PID_Calc(0,  Gyro_past_z, 0, &yawCore);
 
     //PWM限幅
     motor1 = Limit(expMode + pidPitch - pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
