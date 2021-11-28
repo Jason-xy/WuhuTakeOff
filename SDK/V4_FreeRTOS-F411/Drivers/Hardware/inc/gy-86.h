@@ -3,7 +3,7 @@
   * 文件名程: gy-86.h 
   * 作    者: Jason_xy
   * 个人博客：https://jason-xy.cn
-  * 版    本: V1.2.1
+  * 版    本: V1.2.2
   * 编写日期: 2020-10-2
   * 功    能: GY-86初始化
   ******************************************************************************
@@ -45,6 +45,8 @@
   * 2021-9-12
   * 1.采用面向对象的方法重构代码
   * 2.添加高斯牛顿迭代校准算法法
+  * 2021-11-27
+  * 1.添加去极值的滑动窗口滤波算法
   ******************************************************************************
   */
 
@@ -292,6 +294,11 @@ uint8_t MPU_Get_Temperature(MS561101BA* Temperature);
 
 void GY86_Offset(void);
 void GY86_RawDataUpdate(void);
+
+//window filter
+#define WINDOW_SIZE 10
+float window_filter(float data, int head, float* window_buffer);
+void qsort(float *a, int left, int right);
 
 #endif /* __GY_86_H__ */
 

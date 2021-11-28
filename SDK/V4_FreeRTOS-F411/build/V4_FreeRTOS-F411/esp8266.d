@@ -32,3 +32,17 @@
 .\build\V4_FreeRTOS-F411\esp8266.o: .\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h
 .\build\V4_FreeRTOS-F411\esp8266.o: .\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h
 .\build\V4_FreeRTOS-F411\esp8266.o: .\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\APP\inc\ANO.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Core\Inc\usart.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Core\Inc\main.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Drivers\Hardware\inc\oled.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Core\Inc\i2c.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Core\Inc\main.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Drivers\Hardware\inc\gy-86.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\APP\inc\datafusion.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\APP\inc\ANO.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Drivers\Hardware\inc\controller.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Core\Inc\tim.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\Drivers\Hardware\inc\motor.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\APP\inc\PID.h
+.\build\V4_FreeRTOS-F411\esp8266.o: .\APP\inc\pid.h
