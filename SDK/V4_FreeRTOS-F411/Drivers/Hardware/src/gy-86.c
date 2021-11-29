@@ -47,6 +47,7 @@
   * 2.添加高斯牛顿迭代校准算法法
   * 2021-11-27
   * 1.添加去极值的滑动窗口滤波算法
+  * 2.添加数字二阶低通滤波
   ******************************************************************************
   */
 #include "gy-86.h"
@@ -62,6 +63,15 @@ float Accel_y_buffer[WINDOW_SIZE];
 int Accel_y_head;
 float Accel_z_buffer[WINDOW_SIZE];
 int Accel_z_head;
+float Gyro_x_buffer[WINDOW_SIZE];
+int Gyro_x_head;
+float Gyro_y_buffer[WINDOW_SIZE];
+int Gyro_y_head;
+float Gyro_z_buffer[WINDOW_SIZE];
+int Gyro_z_head;
+
+//PT2
+pt2Filter_t Accel_x_PT2, Accel_y_PT2, Accel_z_PT2, Gyro_x_PT2, Gyro_y_PT2, Gyro_z_PT2;
 
 //GY-86初始化配置
 void GY86_Init(void)
@@ -73,6 +83,7 @@ void GY86_Init(void)
   HMC_Init(); //HMC初始化
   GY86_OOPinit(GY86);
   GY86_Offset();
+  pt2init();
 }
 
 //对象实例化
@@ -134,17 +145,39 @@ void GY86_RawDataUpdate(void)
 {
   //更新陀螺仪数据
   MPU_Get_Gyroscope(GY86->Gyro->data);
+  #ifdef PT2_FILTER
+  pt2update();
+  GY86->Gyro->data->Gyro_ds.x = pt2FilterApply(&Gyro_x_PT2, (GY86->Gyro->data->Gyro_raw.x - GY86->Gyro->data->Gyro_offset.x) * GY86->Gyro->data->Gyro_scale.x / GYRO_250DPS);
+  GY86->Gyro->data->Gyro_ds.y = pt2FilterApply(&Gyro_y_PT2, (GY86->Gyro->data->Gyro_raw.y - GY86->Gyro->data->Gyro_offset.y) * GY86->Gyro->data->Gyro_scale.y / GYRO_250DPS);
+  GY86->Gyro->data->Gyro_ds.z = pt2FilterApply(&Gyro_z_PT2, (GY86->Gyro->data->Gyro_raw.z - GY86->Gyro->data->Gyro_offset.z) * GY86->Gyro->data->Gyro_scale.z / GYRO_250DPS);
+  #endif
+  #ifdef WINDOW_FILTER
+  GY86->Gyro->data->Gyro_ds.x = window_filter((GY86->Gyro->data->Gyro_raw.x - GY86->Gyro->data->Gyro_offset.x) * GY86->Gyro->data->Gyro_scale.x / GYRO_250DPS, &Gyro_x_head, Gyro_x_buffer);
+  GY86->Gyro->data->Gyro_ds.y = window_filter((GY86->Gyro->data->Gyro_raw.y - GY86->Gyro->data->Gyro_offset.y) * GY86->Gyro->data->Gyro_scale.y / GYRO_250DPS, &Gyro_y_head, Gyro_y_buffer);
+  GY86->Gyro->data->Gyro_ds.z = window_filter((GY86->Gyro->data->Gyro_raw.z - GY86->Gyro->data->Gyro_offset.z) * GY86->Gyro->data->Gyro_scale.z / GYRO_250DPS, &Gyro_z_head, Gyro_z_buffer);
+  #endif
+  #ifdef NONE_FILTER
   GY86->Gyro->data->Gyro_ds.x = (GY86->Gyro->data->Gyro_raw.x - GY86->Gyro->data->Gyro_offset.x) * GY86->Gyro->data->Gyro_scale.x / GYRO_250DPS;
   GY86->Gyro->data->Gyro_ds.y = (GY86->Gyro->data->Gyro_raw.y - GY86->Gyro->data->Gyro_offset.y) * GY86->Gyro->data->Gyro_scale.y / GYRO_250DPS;
   GY86->Gyro->data->Gyro_ds.z = (GY86->Gyro->data->Gyro_raw.z - GY86->Gyro->data->Gyro_offset.z) * GY86->Gyro->data->Gyro_scale.z / GYRO_250DPS;
+  #endif
   //更新加速度计数据
   MPU_Get_Accelerometer(GY86->Accel->data);
-  GY86->Accel->data->Accel_ms2.x = window_filter((GY86->Accel->data->Accel_raw.x - GY86->Accel->data->Accel_offset.x) * GY86->Accel->data->Accel_scale.x / ACCEL_2G, Accel_x_head, Accel_x_buffer);
-  GY86->Accel->data->Accel_ms2.y = window_filter((GY86->Accel->data->Accel_raw.y - GY86->Accel->data->Accel_offset.y) * GY86->Accel->data->Accel_scale.y / ACCEL_2G, Accel_y_head, Accel_y_buffer);
-  GY86->Accel->data->Accel_ms2.z = window_filter((GY86->Accel->data->Accel_raw.z - GY86->Accel->data->Accel_offset.z) * GY86->Accel->data->Accel_scale.z / ACCEL_2G, Accel_z_head, Accel_z_buffer);
-  // GY86->Accel->data->Accel_ms2.x = (GY86->Accel->data->Accel_raw.x - GY86->Accel->data->Accel_offset.x) * GY86->Accel->data->Accel_scale.x / ACCEL_2G;
-  // GY86->Accel->data->Accel_ms2.y = (GY86->Accel->data->Accel_raw.y - GY86->Accel->data->Accel_offset.y) * GY86->Accel->data->Accel_scale.y / ACCEL_2G;
-  // GY86->Accel->data->Accel_ms2.z = (GY86->Accel->data->Accel_raw.z - GY86->Accel->data->Accel_offset.z) * GY86->Accel->data->Accel_scale.z / ACCEL_2G;
+  #ifdef PT2_FILTER
+  GY86->Accel->data->Accel_ms2.x = pt2FilterApply(&Accel_x_PT2, (GY86->Accel->data->Accel_raw.x - GY86->Accel->data->Accel_offset.x) * GY86->Accel->data->Accel_scale.x / ACCEL_2G);
+  GY86->Accel->data->Accel_ms2.y = pt2FilterApply(&Accel_y_PT2, (GY86->Accel->data->Accel_raw.y - GY86->Accel->data->Accel_offset.y) * GY86->Accel->data->Accel_scale.y / ACCEL_2G);
+  GY86->Accel->data->Accel_ms2.z = pt2FilterApply(&Accel_z_PT2, (GY86->Accel->data->Accel_raw.z - GY86->Accel->data->Accel_offset.z) * GY86->Accel->data->Accel_scale.z / ACCEL_2G);
+  #endif
+  #ifdef WINDOW_FILTER
+  GY86->Accel->data->Accel_ms2.x = window_filter((GY86->Accel->data->Accel_raw.x - GY86->Accel->data->Accel_offset.x) * GY86->Accel->data->Accel_scale.x / ACCEL_2G, &Accel_x_head, Accel_x_buffer);
+  GY86->Accel->data->Accel_ms2.y = window_filter((GY86->Accel->data->Accel_raw.y - GY86->Accel->data->Accel_offset.y) * GY86->Accel->data->Accel_scale.y / ACCEL_2G, &Accel_y_head, Accel_y_buffer);
+  GY86->Accel->data->Accel_ms2.z = window_filter((GY86->Accel->data->Accel_raw.z - GY86->Accel->data->Accel_offset.z) * GY86->Accel->data->Accel_scale.z / ACCEL_2G, &Accel_z_head, Accel_z_buffer);
+  #endif
+  #ifdef NONE_FILTER
+  GY86->Accel->data->Accel_ms2.x = (GY86->Accel->data->Accel_raw.x - GY86->Accel->data->Accel_offset.x) * GY86->Accel->data->Accel_scale.x / ACCEL_2G;
+  GY86->Accel->data->Accel_ms2.y = (GY86->Accel->data->Accel_raw.y - GY86->Accel->data->Accel_offset.y) * GY86->Accel->data->Accel_scale.y / ACCEL_2G;
+  GY86->Accel->data->Accel_ms2.z = (GY86->Accel->data->Accel_raw.z - GY86->Accel->data->Accel_offset.z) * GY86->Accel->data->Accel_scale.z / ACCEL_2G;
+  #endif
   //更新磁力计数据
   READ_HMCALL(GY86->Mag->data);
   //更新温度计数据
@@ -463,16 +496,19 @@ uint8_t HMC_Read_Len(uint8_t reg, uint8_t len, uint8_t *buf)
   return 0;
 }
 
-float window_filter(float data, int head, float* window_buffer){
+//window filter
+float window_filter(float data, int *phead, float *window_buffer)
+{
   int idx;
   float sum = 0;
   //装载新数据，覆盖旧数据
-  window_buffer[head] = data;
-  head = (head + 1) % WINDOW_SIZE;
+  window_buffer[*phead] = data;
+  *phead = (*phead + 1) % WINDOW_SIZE;
   //就地排序
   qsort(window_buffer, 0, WINDOW_SIZE - 1);
   //去极值求和
-  for(idx = 1; idx < WINDOW_SIZE - 1;idx++){
+  for (idx = 1; idx < WINDOW_SIZE - 1; idx++)
+  {
     sum += window_buffer[idx];
   }
 
@@ -501,4 +537,55 @@ void qsort(float *a, int left, int right)
   a[i] = temp;
   qsort(a, left, i - 1);  /*对小于基准元素的部分进行快速排序*/
   qsort(a, i + 1, right); /*对大于基准元素的部分进行快速排序*/
+}
+
+// PT2 Low Pass filter
+float PT2Dt;
+float pt2FilterGain(float f_cut, float dT)
+{
+  const float order = 2.0f;
+  const float orderCutoffCorrection = 1 / sqrtf(powf(2, 1.0f / order) - 1);
+  float RC = 1 / (2 * orderCutoffCorrection * M_PIf * f_cut);
+  // float RC = 1 / (2 * 1.553773974f * M_PIf * f_cut);
+  // where 1.553773974 = 1 / sqrt( (2^(1 / order) - 1) ) and order is 2
+  return dT / (RC + dT);
+}
+
+void pt2FilterInit(pt2Filter_t *filter, float k)
+{
+  filter->state = 0.0f;
+  filter->state1 = 0.0f;
+  filter->k = k;
+}
+
+void pt2FilterUpdateCutoff(pt2Filter_t *filter, float k)
+{
+  filter->k = k;
+}
+
+float pt2FilterApply(pt2Filter_t *filter, float input)
+{
+  filter->state1 = filter->state1 + filter->k * (input - filter->state1);
+  filter->state = filter->state + filter->k * (filter->state1 - filter->state);
+  return filter->state;
+}
+
+void pt2init(void)
+{
+  pt2FilterInit(&Accel_x_PT2, 0);
+  pt2FilterInit(&Accel_y_PT2, 0);
+  pt2FilterInit(&Accel_z_PT2, 0);
+  pt2FilterInit(&Gyro_x_PT2, 0);
+  pt2FilterInit(&Gyro_y_PT2, 0);
+  pt2FilterInit(&Gyro_z_PT2, 0);
+}
+
+void pt2update(void)
+{
+  pt2FilterUpdateCutoff(&Accel_x_PT2, pt2FilterGain(ACCEL_LPF_CUTOFF_FREQ, PT2Dt));
+  pt2FilterUpdateCutoff(&Accel_y_PT2, pt2FilterGain(ACCEL_LPF_CUTOFF_FREQ, PT2Dt));
+  pt2FilterUpdateCutoff(&Accel_z_PT2, pt2FilterGain(ACCEL_LPF_CUTOFF_FREQ, PT2Dt));
+  pt2FilterUpdateCutoff(&Gyro_x_PT2, pt2FilterGain(GYRO_LPF_CUTOFF_FREQ, PT2Dt));
+  pt2FilterUpdateCutoff(&Gyro_y_PT2, pt2FilterGain(GYRO_LPF_CUTOFF_FREQ, PT2Dt));
+  pt2FilterUpdateCutoff(&Gyro_z_PT2, pt2FilterGain(GYRO_LPF_CUTOFF_FREQ, PT2Dt));
 }

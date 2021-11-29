@@ -54,7 +54,9 @@ extern float Duty[6]; //接收机各通道PWM占空比
 extern int isLock;
 extern float motor1, motor2, motor3, motor4; //四个电机速度
 extern uint8_t *UART1_temp;
-extern uint32_t pidT; //采样周期
+extern uint32_t pidT;//调节周期
+extern float halfT; //采样周期
+extern float PT2Dt; //采样周期
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -73,13 +75,20 @@ void system_init(void);
 TaskHandle_t Task_AngelHandler;
 void Task_AngelFunction(void *argument)
 {
+	static uint32_t startT, endT, pt2StartT, pt2EndT;
   while (1)
   {
+    pt2EndT = xTaskGetTickCount();
+    PT2Dt = pt2EndT - pt2StartT;
     GY86_RawDataUpdate();
+    pt2StartT = xTaskGetTickCount();
+		endT = xTaskGetTickCount();
+		halfT = (endT - startT)/2000.0f;//单位转换为s
     xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
     Attitude_Update(GY86->Gyro->data->Gyro_ds.x * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.y * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.z * ANGLE_TO_RAD, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z,
                     GY86->Mag->data->Mag_raw.x, GY86->Mag->data->Mag_raw.y, GY86->Mag->data->Mag_raw.z);
     xSemaphoreGive(GY86MutexHandle);
+		startT = xTaskGetTickCount();
     vTaskDelay(10);
   }
 }

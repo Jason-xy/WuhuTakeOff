@@ -389,3 +389,37 @@
 [2021-11-28 19:49:19]	[done]
 	build successfully !
 
+[2021-11-29 16:32:56]	[done]
+	build successfully !
+
+[2021-11-29 16:35:42]	[done]
+	build successfully !
+
+[2021-11-29 19:39:15]	[done]
+	build successfully !
+
+[2021-11-29 19:39:39]	[done]
+	build successfully !
+
+[2021-11-29 19:45:59]	[done]
+	build successfully !
+
+[2021-11-29 19:46:16]	[done]
+	build successfully !
+
+[2021-11-29 19:52:09]	[done]
+	build successfully !
+
+[2021-11-29 19:53:25]	[done]
+	build successfully !
+
+[2021-11-29 21:36:00]	compilation failed at : "c:\Users\Jason\Desktop\Engineering\WuhuTakeOff\SDK\V4_FreeRTOS-F411\Drivers\Hardware\src\gy-86.c", exit code: 1
+  at unify_builder.Program.compileByMulThread (System.Int32 thrNum, unify_builder.CmdGenerator+CmdInfo[] cmds, System.Collections.Generic.List`1[T] doneList) [0x000e4] in <d55019557b4d40fcb0bf157239868dbe>:0 
+  at unify_builder.Program.Main (System.String[] args) [0x0121c] in <d55019557b4d40fcb0bf157239868dbe>:0 
+
+[2021-11-29 21:36:31]	[done]
+	build successfully !
+
+[2021-11-29 21:55:53]	[done]
+	build successfully !
+

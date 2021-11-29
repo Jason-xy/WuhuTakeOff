@@ -38,9 +38,9 @@ float invSqrt(float x)
 }
 
 //互补滤波数据融合
-float Kp = 40.0f; // 比例常数
-float Ki = 0.5f; // 积分常数
-float halfT = 0.005f; //采样周期的一半，实际halfT由定时器求出
+float Kp = 0.4f; // 比例常数
+float Ki = 0.01f; // 积分常数
+float halfT = 0.0f; //采样周期的一半，实际halfT由定时器求出
 float T = 0.01f; // 采样周期为10ms
 float q0 = 1, q1 = 0, q2 = 0, q3 = 0; // 四元数
 float exInt = 0, eyInt = 0, ezInt = 0; // 误差积分累计值
@@ -138,7 +138,6 @@ void Attitude_Update(float gx, float gy, float gz, float ax, float ay, float az,
     ez = (ax * vy - ay * vx) + (mx * wy - my * wx);
 
     //由定时器获取采样周期的一半
-    halfT = 0.005;
 
     //pi运算
     if (ex != 0.0f && ey != 0.0f && ez != 0.0f) {

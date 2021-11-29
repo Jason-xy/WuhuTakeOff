@@ -265,6 +265,13 @@ typedef struct GY_86{
 	MS561101BA *MS;
 }GY_86;
 
+//filter
+typedef struct pt2Filter_s {
+    float state;
+    float state1;
+    float k;
+} pt2Filter_t;
+
 extern GY_86 *GY86;   
 extern Vector3f_t Accel_raw[6], Gyro_raw[6], Mag_raw[6];
 
@@ -296,9 +303,21 @@ void GY86_Offset(void);
 void GY86_RawDataUpdate(void);
 
 //window filter
-#define WINDOW_SIZE 10
-float window_filter(float data, int head, float* window_buffer);
+#define WINDOW_SIZE 6
+float window_filter(float data, int *phead, float* window_buffer);
 void qsort(float *a, int left, int right);
+
+//PT2
+#define PT2_FILTER
+#define M_PIf       3.14159265358979323846f
+#define ACCEL_LPF_CUTOFF_FREQ 	15.0f
+#define GYRO_LPF_CUTOFF_FREQ  	80.0f
+float pt2FilterGain(float f_cut, float dT);
+void pt2FilterInit(pt2Filter_t *filter, float k);
+void pt2FilterUpdateCutoff(pt2Filter_t *filter, float k);
+float pt2FilterApply(pt2Filter_t *filter, float input);
+void pt2init(void);
+void pt2update(void);
 
 #endif /* __GY_86_H__ */
 
