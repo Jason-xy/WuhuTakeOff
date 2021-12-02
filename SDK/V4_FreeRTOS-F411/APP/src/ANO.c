@@ -29,6 +29,7 @@ uint8_t CycleSendData[64]; //循环发送数据临时缓冲
 uint8_t send_buffer[64];   //非循环发送数据临时缓冲
 
 //DataToSend
+//欧拉角
 void ANO_Angle_Transform(int roll, int pitch, int yaw)
 {
   uint8_t _cnt = 0;
@@ -63,7 +64,7 @@ void ANO_Angle_Transform(int roll, int pitch, int yaw)
 
   HAL_UART_Transmit(&huart1, send_buffer, _cnt, 0xfff);
 }
-
+//遥控器信号
 void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6)
 {
   uint8_t _cnt = 0;
@@ -110,6 +111,7 @@ void ANO_RC_Transform(int ch_1, int ch_2, int ch_3, int ch_4, int ch_5, int ch_6
   HAL_UART_Transmit(&huart1, send_buffer, _cnt, 0xfff);
 }
 
+//电机输出
 void ANO_MotorOut(int ch_1, int ch_2, int ch_3, int ch_4)
 {
   uint8_t _cnt = 0;
@@ -131,6 +133,50 @@ void ANO_MotorOut(int ch_1, int ch_2, int ch_3, int ch_4)
   //yaw
   send_buffer[_cnt++] = BYTE0(ch_4);
   send_buffer[_cnt++] = BYTE1(ch_4);
+
+  //data check
+  uint8_t check_sum1 = 0, check_sum2 = 0;
+  for (uint8_t i = 0; i < _cnt; i++)
+  {
+    check_sum1 += send_buffer[i];
+    check_sum2 += check_sum1;
+  }
+  send_buffer[_cnt++] = check_sum1;
+  send_buffer[_cnt++] = check_sum2;
+
+  HAL_UART_Transmit(&huart1, send_buffer, _cnt, 0xfff);
+}
+
+//GY86原始数据
+void ANO_GY86_RAW(int Accel_x, int Accel_y, int Accel_z, int Gyro_x, int Gyro_y, int Gyro_z)
+{
+  uint8_t _cnt = 0;
+
+  send_buffer[_cnt++] = 0xAA;
+  send_buffer[_cnt++] = 0xff;
+  send_buffer[_cnt++] = 0x01;
+  send_buffer[_cnt++] = 13;
+
+  //Accel_x
+  send_buffer[_cnt++] = BYTE0(Accel_x);
+  send_buffer[_cnt++] = BYTE1(Accel_x);
+  //Accel_y
+  send_buffer[_cnt++] = BYTE0(Accel_y);
+  send_buffer[_cnt++] = BYTE1(Accel_y);
+  //Accel_z
+  send_buffer[_cnt++] = BYTE0(Accel_z);
+  send_buffer[_cnt++] = BYTE1(Accel_z);
+  //Gyro_x
+  send_buffer[_cnt++] = BYTE0(Gyro_x);
+  send_buffer[_cnt++] = BYTE1(Gyro_x);
+  //Gyro_y
+  send_buffer[_cnt++] = BYTE0(Gyro_y);
+  send_buffer[_cnt++] = BYTE1(Gyro_y);
+  //Gyro_z
+  send_buffer[_cnt++] = BYTE0(Gyro_z);
+  send_buffer[_cnt++] = BYTE1(Gyro_z);
+  //SHOCK
+  send_buffer[_cnt++] = 0;
 
   //data check
   uint8_t check_sum1 = 0, check_sum2 = 0;

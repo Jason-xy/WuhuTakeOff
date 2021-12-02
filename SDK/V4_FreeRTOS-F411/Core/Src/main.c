@@ -71,25 +71,25 @@ void MX_FREERTOS_Init(void);
 void system_init(void);
 
 #define Task_Angel_PRIO 6
-#define Task_Angel_SIZE 512
+#define Task_Angel_SIZE 256
 TaskHandle_t Task_AngelHandler;
 void Task_AngelFunction(void *argument)
 {
-	static uint32_t startT, endT, pt2StartT, pt2EndT;
+	static uint32_t startTA, endTA, pt2StartT, pt2EndT;
   while (1)
   {
     pt2EndT = xTaskGetTickCount();
-    PT2Dt = pt2EndT - pt2StartT;
+    PT2Dt = (pt2EndT - pt2StartT)/1000.0f;//单位转换为s
     GY86_RawDataUpdate();
     pt2StartT = xTaskGetTickCount();
-		endT = xTaskGetTickCount();
-		halfT = (endT - startT)/2000.0f;//单位转换为s
+		endTA = xTaskGetTickCount();
+		halfT = (endTA - startTA)/2000.0f;//单位转换为s
     xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
     Attitude_Update(GY86->Gyro->data->Gyro_ds.x * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.y * ANGLE_TO_RAD, GY86->Gyro->data->Gyro_ds.z * ANGLE_TO_RAD, GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z,
-                    GY86->Mag->data->Mag_raw.x, GY86->Mag->data->Mag_raw.y, GY86->Mag->data->Mag_raw.z);
+                   GY86->Mag->data->Mag_raw.x, GY86->Mag->data->Mag_raw.y, GY86->Mag->data->Mag_raw.z);
     xSemaphoreGive(GY86MutexHandle);
-		startT = xTaskGetTickCount();
-    vTaskDelay(10);
+		startTA = xTaskGetTickCount();
+    vTaskDelay(5);
   }
 }
 
@@ -131,7 +131,7 @@ void Task_PIDFunction(void *argument)
       Motor_Set(0, TIM_CHANNEL_3);
       Motor_Set(0, TIM_CHANNEL_4);
     }
-    vTaskDelay(10);
+    vTaskDelay(5);
   }
 }
 
@@ -140,13 +140,20 @@ void Task_PIDFunction(void *argument)
 TaskHandle_t Task_ANOHandler;
 void Task_ANOFunction(void *argument)
 {
-  int roll, pitch, yaw;
+  short roll, pitch, yaw;
+  short Accel_x, Accel_y, Accel_z, Gyro_x, Gyro_y, Gyro_z;
   while (1)
   {
     xSemaphoreTake(GY86MutexHandle, portMAX_DELAY);
     roll = angle.roll * 100;
     pitch = angle.pitch * 100;
     yaw = angle.yaw * 100;
+    Accel_x = (GY86->Accel->data->Accel_raw.x - GY86->Accel->data->Accel_offset.x) * GY86->Accel->data->Accel_scale.x / ACCEL_2G;
+    Accel_y = (GY86->Accel->data->Accel_raw.y - GY86->Accel->data->Accel_offset.y) * GY86->Accel->data->Accel_scale.y / ACCEL_2G;
+    Accel_z = (GY86->Accel->data->Accel_raw.z - GY86->Accel->data->Accel_offset.z) * GY86->Accel->data->Accel_scale.z / ACCEL_2G;
+    Gyro_x = (GY86->Gyro->data->Gyro_raw.x - GY86->Gyro->data->Gyro_offset.x) * GY86->Gyro->data->Gyro_scale.x / GYRO_250DPS;
+    Gyro_y = (GY86->Gyro->data->Gyro_raw.y - GY86->Gyro->data->Gyro_offset.y) * GY86->Gyro->data->Gyro_scale.y / GYRO_250DPS;
+    Gyro_z = (GY86->Gyro->data->Gyro_raw.z - GY86->Gyro->data->Gyro_offset.z) * GY86->Gyro->data->Gyro_scale.z / GYRO_250DPS;
     xSemaphoreGive(GY86MutexHandle);
     //datafusion
     ANO_Angle_Transform(roll, pitch, yaw);
@@ -154,7 +161,9 @@ void Task_ANOFunction(void *argument)
     ANO_RC_Transform((short)(Duty[0]*100.0f), (short)(Duty[1]*100.0f), (short)(Duty[2]*100.0f), (short)(Duty[3]*100.0f), (short)(Duty[4]*100.0f), (short)(Duty[5]*100.0f));
 		//Motor
 		ANO_MotorOut(motor1, motor2, motor3, motor4);
-    vTaskDelay(10);
+    //GY_86
+    ANO_GY86_RAW(GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z, GY86->Gyro->data->Gyro_ds.x, GY86->Gyro->data->Gyro_ds.y, GY86->Gyro->data->Gyro_ds.z);
+    vTaskDelay(50);
   }
 }
 

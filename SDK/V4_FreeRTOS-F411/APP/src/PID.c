@@ -33,19 +33,19 @@ float height, velocity; //高度（cm）,速度short(cm/s)
 float pidRoll, pidPitch, pidYaw, pidThr; //pid输出
 
 float rollShellKp = 0.0f; //外环Kp 1.5
-float rollCoreKp = 0.5f; //内环Kp
-float rollCoreTi = 5000.0f; //内环Ti
-float rollCoreTd = 1.0f; //内环Td
+float rollCoreKp = 0.1f; //内环Kp 0.5
+float rollCoreTi = 0.0f; //内环Ti 5000
+float rollCoreTd = 0.0f; //内环Td 1
 
 float pitchShellKp = 0.0f;
-float pitchCoreKp = 0.5f;
-float pitchCoreTi = 5000.0f;
-float pitchCoreTd = 1.0f;
+float pitchCoreKp = 0.0f;
+float pitchCoreTi = 0.0f;
+float pitchCoreTd = 0.0f;
 
 float yawCoreKp = 0.0f;//0.25f
-float yawCoreTd = 2.0f;
+float yawCoreTd = 0.0f;//2.0f
 
-float thrShellKp = 0.05f;
+float thrShellKp = 0.0f;//0.05
 float thrShellTd = 0.0f;
 
 /******************************************************************************
@@ -199,22 +199,22 @@ void Motor_Calc(void)
     //pidT = 0.020;
 	
 		//角速度低通滤波
-		static float alpha = 0.4;
-		static int Gyro_now_x, Gyro_now_y, Gyro_now_z, Gyro_past_x, Gyro_past_y, Gyro_past_z;
-		Gyro_now_x = alpha * GY86->Gyro->data->Gyro_ds.x + (1 - alpha) * Gyro_past_x; 
-		Gyro_now_y = alpha * GY86->Gyro->data->Gyro_ds.y + (1 - alpha) * Gyro_past_y; 
-		Gyro_now_z = alpha * GY86->Gyro->data->Gyro_ds.z + (1 - alpha) * Gyro_past_z;	
-		Gyro_past_x = Gyro_now_x;
-		Gyro_past_y = Gyro_now_y;
-		Gyro_past_z = Gyro_now_z;
+//		static float alpha = 0.4;
+//		static int Gyro_now_x, Gyro_now_y, Gyro_now_z, Gyro_past_x, Gyro_past_y, Gyro_past_z;
+//		Gyro_now_x = alpha * GY86->Gyro->data->Gyro_ds.x + (1 - alpha) * Gyro_past_x; 
+//		Gyro_now_y = alpha * GY86->Gyro->data->Gyro_ds.y + (1 - alpha) * Gyro_past_y; 
+//		Gyro_now_z = alpha * GY86->Gyro->data->Gyro_ds.z + (1 - alpha) * Gyro_past_z;	
+//		Gyro_past_x = Gyro_now_x;
+//		Gyro_past_y = Gyro_now_y;
+//		Gyro_past_z = Gyro_now_z;
 
 
     //计算姿态PID
     //注意正负
-    pidRoll = PID_Calc(expRoll - angle.roll, Gyro_now_y, &rollShell, &rollCore);
-    pidPitch = PID_Calc(expPitch - angle.pitch, Gyro_now_x, &pitchShell, &pitchCore);
+    pidRoll = PID_Calc(expRoll - angle.roll, -GY86->Gyro->data->Gyro_ds.x, &rollShell, &rollCore);
+    pidPitch = PID_Calc(expPitch - angle.pitch, GY86->Gyro->data->Gyro_ds.y, &pitchShell, &pitchCore);
     //yaw 与pitch、roll的pid计算不一样
-    pidYaw = PID_Calc(0,  Gyro_past_z, 0, &yawCore);
+    pidYaw = PID_Calc(0,  GY86->Gyro->data->Gyro_ds.z, 0, &yawCore);
 
     //PWM限幅
     motor1 = Limit(expMode + pidPitch - pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
@@ -222,8 +222,8 @@ void Motor_Calc(void)
     motor3 = Limit(expMode - pidPitch + pidRoll + pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
     motor4 = Limit(expMode - pidPitch - pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
 
-    //如果机体处于停止模式或倾斜角大于45度，则停止飞行
-    if (expMode <= 10 || angle.pitch >= 45 || angle.pitch <= -45 || angle.roll >= 45 || angle.roll <= -45) {
+    //如果机体处于停止模式或倾斜角大于65度，则停止飞行
+    if (expMode <= 10 || angle.pitch >= 65 || angle.pitch <= -65 || angle.roll >= 65 || angle.roll <= -65) {
         motor1 = MOTOR_OUT_MIN;
         motor2 = MOTOR_OUT_MIN;
         motor3 = MOTOR_OUT_MIN;

@@ -306,7 +306,7 @@ uint8_t MPU6050_Init(void)
   HAL_Delay(100);
   MPU_Set_Accel_Fsr(0); //加速度传感器,±2g
   HAL_Delay(100);
-  MPU_Set_Rate(200); //设置采样率200Hz
+  MPU_Set_Rate(1000); //设置采样率1000Hz
   HAL_Delay(100);
   MPU_Write_Byte(MPU_ADDR, MPU6050_RA_USER_CTRL, 0X00); //I2C主模式关闭
   HAL_Delay(100);
@@ -445,7 +445,6 @@ uint8_t HMC_Write_Byte(uint8_t reg, uint8_t data)
 
   W_Data = data;
   HAL_I2C_Mem_Write(&MPU_I2C, HMC_WRITE, reg, I2C_MEMADD_SIZE_8BIT, &W_Data, 1, 0xfff);
-  HAL_Delay(100);
 
   return 0;
 }
@@ -459,7 +458,6 @@ uint8_t HMC_Read_Byte(uint8_t reg)
   unsigned char R_Data = 1;
 
   HAL_I2C_Mem_Read(&MPU_I2C, HMC_READ, reg, I2C_MEMADD_SIZE_8BIT, &R_Data, 1, 0xfff);
-  HAL_Delay(100);
 
   return R_Data;
 }
@@ -475,7 +473,6 @@ uint8_t HMC_Write_Len(uint8_t reg, uint8_t len, uint8_t *buf)
 {
   extern I2C_HandleTypeDef MPU_I2C;
   HAL_I2C_Mem_Write(&MPU_I2C, HMC_WRITE, reg, I2C_MEMADD_SIZE_8BIT, buf, len, 0xfff);
-  HAL_Delay(100);
 
   return 0;
 }
@@ -491,7 +488,6 @@ uint8_t HMC_Read_Len(uint8_t reg, uint8_t len, uint8_t *buf)
 {
   extern I2C_HandleTypeDef MPU_I2C;
   HAL_I2C_Mem_Read(&MPU_I2C, HMC_READ, reg, I2C_MEMADD_SIZE_8BIT, buf, len, 0xfff);
-  HAL_Delay(100);
 
   return 0;
 }
