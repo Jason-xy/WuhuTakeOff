@@ -89,7 +89,7 @@ void Task_AngelFunction(void *argument)
                    GY86->Mag->data->Mag_raw.x, GY86->Mag->data->Mag_raw.y, GY86->Mag->data->Mag_raw.z);
     xSemaphoreGive(GY86MutexHandle);
 		startTA = xTaskGetTickCount();
-    vTaskDelay(5);
+    vTaskDelay(2);
   }
 }
 
@@ -131,7 +131,7 @@ void Task_PIDFunction(void *argument)
       Motor_Set(0, TIM_CHANNEL_3);
       Motor_Set(0, TIM_CHANNEL_4);
     }
-    vTaskDelay(5);
+    vTaskDelay(2);
   }
 }
 
@@ -162,8 +162,8 @@ void Task_ANOFunction(void *argument)
 		//Motor
 		ANO_MotorOut(motor1, motor2, motor3, motor4);
     //GY_86
-    ANO_GY86_RAW(GY86->Accel->data->Accel_ms2.x, GY86->Accel->data->Accel_ms2.y, GY86->Accel->data->Accel_ms2.z, GY86->Gyro->data->Gyro_ds.x, GY86->Gyro->data->Gyro_ds.y, GY86->Gyro->data->Gyro_ds.z);
-    vTaskDelay(50);
+    ANO_GY86_RAW(GY86->Accel->data->Accel_ms2.x, Accel_x, GY86->Accel->data->Accel_ms2.z, GY86->Gyro->data->Gyro_ds.x, GY86->Gyro->data->Gyro_ds.y, GY86->Gyro->data->Gyro_ds.z);
+    vTaskDelay(10);
   }
 }
 
@@ -349,8 +349,8 @@ void system_init(void)
   OLED_Clear();
 
   //ESP8266
-  HAL_UART_Receive_IT(&huart1, (uint8_t *)UART1_temp, 1);
-  esp8266_init();
+  // HAL_UART_Receive_IT(&huart1, (uint8_t *)UART1_temp, 1);
+  // esp8266_init();
   //输出调试信息
   OLED_Clear();
   OLED_ShowString(8, 3, (uint8_t *)"ESP8266_Init OK", 16);

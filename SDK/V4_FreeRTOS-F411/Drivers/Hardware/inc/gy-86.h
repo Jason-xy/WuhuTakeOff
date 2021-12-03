@@ -310,8 +310,8 @@ void qsort(float *a, int left, int right);
 //PT2
 #define PT2_FILTER
 #define M_PIf       3.14159265358979323846f
-#define ACCEL_LPF_CUTOFF_FREQ 	5.0f
-#define GYRO_LPF_CUTOFF_FREQ  	1.0f
+#define ACCEL_LPF_CUTOFF_FREQ 	15.0f
+#define GYRO_LPF_CUTOFF_FREQ  	40.0f
 float pt2FilterGain(float f_cut, float dT);
 void pt2FilterInit(pt2Filter_t *filter, float k);
 void pt2FilterUpdateCutoff(pt2Filter_t *filter, float k);
