@@ -34,8 +34,8 @@ float pidRoll, pidPitch, pidYaw, pidThr; // pid输出
 
 float rollShellKp = 5.0f; //外环Kp 5.0
 float rollCoreKp = 0.15f; //内环Kp 0.15
-float rollCoreTi = 2000.0f;  //内环Ti 5000
-float rollCoreTd = 1.0f;  //内环Td 1
+float rollCoreTi = 2.0f;  //内环Ti 2 
+float rollCoreTd = 0.2f;  //内环Td 0.2
 
 float pitchShellKp = 0.0f;
 float pitchCoreKp = 0.0f;
@@ -97,8 +97,8 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
     // ROLL,PITCH--串级PID
     if (shell && core)
     {
-        //coreKi = pidT / core->Ti;
-        //coreKd = core->Td / pidT;
+        coreKi = pidT / core->Ti;
+        coreKd = core->Td / pidT;
          coreKi = 0;
          coreKd = 0;
 
@@ -125,7 +125,7 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
             core->eSum += core->eK;
         }
 
-        core->output = core->Kp * core->eK + core->eSum * coreKi + (core->eK - core->eK_1) * coreKd; //内环输出
+        core->output = core->Kp * (core->eK + core->eSum * coreKi + (core->eK - core->eK_1) * coreKd); //内环输出
         core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
         core->eK_1 = core->eK;
 
@@ -137,7 +137,7 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
     {
         shellKd = shell->Td / pidT;
         shell->eK = shellErr;
-        shell->output = shell->Kp * shell->eK + (shell->eK - shell->eK_1) * shellKd;
+        shell->output = shell->Kp * (shell->eK + (shell->eK - shell->eK_1) * shellKd);
         shell->output = Limit(shell->output, -PID_OUT_MAX, PID_OUT_MAX);
         shell->eK_1 = shell->eK;
         return shell->output;
@@ -148,7 +148,7 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
     {
         coreKd = core->Td / pidT;
         core->eK = expYaw - coreStatus;
-        core->output = core->Kp * core->eK + (core->eK - core->eK_1) * coreKd;
+        core->output = core->Kp * (core->eK + (core->eK - core->eK_1) * coreKd);
         core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
         core->eK_1 = core->eK;
         return core->output;
@@ -212,16 +212,6 @@ void Motor_Calc(void)
 
     //计算采样周期,已在Task中完成计算。
     // pidT = 0.020;
-
-    //角速度低通滤波
-    //		static float alpha = 0.4;
-    //		static int Gyro_now_x, Gyro_now_y, Gyro_now_z, Gyro_past_x, Gyro_past_y, Gyro_past_z;
-    //		Gyro_now_x = alpha * GY86->Gyro->data->Gyro_ds.x + (1 - alpha) * Gyro_past_x;
-    //		Gyro_now_y = alpha * GY86->Gyro->data->Gyro_ds.y + (1 - alpha) * Gyro_past_y;
-    //		Gyro_now_z = alpha * GY86->Gyro->data->Gyro_ds.z + (1 - alpha) * Gyro_past_z;
-    //		Gyro_past_x = Gyro_now_x;
-    //		Gyro_past_y = Gyro_now_y;
-    //		Gyro_past_z = Gyro_now_z;
 
     //计算姿态PID
     //注意正负
