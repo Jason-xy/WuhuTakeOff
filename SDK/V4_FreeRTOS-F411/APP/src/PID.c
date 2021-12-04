@@ -32,18 +32,18 @@ extern Angle_t angle;                    //姿态解算-角度值
 float height, velocity;                  //高度（cm）,速度short(cm/s)
 float pidRoll, pidPitch, pidYaw, pidThr; // pid输出
 
-float rollShellKp = 5.0f; //外环Kp 5.0
+float rollShellKp = 8.0f; //外环Kp 8.0
 float rollCoreKp = 0.15f; //内环Kp 0.15
-float rollCoreTi = 2.0f;  //内环Ti 2 
-float rollCoreTd = 0.2f;  //内环Td 0.2
+float rollCoreTi = 500.0f;  //环Ti 500 
+float rollCoreTd = 0.05f;  //内环Td 0.005
 
-float pitchShellKp = 0.0f;
-float pitchCoreKp = 0.0f;
-float pitchCoreTi = 0.0f;
-float pitchCoreTd = 0.0f;
+float pitchShellKp = 8.0f;
+float pitchCoreKp = 0.15f;
+float pitchCoreTi = 500.0f;
+float pitchCoreTd = 0.05f;
 
-float yawCoreKp = 0.0f; // 0.25f
-float yawCoreTd = 0.0f; // 2.0f
+float yawCoreKp = 0.3f; // 0.5f
+float yawCoreTd = 0.05f; // 0.005f
 
 float thrShellKp = 0.0f; // 0.05
 float thrShellTd = 0.0f;
@@ -97,10 +97,10 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
     // ROLL,PITCH--串级PID
     if (shell && core)
     {
-        coreKi = pidT / core->Ti;
+        //coreKi = pidT / core->Ti;
         coreKd = core->Td / pidT;
-         coreKi = 0;
-         coreKd = 0;
+        coreKi = 0;
+        //coreKd = 0;
 
         shell->eK = shellErr;
         shell->output = shell->Kp * shell->eK;
@@ -223,8 +223,8 @@ void Motor_Calc(void)
     // PWM限幅
     motor1 = Limit(expMode + pidPitch - pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
     motor2 = Limit(expMode + pidPitch + pidRoll + pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
-    motor3 = Limit(expMode - pidPitch + pidRoll + pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
-    motor4 = Limit(expMode - pidPitch - pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+    motor3 = Limit(expMode - pidPitch + pidRoll - pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+    motor4 = Limit(expMode - pidPitch - pidRoll + pidYaw, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
 
     //如果机体处于停止模式或倾斜角大于65度，则停止飞行
     if (expMode <= 10 || angle.pitch >= 65 || angle.pitch <= -65 || angle.roll >= 65 || angle.roll <= -65)
@@ -256,7 +256,7 @@ void Motor_Exp_Calc(void)
     expRoll = (float)((PWMInCh1 - 50) * 0.4f);   //最大20度
     expPitch = -(float)((PWMInCh2 - 50) * 0.4f); //最大20度
     // TODO:yaw与roll、pitch不一样
-    expYaw = (float)((PWMInCh4 - 50) * 0.1f); //最大10度每秒
+    expYaw = (float)(-(PWMInCh4 - 50) * 0.4f); //最大20度每秒
     expMode = PWMInCh3;                       //模式
 }
 

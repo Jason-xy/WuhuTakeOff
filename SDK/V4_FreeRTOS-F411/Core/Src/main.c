@@ -350,7 +350,7 @@ void system_init(void)
 
   //ESP8266
   // HAL_UART_Receive_IT(&huart1, (uint8_t *)UART1_temp, 1);
-  // esp8266_init();
+  esp8266_init();
   //输出调试信息
   OLED_Clear();
   OLED_ShowString(8, 3, (uint8_t *)"ESP8266_Init OK", 16);
