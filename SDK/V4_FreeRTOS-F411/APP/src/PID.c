@@ -32,20 +32,21 @@ extern Angle_t angle;                    //姿态解算-角度值
 float height, velocity;                  //高度（cm）,速度short(cm/s)
 float pidRoll, pidPitch, pidYaw, pidThr; // pid输出
 
-float rollShellKp = 1.0f;  //外环Kp 8.0
-float rollShellKi = 0.002f; //外环Ki
+float rollShellKp = 10.0f;  //外环Kp 8.0
+float rollShellKi = 0.02f; //外环Ki
 float rollCoreKp = 0.13f;  //内环Kp 0.13
 float rollCoreKi = 0.00f;  //环Ti 500
-float rollCoreKd = 0.025f; //内环Td 0.005
+float rollCoreKd = 0.01f; //内环Td 0.005
 
-float pitchShellKp = 1.0f;
-float pitchShellKi = 0.002f;
+float pitchShellKp = 10.0f;
+float pitchShellKi = 0.02f;
 float pitchCoreKp = 0.13f;
 float pitchCoreKi = 0.00f;
-float pitchCoreKd = 0.025f;
+float pitchCoreKd = 0.01f;
 
-float yawCoreKp = 0.2f;   // 0.5f
-float yawCoreKd = 0.025f; // 0.005f
+float yawCoreKp = 0.15f;   // 0.5f
+float yawCoreKd = 0.01f; // 0.005f
+float yawCoreKi = 0.000f;
 
 float thrShellKp = 0.0f; // 0.05
 float thrShellKd = 0.0f;
@@ -72,6 +73,7 @@ void PID_Init(void)
 
     // yaw
     yawCore.Kp = yawCoreKp;
+    yawCore.Ki = yawCoreKi;
     yawCore.Kd = yawCoreKd;
 
     // thr
@@ -169,7 +171,24 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
     {
         core->Kd = core->Td / pidT;
         core->eK = expYaw - coreStatus;
-        core->output = core->Kp * (core->eK + (core->eK - core->eK_1) * core->Kd);
+
+        //内环积分限幅
+        if (core->eSum > CORE_INT_MAX)
+        {
+            if (core->eK < -0.0f)
+                core->eSum += core->eK;
+        }
+        else if (core->eSum < -CORE_INT_MAX)
+        {
+            if (core->eK > 0.0f)
+                core->eSum += core->eK;
+        }
+        else
+        {
+            core->eSum += core->eK;
+        }
+
+        core->output = core->Kp * (core->eK + core->eSum * core->Ki +  (core->eK - core->eK_1) * core->Kd);
         core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
         core->eK_1 = core->eK;
         return core->output;
@@ -274,10 +293,10 @@ void Motor_Exp_Calc(void)
     //    expRoll = (PWMInCh4 - 1500)*0.1f;
 
     //转化为期望值
-    expRoll = (float)((PWMInCh1 - 50) * 0.4f);   //最大20度
-    expPitch = -(float)((PWMInCh2 - 50) * 0.4f); //最大20度
+    expRoll = (float)((PWMInCh1 - 50) * 0.2f);   //最大20度
+    expPitch = -(float)((PWMInCh2 - 50) * 0.2f); //最大20度
     // TODO:yaw与roll、pitch不一样
-    expYaw = (float)(-(PWMInCh4 - 50) * 0.4f); //最大20度每秒
+    expYaw = (float)(-(PWMInCh4 - 50) * 0.8f); //最大20度每秒
     expMode = PWMInCh3;                        //模式
 }
 
