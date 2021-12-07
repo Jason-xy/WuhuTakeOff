@@ -25,6 +25,7 @@
 
 #define CORE_INT_SEP_MAX 300.0f //内环积分分离幅值
 #define CORE_INT_MAX 1000.0f //内环积分幅值
+#define SHELL_INT_MAX 10000.0f //外环积分幅值
 #define PID_OUT_MAX 50.0f //PID输出幅值
 #define MOTOR_OUT_MAX 100.0f //PWM输出幅值最大值
 #define MOTOR_OUT_MIN 0.0f //PWM输出幅值最小值
@@ -34,6 +35,8 @@ typedef struct {
     float eK_1; //上次误差
     float eSum; //误差和
     float Kp; //比例系数
+		float Ki;
+		float	Kd;
     float Ti; //积分时间
     float Td; //微分时间
     float output; //pid输出

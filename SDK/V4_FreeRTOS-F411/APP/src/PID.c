@@ -1,6 +1,6 @@
 /**
  ******************************************************************************
- * 文件名程: PID.h
+ * 文件名程: PID.c
  * 作    者: Jason_xy
  * 个人博客：https://jason-xy.cn
  * 版    本: V1.0.0
@@ -32,21 +32,23 @@ extern Angle_t angle;                    //姿态解算-角度值
 float height, velocity;                  //高度（cm）,速度short(cm/s)
 float pidRoll, pidPitch, pidYaw, pidThr; // pid输出
 
-float rollShellKp = 8.0f; //外环Kp 8.0
-float rollCoreKp = 0.15f; //内环Kp 0.15
-float rollCoreTi = 500.0f;  //环Ti 500 
-float rollCoreTd = 0.05f;  //内环Td 0.005
+float rollShellKp = 1.0f;  //外环Kp 8.0
+float rollShellKi = 0.002f; //外环Ki
+float rollCoreKp = 0.13f;  //内环Kp 0.13
+float rollCoreKi = 0.00f;  //环Ti 500
+float rollCoreKd = 0.025f; //内环Td 0.005
 
-float pitchShellKp = 8.0f;
-float pitchCoreKp = 0.15f;
-float pitchCoreTi = 500.0f;
-float pitchCoreTd = 0.05f;
+float pitchShellKp = 1.0f;
+float pitchShellKi = 0.002f;
+float pitchCoreKp = 0.13f;
+float pitchCoreKi = 0.00f;
+float pitchCoreKd = 0.025f;
 
-float yawCoreKp = 0.3f; // 0.5f
-float yawCoreTd = 0.05f; // 0.005f
+float yawCoreKp = 0.2f;   // 0.5f
+float yawCoreKd = 0.025f; // 0.005f
 
 float thrShellKp = 0.0f; // 0.05
-float thrShellTd = 0.0f;
+float thrShellKd = 0.0f;
 
 /******************************************************************************
 函数原型：	void PID_Init(void)
@@ -56,23 +58,25 @@ void PID_Init(void)
 {
     // roll
     rollShell.Kp = rollShellKp;
+    rollShell.Ki = rollShellKi;
     rollCore.Kp = rollCoreKp;
-    rollCore.Ti = rollCoreTi;
-    rollCore.Td = rollCoreTd;
+    rollCore.Ki = rollCoreKi;
+    rollCore.Kd = rollCoreKd;
 
     // pitch
     pitchShell.Kp = pitchShellKp;
+    pitchShell.Ki = pitchShellKi;
     pitchCore.Kp = pitchCoreKp;
-    pitchCore.Ti = pitchCoreTi;
-    pitchCore.Td = pitchCoreTd;
+    pitchCore.Ki = pitchCoreKi;
+    pitchCore.Kd = pitchCoreKd;
 
     // yaw
     yawCore.Kp = yawCoreKp;
-    yawCore.Td = yawCoreTd;
+    yawCore.Kd = yawCoreKd;
 
     // thr
     thrShell.Kp = thrShellKp;
-    thrShell.Td = thrShellTd;
+    thrShell.Kd = thrShellKd;
 
     // flyMode
     flyMode = STOP;
@@ -92,18 +96,35 @@ void PID_Init(void)
 *******************************************************************************/
 float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
 {
-    float shellKd, coreKi, coreKd;
+    //float shellKd, coreKi, coreKd;
 
     // ROLL,PITCH--串级PID
     if (shell && core)
     {
         //coreKi = pidT / core->Ti;
-        coreKd = core->Td / pidT;
-        coreKi = 0;
+        //coreKd = core->Td / pidT;
+        //coreKi = 0;
         //coreKd = 0;
 
         shell->eK = shellErr;
-        shell->output = shell->Kp * shell->eK;
+
+        //外环积分限幅
+        if (shell->eSum > SHELL_INT_MAX)
+        {
+            if (shell->eK < -0.0f)
+                shell->eSum += shell->eK;
+        }
+        else if (shell->eSum < -SHELL_INT_MAX)
+        {
+            if (shell->eK > 0.0f)
+                shell->eSum += shell->eK;
+        }
+        else
+        {
+            shell->eSum += shell->eK;
+        }
+
+        shell->output = shell->Kp * (shell->eK + shell->eSum * shell->Ki);
         shell->eK_1 = shell->eK;
 
         core->eK = shell->output - coreStatus; //外环输出，作为内环输入 用陀螺仪当前的角速度作为实际值
@@ -125,7 +146,7 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
             core->eSum += core->eK;
         }
 
-        core->output = core->Kp * (core->eK + core->eSum * coreKi + (core->eK - core->eK_1) * coreKd); //内环输出
+        core->output = core->Kp * (core->eK + core->eSum * core->Ki + (core->eK - core->eK_1) * core->Kd); //内环输出
         core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
         core->eK_1 = core->eK;
 
@@ -135,9 +156,9 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
     // HEIGHT--外环PID
     if (shell && !core)
     {
-        shellKd = shell->Td / pidT;
+        shell->Kd = shell->Td / pidT;
         shell->eK = shellErr;
-        shell->output = shell->Kp * (shell->eK + (shell->eK - shell->eK_1) * shellKd);
+        shell->output = shell->Kp * (shell->eK + (shell->eK - shell->eK_1) * shell->Kd);
         shell->output = Limit(shell->output, -PID_OUT_MAX, PID_OUT_MAX);
         shell->eK_1 = shell->eK;
         return shell->output;
@@ -146,9 +167,9 @@ float PID_Calc(float shellErr, float coreStatus, PID_t *shell, PID_t *core)
     // YAW--内环PID
     if (!shell && core)
     {
-        coreKd = core->Td / pidT;
+        core->Kd = core->Td / pidT;
         core->eK = expYaw - coreStatus;
-        core->output = core->Kp * (core->eK + (core->eK - core->eK_1) * coreKd);
+        core->output = core->Kp * (core->eK + (core->eK - core->eK_1) * core->Kd);
         core->output = Limit(core->output, -PID_OUT_MAX, PID_OUT_MAX);
         core->eK_1 = core->eK;
         return core->output;
@@ -257,7 +278,7 @@ void Motor_Exp_Calc(void)
     expPitch = -(float)((PWMInCh2 - 50) * 0.4f); //最大20度
     // TODO:yaw与roll、pitch不一样
     expYaw = (float)(-(PWMInCh4 - 50) * 0.4f); //最大20度每秒
-    expMode = PWMInCh3;                       //模式
+    expMode = PWMInCh3;                        //模式
 }
 
 /******************************************************************************
