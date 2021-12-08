@@ -274,6 +274,33 @@ void Motor_Calc(void)
         motor3 = MOTOR_OUT_MIN;
         motor4 = MOTOR_OUT_MIN;
     }
+
+    // //状态机控制方式
+    // //飞行模式判断
+    // Judge_FlyMode(expMode);
+
+    // if (flyMode == HOVER) {
+    //     pidThr = PID_Calc(expHeight - height, 0, &thrShell, 0);
+    // } else if (flyMode == UP) {
+    //     pidThr = PID_Calc((expMode - 1650) * 0.1f, 0, &thrShell, 0);
+    // } else if (flyMode == DOWN) {
+    //     pidThr = PID_Calc((expMode - 1350) * 0.1f, 0, &thrShell, 0);
+    // }
+
+    // //PWM限幅
+    // //TODO:1500是否是起飞临界值
+    // motor1 = Limit(1500 + pidThr - pidPitch + pidRoll - pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+    // motor2 = Limit(1500 + pidThr - pidPitch - pidRoll + pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+    // motor3 = Limit(1500 + pidThr + pidPitch + pidRoll + pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+    // motor4 = Limit(1500 + pidThr + pidPitch - pidRoll - pidYaw, PWM_OUT_MIN, PWM_OUT_MAX);
+
+    // //如果机体处于停止模式或倾斜角大于65度，则停止飞行
+    // if (flyMode == STOP || angle.pitch >= 65 || angle.pitch <= -65 || angle.roll >= 65 || angle.roll <= -65) {
+    //     motor1 = PWM_OUT_MIN;
+    //     motor2 = PWM_OUT_MIN;
+    //     motor3 = PWM_OUT_MIN;
+    //     motor4 = PWM_OUT_MIN;
+    // }
 }
 
 /******************************************************************************
@@ -301,7 +328,7 @@ void Motor_Exp_Calc(void)
 }
 
 /******************************************************************************
-函数原型：	float inline Limit(float pwm, float min, float max)
+函数原型：	float Limit(float pwm, float min, float max)
 功    能：	PWM限幅
 输    入：  pwm，输入pwm值
             min，最小值
