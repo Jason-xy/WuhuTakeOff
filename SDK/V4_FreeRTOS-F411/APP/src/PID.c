@@ -32,13 +32,13 @@ extern Angle_t angle;                    //姿态解算-角度值
 float height, velocity;                  //高度（cm）,速度short(cm/s)
 float pidRoll, pidPitch, pidYaw, pidThr; // pid输出
 
-float rollShellKp = 10.0f;  //外环Kp 8.0
+float rollShellKp = 8.0f;  //外环Kp 8.0
 float rollShellKi = 0.02f; //外环Ki
 float rollCoreKp = 0.13f;  //内环Kp 0.13
 float rollCoreKi = 0.00f;  //环Ti 500
 float rollCoreKd = 0.01f; //内环Td 0.005
 
-float pitchShellKp = 10.0f;
+float pitchShellKp = 8.0f;
 float pitchShellKi = 0.02f;
 float pitchCoreKp = 0.13f;
 float pitchCoreKi = 0.00f;
