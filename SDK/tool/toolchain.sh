@@ -1,6 +1,6 @@
 #!/bin/bash -e
 echo "GNU ARM Embedded Toolchain installation script for [AMD64] "
-echo "Ensure that your your environment is clean!"
+echo "Ensure that your environment is clean!"
 
 mkdir -p ~/toolchain_tmp
 rm -rf ~/toolchain_tmp
